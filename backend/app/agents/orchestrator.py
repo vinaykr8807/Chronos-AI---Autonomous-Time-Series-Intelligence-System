@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import os
 from time import perf_counter
+from time import sleep
 from typing import Callable, TypedDict
 
 from fastapi import UploadFile
@@ -16,6 +18,9 @@ from app.services.forecasting import ForecastService
 from app.services.intelligence import DatasetIntelligenceService
 from app.services.monitoring import MonitoringService
 from app.services.pipeline import PipelineService
+
+
+EDA_BATCH_DELAY_SECONDS = float(os.getenv("CHRONOS_EDA_BATCH_DELAY_SECONDS", "0.45"))
 
 
 class OrchestrationState(TypedDict, total=False):
@@ -312,6 +317,7 @@ class OrchestrationAgent:
                 "details": {"rows": int(len(frame)), "columns": int(len(frame.columns))},
             },
         )
+        batch_evidence = self._run_record_batch_eda(frame, emit)
         profile_started_at = perf_counter()
         profile = self.eda_service.profile_dataframe(dataset_id, frame)
         profile.summary["loadTimeMs"] = load_ms
@@ -319,14 +325,96 @@ class OrchestrationAgent:
         profile.summary["dataSource"] = data_source
         profile.summary["profileInputSource"] = data_source
         profile.summary["rowsAnalyzed"] = int(len(frame))
+        profile.summary["recordBatchCount"] = len(batch_evidence)
+        profile.summary["edaMode"] = "nine-record-batch-eda"
+        profile.summary["edaExecution"] = "record-batched-full-reconciliation"
+        profile.summary["batchRowsProfiled"] = int(sum(int(batch.get("rows", 0)) for batch in batch_evidence))
         profile.summary["syntheticFallback"] = data_source == "synthetic-profile"
         if source_ref:
             profile.summary["sourceRef"] = source_ref
         profile.summary["realDataLoaded"] = data_source != "synthetic-profile"
+        profile.eda_trace = [
+            *batch_evidence,
+            *profile.eda_trace,
+        ]
         self._emit_profile_snapshot(emit, "statistical_profile", "complete", "Column profiling and data quality analysis completed.", profile)
         self._emit_profile_snapshot(emit, "temporal_analysis", "complete", "Time-series structure, cadence, anomalies, and drift signals evaluated.", profile)
         self._emit_profile_snapshot(emit, "forecastability_analysis", "complete", "Forecastability score and model strategy recommendation calculated.", profile)
         return profile
+
+    def _run_record_batch_eda(self, frame, emit: Callable[[dict[str, object]], None]) -> list[dict[str, object]]:
+        total_rows = int(len(frame))
+        if total_rows == 0:
+            return []
+
+        batch_count = 9
+        batch_size = max(1, (total_rows + batch_count - 1) // batch_count)
+        evidence: list[dict[str, object]] = []
+
+        for batch_index in range(batch_count):
+            start = batch_index * batch_size
+            if start >= total_rows:
+                break
+            end = min(start + batch_size, total_rows)
+            batch = frame.iloc[start:end]
+
+            self._emit_stream(
+                emit,
+                {
+                    "event": "eda_step",
+                    "agent": "EDA Agent",
+                    "stage": "record_batch_eda",
+                    "status": "running",
+                    "message": f"Scanning EDA record batch {batch_index + 1}/{batch_count} rows {start + 1}-{end}.",
+                    "details": {"batch": batch_index + 1, "batchCount": batch_count, "startRow": start + 1, "endRow": end, "rows": int(len(batch))},
+                },
+            )
+            if EDA_BATCH_DELAY_SECONDS > 0:
+                sleep(EDA_BATCH_DELAY_SECONDS)
+
+            numeric = batch.select_dtypes(include=["number"])
+            missing_cells = int(batch.isna().sum().sum())
+            missing_percent = round(float(missing_cells / max(batch.size, 1) * 100), 2)
+            numeric_means = {
+                column: round(float(value), 4)
+                for column, value in numeric.mean(numeric_only=True).head(5).dropna().items()
+            }
+            date_like_columns = []
+            for column in batch.columns:
+                if not any(token in column.lower() for token in ["date", "time", "timestamp", "period", "datetime"]):
+                    continue
+                parsed = self.eda_service._parse_datetime_series(batch[column])
+                parse_rate = round(float(parsed.notna().mean()), 3)
+                if parse_rate >= 0.8:
+                    date_like_columns.append({"column": column, "parseRate": parse_rate})
+
+            batch_record = {
+                "stage": "record_batch_eda",
+                "status": "complete",
+                "batch": batch_index + 1,
+                "batchCount": batch_count,
+                "rows": int(len(batch)),
+                "rowRange": f"{start + 1}-{end}",
+                "missingPercent": missing_percent,
+                "numericColumns": int(len(numeric.columns)),
+                "categoricalColumns": int(len(batch.columns) - len(numeric.columns)),
+                "dateLikeColumns": date_like_columns[:5],
+                "numericMeanSnapshot": numeric_means,
+            }
+            evidence.append(batch_record)
+            self._emit_stream(
+                emit,
+                {
+                    "event": "eda_step",
+                    "agent": "EDA Agent",
+                    "stage": "record_batch_eda",
+                    "status": "complete",
+                    "message": f"EDA batch {batch_index + 1}/{batch_count} profiled: {len(batch):,} rows, {missing_percent}% missing.",
+                    "details": batch_record,
+                },
+            )
+
+        return evidence
 
     def _enrich_profile(self, profile: DatasetProfile) -> DatasetProfile:
         profile.evidence_refs = self._persist_eda_evidence(profile)

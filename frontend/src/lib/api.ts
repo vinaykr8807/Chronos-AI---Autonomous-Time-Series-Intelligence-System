@@ -61,6 +61,8 @@ export interface DatasetProfile {
     edaExecution?: string;
     batchSize?: number;
     workerCount?: number;
+    recordBatchCount?: number;
+    batchRowsProfiled?: number;
     chartMode?: string;
     chartSamplePoints?: number;
     chartSourceRows?: number;

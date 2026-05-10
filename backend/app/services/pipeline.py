@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+import importlib
 from dataclasses import dataclass
 import importlib.util
 import json
 import math
+import os
 import warnings
 from datetime import datetime, timezone
 from pathlib import Path
+from time import sleep
 from typing import Callable
 from uuid import uuid4
 
@@ -22,6 +25,7 @@ from app.services.dataset_store import DataSourceError, DatasetStoreService
 
 
 ProgressCallback = Callable[[dict[str, object]], None]
+MODEL_LOAD_DELAY_SECONDS = float(os.getenv("CHRONOS_MODEL_LOAD_DELAY_SECONDS", "1.2"))
 
 
 @dataclass
@@ -151,7 +155,7 @@ class PipelineService:
                 "details": artifacts.deployment_report,
             },
         )
-        validation_method = "walk-forward temporal holdout" if has_time else "stratified k-fold cross-validation"
+        validation_method = str(artifacts.evaluation_report.get("validationMethod") or ("walk-forward temporal holdout" if has_time else "cross-validation"))
         feature_desc = "lags, rolling windows, calendar features" if has_time else "encoded categorical + numeric features"
         nodes = [
             PipelineNode(
@@ -200,7 +204,7 @@ class PipelineService:
                 label="Evaluation",
                 description=f"Scored the model using {validation_method}",
                 status="complete",
-                config={"metrics": ["MAE", "RMSE", "MAPE", "R2", "MASE"], "validation": "walk_forward" if has_time else "kfold", "testRows": artifacts.test_rows},
+                config={"metrics": ["MAE", "RMSE", "MAPE", "R2", "MASE"], "validation": validation_method, "testRows": artifacts.test_rows},
             ),
             PipelineNode(
                 id="deployment",
@@ -369,6 +373,17 @@ class PipelineService:
     def _lstm_available(self) -> bool:
         return importlib.util.find_spec("torch") is not None
 
+    def _model_runtime_package(self, model: str) -> tuple[str, str]:
+        if model == "XGBoost":
+            return "xgboost", "XGBRegressor gradient-boosted tree runtime"
+        if model == "LSTM":
+            return "torch", "PyTorch LSTM sequence runtime"
+        if model == "RandomForest":
+            return "sklearn.ensemble", "scikit-learn RandomForest runtime"
+        if model == "SVM":
+            return "sklearn.svm", "scikit-learn SVM runtime"
+        return "statsmodels.tsa.arima.model", "statsmodels ARIMA runtime"
+
     def _train_and_evaluate(
         self,
         dataframe: pd.DataFrame,
@@ -380,6 +395,34 @@ class PipelineService:
         frame = dataframe.copy()
         time_column = self._profile_time_column(profile, frame)
         target_column = request.target_column or str(profile.validation.get("recommendedTarget") or self._first_numeric(frame))
+        runtime_module, runtime_label = self._model_runtime_package(model)
+        load_started_at = datetime.now(timezone.utc)
+        self._emit(
+            progress_callback,
+            {
+                "event": "agent_step",
+                "agent": "Model Loader Agent",
+                "stage": "load_heavy_model",
+                "status": "running",
+                "message": f"Loading heavy model backend for {model}: {runtime_label}.",
+                "details": {"model": model, "runtimeModule": runtime_module, "rows": int(len(frame)), "targetColumn": target_column},
+            },
+        )
+        importlib.import_module(runtime_module)
+        if MODEL_LOAD_DELAY_SECONDS > 0:
+            sleep(MODEL_LOAD_DELAY_SECONDS)
+        load_ms = round((datetime.now(timezone.utc) - load_started_at).total_seconds() * 1000, 1)
+        self._emit(
+            progress_callback,
+            {
+                "event": "agent_step",
+                "agent": "Model Loader Agent",
+                "stage": "load_heavy_model",
+                "status": "complete",
+                "message": f"{model} backend loaded and ready for full pipeline evaluation.",
+                "details": {"model": model, "runtimeModule": runtime_module, "loadTimeMs": load_ms},
+            },
+        )
         self._emit(
             progress_callback,
             {
@@ -1434,8 +1477,20 @@ class PipelineService:
             if encoded_columns:
                 transformations.append("categorical label encoding")
 
+        current_features = [column for column in supervised.columns if column != target_column]
+        if not current_features:
+            supervised["row_position"] = np.arange(len(supervised), dtype=float)
+            transformations.append("fallback row-position feature")
+            if len(supervised) >= 8:
+                for lag in [1, 2, 3]:
+                    supervised[f"fallback_lag_{lag}"] = supervised[target_column].shift(lag)
+                transformations.append("fallback target lag features")
+
         supervised = supervised.replace([np.inf, -np.inf], np.nan).dropna().reset_index(drop=True)
         feature_names = [column for column in supervised.columns if column != target_column]
+        if not feature_names:
+            supervised["row_position"] = np.arange(len(supervised), dtype=float)
+            feature_names = ["row_position"]
         x = supervised[feature_names].to_numpy(dtype=float)
         y = supervised[target_column].to_numpy(dtype=float)
         plan = self._feature_plan(feature_names, target_column, model, bool(time_column), frame, transformations)

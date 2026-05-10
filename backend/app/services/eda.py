@@ -437,7 +437,7 @@ class AutoEDAService:
 
     def _has_temporal_name(self, name: str) -> bool:
         normalized = name.replace("_", " ")
-        return any(token in normalized for token in ["date", "time", "timestamp", "period", "datetime"])
+        return any(token in normalized for token in ["date", "time", "timestamp", "period", "datetime", "month", "year"])
 
     def _time_column_name_score(self, name: str) -> float:
         normalized = name.replace("_", " ")
@@ -449,6 +449,8 @@ class AutoEDAService:
         if "timestamp" in normalized or "datetime" in normalized:
             score += 4.0
         if "time" in normalized:
+            score += 3.0
+        if "month" in normalized or "year" in normalized:
             score += 3.0
         if "ship date" in normalized or "delivery date" in normalized:
             score += 1.0
@@ -491,7 +493,20 @@ class AutoEDAService:
         return date_like / max(len(sample_text), 1) >= 0.6
 
     def _parse_datetime_series(self, series: pd.Series) -> pd.Series:
-        return pd.to_datetime(series, errors="coerce", format="mixed")
+        parsed = pd.to_datetime(series, errors="coerce", format="mixed")
+        if parsed.notna().mean() > 0.8:
+            return parsed
+
+        text = series.dropna().astype(str).str.strip()
+        if text.empty:
+            return parsed
+
+        for fmt in ("%y-%b", "%Y-%b", "%b-%y", "%b-%Y", "%m-%Y", "%Y-%m"):
+            formatted = pd.to_datetime(series.astype(str).str.strip(), errors="coerce", format=fmt)
+            if formatted.notna().mean() > 0.8:
+                return formatted
+
+        return parsed
 
     def _outlier_percent(self, numeric: pd.Series) -> float:
         clean = numeric.dropna()

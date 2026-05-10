@@ -454,10 +454,16 @@ export function DatasetIntelligence() {
               <Card>
                 <p className="text-xs uppercase tracking-wide text-slate-400">EDA Execution</p>
                 <p className="mt-2 text-lg font-semibold text-white">
-                  {profile?.summary.edaMode === 'full-dataframe' ? 'Full dataframe' : 'Catalog sample'}
+                  {profile?.summary.edaMode === 'nine-record-batch-eda'
+                    ? '9 record batches'
+                    : profile?.summary.edaMode === 'full-dataframe'
+                      ? 'Full dataframe'
+                      : 'Catalog sample'}
                 </p>
                 <p className="mt-1 text-sm text-slate-400">
-                  {profile?.summary.edaExecution === 'parallel-batched'
+                  {profile?.summary.edaExecution === 'record-batched-full-reconciliation'
+                    ? `Scans ${Number(profile?.summary.recordBatchCount || 9).toLocaleString()} row batches first, then reconciles a full-dataframe EDA. Charts sample ${Number(profile?.summary.chartSamplePoints || 0).toLocaleString()} of ${Number(profile?.summary.chartSourceRows || profile?.summary.rows || 0).toLocaleString()} rows for rendering only.`
+                    : profile?.summary.edaExecution === 'parallel-batched'
                     ? `Parallel batched profiling across ${profile?.summary.workerCount ?? 0} workers with batch size ${profile?.summary.batchSize ?? 0}. Charts sample ${Number(profile?.summary.chartSamplePoints || 0).toLocaleString()} of ${Number(profile?.summary.chartSourceRows || profile?.summary.rows || 0).toLocaleString()} rows for rendering only.`
                     : 'Profile execution details are not available.'}
                 </p>

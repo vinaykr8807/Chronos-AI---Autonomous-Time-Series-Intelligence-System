@@ -182,6 +182,97 @@ function evidenceValue(value: unknown, fallback = 'pending') {
   return value === undefined || value === null || value === '' ? fallback : String(value);
 }
 
+type ReasoningTraceRow = {
+  id: string;
+  timestamp?: string;
+  agent: string;
+  stage: string;
+  status: string;
+  message: string;
+  details?: unknown;
+};
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : null;
+}
+
+function formatTraceTimestamp(timestamp?: string) {
+  if (!timestamp) return 'live';
+  const parsed = new Date(timestamp);
+  if (Number.isNaN(parsed.getTime())) return timestamp;
+  return parsed.toLocaleString([], {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+}
+
+function traceStatusTone(status: string) {
+  const normalized = status.toLowerCase();
+  if (normalized.includes('error')) return 'border-red-500/30 text-red-300';
+  if (normalized.includes('complete') || normalized.includes('final')) return 'border-emerald-500/30 text-emerald-300';
+  if (normalized.includes('tool') || normalized.includes('action')) return 'border-cyan-500/30 text-cyan-300';
+  return 'border-indigo-500/30 text-indigo-300';
+}
+
+function compactTraceDetails(details: unknown) {
+  const record = asRecord(details);
+  if (!record) return details;
+
+  const compacted: Record<string, unknown> = {};
+  Object.entries(record).forEach(([key, value]) => {
+    if (['predictionSamples', 'foldMetrics', 'trainingHistory', 'optimizationTrials'].includes(key)) {
+      compacted[key] = Array.isArray(value) ? `${value.length} records` : 'available';
+      return;
+    }
+    if (key === 'reasoningTrace') return;
+    compacted[key] = value;
+  });
+  return compacted;
+}
+
+function reasoningMessageFromStep(step: Record<string, unknown>, fallback: string) {
+  return String(step.thought || step.reason || step.action || step.observation || step.final || step.message || fallback);
+}
+
+function buildReasoningTraceRows(trace: PipelineTraceEvent[]): ReasoningTraceRow[] {
+  const rows: ReasoningTraceRow[] = [];
+
+  trace.forEach((event, eventIndex) => {
+    rows.push({
+      id: `${eventIndex}-${event.agent}-${event.stage}`,
+      timestamp: event.timestamp,
+      agent: event.agent,
+      stage: event.stage,
+      status: event.status,
+      message: event.message,
+      details: compactTraceDetails(event.details),
+    });
+
+    const reasoningTrace = asRecord(event.details?.reasoningTrace);
+    const steps = Array.isArray(reasoningTrace?.steps) ? reasoningTrace.steps : [];
+    steps.forEach((step, stepIndex) => {
+      const stepRecord = asRecord(step);
+      if (!stepRecord) return;
+      const stage = String(stepRecord.action ? 'tool_action' : stepRecord.final ? 'final_reasoning' : 'reasoning_step');
+      rows.push({
+        id: `${eventIndex}-${event.agent}-reasoning-${stepIndex}`,
+        timestamp: event.timestamp,
+        agent: event.agent,
+        stage,
+        status: stepRecord.action ? 'tool' : stepRecord.final ? 'final' : 'reasoning',
+        message: reasoningMessageFromStep(stepRecord, `Reasoning step ${stepIndex + 1}`),
+        details: stepRecord,
+      });
+    });
+  });
+
+  return rows.slice(-28);
+}
+
 function formatMetricValue(value: number | undefined, digits = 2) {
   if (typeof value !== 'number' || Number.isNaN(value)) {
     return 'Pending';
@@ -487,6 +578,12 @@ export function PipelineStudio() {
     const streamed = streamEvents.map(traceFromStream).filter((trace): trace is PipelineTraceEvent => Boolean(trace));
     return streamed.length ? streamed : (pipelineResult?.pipeline_trace || []);
   }, [pipelineResult, streamEvents]);
+
+  const reasoningSourceTrace = useMemo(() => {
+    return pipelineResult?.pipeline_trace?.length ? pipelineResult.pipeline_trace : liveTrace;
+  }, [liveTrace, pipelineResult]);
+
+  const reasoningTraceRows = useMemo(() => buildReasoningTraceRows(reasoningSourceTrace), [reasoningSourceTrace]);
 
   const agentStatuses = useMemo(() => {
     const agentList = pipelineResult?.agents?.length ? pipelineResult.agents : defaultAgents;
@@ -885,6 +982,44 @@ export function PipelineStudio() {
                     <span>{decision}</span>
                   </div>
                 ))}
+              </div>
+            </Card>
+          </section>
+        ) : null}
+
+        {reasoningTraceRows.length ? (
+          <section>
+            <Card className="border-pink-500/20 bg-space-800/80">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <Activity className="h-4 w-4 text-pink-300" />
+                  <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">Reasoning Trace</h2>
+                </div>
+                <span className="rounded-full border border-space-600 px-3 py-1 text-xs text-slate-400">
+                  {reasoningTraceRows.length} trace entries
+                </span>
+              </div>
+
+              <div className="mt-4 max-h-[34rem] overflow-auto rounded-lg border border-indigo-500/20 bg-[#080b15] p-4">
+                <div className="space-y-3 border-l border-emerald-500/40 pl-4">
+                  {reasoningTraceRows.map((row) => (
+                    <div key={row.id} className="rounded-lg border border-space-700 bg-space-900/80 p-3 shadow-inner shadow-black/20">
+                      <div className="flex flex-wrap items-center gap-2 text-[11px]">
+                        <span className="font-mono text-slate-500">{formatTraceTimestamp(row.timestamp)}</span>
+                        <span className="font-mono text-cyan-300">[{row.agent}]</span>
+                        <span className={`rounded-full border px-2 py-0.5 font-mono ${traceStatusTone(row.status)}`}>
+                          {row.stage}
+                        </span>
+                      </div>
+                      <p className="mt-2 font-mono text-xs leading-relaxed text-slate-200">{row.message}</p>
+                      {row.details ? (
+                        <pre className="mt-2 max-h-40 overflow-auto whitespace-pre-wrap rounded border border-space-700 bg-black/30 p-3 font-mono text-[11px] leading-relaxed text-emerald-300">
+                          {compactJson(row.details)}
+                        </pre>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
               </div>
             </Card>
           </section>
