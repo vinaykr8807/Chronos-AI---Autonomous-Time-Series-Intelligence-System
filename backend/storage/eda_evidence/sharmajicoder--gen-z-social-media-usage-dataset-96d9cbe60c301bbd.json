@@ -1,0 +1,813 @@
+{
+  "datasetId": "sharmajicoder--gen-z-social-media-usage-dataset",
+  "title": "Gen Z Social Media Usage",
+  "summary": {
+    "rows": 1000000,
+    "columns": 12,
+    "rowsScanned": 1000000,
+    "columnsScanned": 12,
+    "targetColumn": "screen_time_before_sleep",
+    "missingPercent": 0.0,
+    "timeSeriesValidated": false,
+    "timeRangeStart": "unknown",
+    "timeRangeEnd": "unknown",
+    "edaMode": "nine-record-batch-eda",
+    "edaExecution": "record-batched-full-reconciliation",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 500,
+    "chartSourceRows": 1000000,
+    "loadTimeMs": 2176.3,
+    "profileTimeMs": 56355.4,
+    "dataSource": "kaggle:sharmajicoder/gen-z-social-media-usage-dataset",
+    "profileInputSource": "kaggle:sharmajicoder/gen-z-social-media-usage-dataset",
+    "rowsAnalyzed": 1000000,
+    "recordBatchCount": 9,
+    "batchRowsProfiled": 1000000,
+    "syntheticFallback": false,
+    "sourceRef": "sharmajicoder/gen-z-social-media-usage-dataset",
+    "realDataLoaded": true,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": false,
+    "timeColumn": null,
+    "frequency": "unknown",
+    "gapRatio": null,
+    "orderingScore": 0.0,
+    "consistencyScore": 0.0,
+    "seasonalityHint": "undetermined"
+  },
+  "validation": {
+    "timestampPresence": false,
+    "sequentialOrdering": false,
+    "frequencyConsistency": 0.0,
+    "duplicateTimestampRatio": 0.0,
+    "missingIntervalRatio": null,
+    "recommendedTarget": "screen_time_before_sleep"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "age": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "gender": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "country": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "daily_usage_hours": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "primary_platform": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "num_platforms_used": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "purpose": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "avg_session_minutes": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "night_usage": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "mental_health_score": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "addiction_level": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "screen_time_before_sleep": {
+        "role": "prediction_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict."
+      }
+    },
+    "entityColumns": [
+      "gender",
+      "country",
+      "primary_platform",
+      "purpose",
+      "addiction_level"
+    ],
+    "targetColumn": "screen_time_before_sleep",
+    "timeColumn": null,
+    "temporalHierarchy": [],
+    "relationshipSummary": "`screen_time_before_sleep` is predicted from age, daily_usage_hours, num_platforms_used, avg_session_minutes segmented by gender, country.",
+    "datasetType": "cross-sectional"
+  },
+  "forecastability": {
+    "score": 60.8,
+    "grade": "moderate",
+    "seasonalityStrength": 0.0,
+    "trendConsistency": 0.0,
+    "stationarityScore": 1.0,
+    "noiseRatio": 0.979,
+    "intervalStability": 0.0,
+    "reasons": [
+      "Dataset has 1,000,000 rows and 6 numeric feature(s) available for prediction.",
+      "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+      "Signal-to-noise ratio is moderate (noise ratio: 0.98)."
+    ],
+    "risks": [
+      "Without a time index, temporal forecasting is not applicable.",
+      "Use cross-validation instead of walk-forward splits."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "not applicable \u2014 cross-sectional dataset",
+    "anomalies": [],
+    "anomalyRate": 0.0035,
+    "outlierCount": 3488,
+    "regimeChanges": [],
+    "driftScore": 0.0,
+    "skewness": 0.126,
+    "distributionShape": "approximately normal",
+    "interpretation": "Cross-sectional dataset. Target `screen_time_before_sleep` has 3,488 outliers (0.3% of rows). Distribution is approximately normal."
+  },
+  "qualityIntelligence": {
+    "trustScore": 100.0,
+    "missingPattern": "No missing values detected \u2014 dataset is complete.",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Encode categorical features before training (label or one-hot encoding).",
+      "Use stratified k-fold cross-validation for unbiased evaluation.",
+      "Check for class imbalance in the target variable.",
+      "Review high-cardinality columns \u2014 consider target encoding or dropping."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "num_platforms_used",
+        "sameTimeCorrelation": 0.002,
+        "lagInfluence": 0.0,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "night_usage",
+        "sameTimeCorrelation": 0.002,
+        "lagInfluence": 0.0,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "daily_usage_hours",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.001,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "avg_session_minutes",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.001,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "age",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "mental_health_score",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "gender",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "country",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "primary_platform",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "purpose",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      }
+    ],
+    "redundantFeatures": [],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Encode categorical features and use cross-validated feature importance to rank predictors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "XGBoost",
+    "reason": "Large cross-sectional dataset without a time index. XGBoost regression with feature engineering is the appropriate choice.",
+    "preprocessingPlan": [
+      "encode categorical features",
+      "scale numeric features",
+      "use stratified k-fold cross-validation",
+      "tune hyperparameters via grid search"
+    ],
+    "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+    "confidence": "moderate",
+    "datasetType": "cross-sectional"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "social",
+    "businessMeaning": "This dataset captures social media usage behavior, screen time, and mental health indicators across demographic groups.",
+    "likelyUseCase": "behavioral analysis, usage pattern modeling, and mental health risk scoring",
+    "targetMeaning": "`screen_time_before_sleep` is likely the primary quantity to predict.",
+    "datasetType": "cross-sectional"
+  },
+  "edaTrace": [
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 1,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "1-111112",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 20.0021,
+        "daily_usage_hours": 3.5156,
+        "num_platforms_used": 2.9895,
+        "avg_session_minutes": 25.1387,
+        "night_usage": 0.5989
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 2,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "111113-222224",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 20.01,
+        "daily_usage_hours": 3.5153,
+        "num_platforms_used": 2.9989,
+        "avg_session_minutes": 25.0585,
+        "night_usage": 0.5988
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 3,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "222225-333336",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 19.9802,
+        "daily_usage_hours": 3.5139,
+        "num_platforms_used": 2.9966,
+        "avg_session_minutes": 25.0452,
+        "night_usage": 0.5992
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 4,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "333337-444448",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 19.98,
+        "daily_usage_hours": 3.5118,
+        "num_platforms_used": 3.0052,
+        "avg_session_minutes": 25.0888,
+        "night_usage": 0.5999
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 5,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "444449-555560",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 19.9876,
+        "daily_usage_hours": 3.5196,
+        "num_platforms_used": 3.0045,
+        "avg_session_minutes": 25.0791,
+        "night_usage": 0.6001
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 6,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "555561-666672",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 20.0041,
+        "daily_usage_hours": 3.5148,
+        "num_platforms_used": 2.9998,
+        "avg_session_minutes": 25.1456,
+        "night_usage": 0.6004
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 7,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "666673-777784",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 19.9886,
+        "daily_usage_hours": 3.5091,
+        "num_platforms_used": 3.0001,
+        "avg_session_minutes": 25.1068,
+        "night_usage": 0.6
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 8,
+      "batchCount": 9,
+      "rows": 111112,
+      "rowRange": "777785-888896",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 19.9939,
+        "daily_usage_hours": 3.5171,
+        "num_platforms_used": 3.0017,
+        "avg_session_minutes": 25.0907,
+        "night_usage": 0.6017
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 9,
+      "batchCount": 9,
+      "rows": 111104,
+      "rowRange": "888897-1000000",
+      "missingPercent": 0.0,
+      "numericColumns": 7,
+      "categoricalColumns": 5,
+      "dateLikeColumns": [
+        {
+          "column": "screen_time_before_sleep",
+          "parseRate": 1.0
+        }
+      ],
+      "numericMeanSnapshot": {
+        "age": 20.0052,
+        "daily_usage_hours": 3.5178,
+        "num_platforms_used": 2.9989,
+        "avg_session_minutes": 25.0459,
+        "night_usage": 0.6006
+      }
+    },
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 1000000,
+      "columnsScanned": 12,
+      "memoryBytes": 374226677
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "parallel-batched",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 7,
+        "categorical": 5,
+        "datetime": 0,
+        "text": 0
+      },
+      "highMissingColumns": [],
+      "highCardinalityColumns": [
+        "daily_usage_hours",
+        "avg_session_minutes",
+        "mental_health_score",
+        "screen_time_before_sleep"
+      ]
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": false,
+      "timeColumn": null,
+      "frequency": "unknown",
+      "consistencyScore": 0.0,
+      "orderingScore": 0.0,
+      "decision": "Treat as cross-sectional; do not use temporal forecast assumptions."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "screen_time_before_sleep",
+      "targetType": "numeric",
+      "uniqueValues": 977324,
+      "missingPercent": 0.0,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": false,
+        "sequentialOrdering": false,
+        "frequencyConsistency": 0.0,
+        "duplicateTimestampRatio": 0.0,
+        "missingIntervalRatio": null,
+        "recommendedTarget": "screen_time_before_sleep"
+      },
+      "qualityIntelligence": {
+        "trustScore": 100.0,
+        "missingPattern": "No missing values detected \u2014 dataset is complete.",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Encode categorical features before training (label or one-hot encoding).",
+          "Use stratified k-fold cross-validation for unbiased evaluation.",
+          "Check for class imbalance in the target variable.",
+          "Review high-cardinality columns \u2014 consider target encoding or dropping."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "num_platforms_used",
+          "sameTimeCorrelation": 0.002,
+          "lagInfluence": 0.0,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "night_usage",
+          "sameTimeCorrelation": 0.002,
+          "lagInfluence": 0.0,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "daily_usage_hours",
+          "sameTimeCorrelation": 0.0,
+          "lagInfluence": 0.001,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "avg_session_minutes",
+          "sameTimeCorrelation": 0.0,
+          "lagInfluence": 0.001,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "age",
+          "sameTimeCorrelation": 0.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "mental_health_score",
+          "sameTimeCorrelation": 0.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "gender",
+          "sameTimeCorrelation": 0.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "country",
+          "sameTimeCorrelation": 0.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "weak_or_contextual"
+        }
+      ],
+      "redundantFeatures": [],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 60.8,
+        "grade": "moderate",
+        "seasonalityStrength": 0.0,
+        "trendConsistency": 0.0,
+        "stationarityScore": 1.0,
+        "noiseRatio": 0.979,
+        "intervalStability": 0.0,
+        "reasons": [
+          "Dataset has 1,000,000 rows and 6 numeric feature(s) available for prediction.",
+          "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+          "Signal-to-noise ratio is moderate (noise ratio: 0.98)."
+        ],
+        "risks": [
+          "Without a time index, temporal forecasting is not applicable.",
+          "Use cross-validation instead of walk-forward splits."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "not applicable \u2014 cross-sectional dataset",
+        "anomalies": [],
+        "anomalyRate": 0.0035,
+        "outlierCount": 3488,
+        "regimeChanges": [],
+        "driftScore": 0.0,
+        "skewness": 0.126,
+        "distributionShape": "approximately normal",
+        "interpretation": "Cross-sectional dataset. Target `screen_time_before_sleep` has 3,488 outliers (0.3% of rows). Distribution is approximately normal."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "XGBoost",
+        "reason": "Large cross-sectional dataset without a time index. XGBoost regression with feature engineering is the appropriate choice.",
+        "preprocessingPlan": [
+          "encode categorical features",
+          "scale numeric features",
+          "use stratified k-fold cross-validation",
+          "tune hyperparameters via grid search"
+        ],
+        "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+        "confidence": "moderate",
+        "datasetType": "cross-sectional"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "Gen Z Social Media Usage; dataset_id=sharmajicoder--gen-z-social-media-usage-dataset; rows=1000000; columns=12; missing=0.0%; dataset_type=cross-sectional; target=screen_time_before_sleep; time_column=None"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 60.8, \"grade\": \"moderate\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 1.0, \"noiseRatio\": 0.979, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 1,000,000 rows and 6 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is moderate (noise ratio: 0.98).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"XGBoost\", \"reason\": \"Large cross-sectional dataset without a time index. XGBoost regression with feature engineering is the appropriate choice.\", \"preprocessingPlan\": [\"encode categorical features\", \"scale numeric features\", \"use stratified k-fold cross-validation\", \"tune hyperparameters via grid search\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"moderate\", \"datasetType\": \"cross-sectional\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"num_platforms_used\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"night_usage\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"daily_usage_hours\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"avg_session_minutes\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"age\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"mental_health_score\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"gender\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"country\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"primary_platform\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"purpose\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Encode categorical features and use cross-validated feature importance to rank predictors.\"}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 1, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"1-111112\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 20.0021, \"daily_usage_hours\": 3.5156, \"num_platforms_used\": 2.9895, \"avg_session_minutes\": 25.1387, \"night_usage\": 0.5989}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 2, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"111113-222224\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 20.01, \"daily_usage_hours\": 3.5153, \"num_platforms_used\": 2.9989, \"avg_session_minutes\": 25.0585, \"night_usage\": 0.5988}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 3, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"222225-333336\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 19.9802, \"daily_usage_hours\": 3.5139, \"num_platforms_used\": 2.9966, \"avg_session_minutes\": 25.0452, \"night_usage\": 0.5992}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 4, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"333337-444448\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 19.98, \"daily_usage_hours\": 3.5118, \"num_platforms_used\": 3.0052, \"avg_session_minutes\": 25.0888, \"night_usage\": 0.5999}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 5, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"444449-555560\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 19.9876, \"daily_usage_hours\": 3.5196, \"num_platforms_used\": 3.0045, \"avg_session_minutes\": 25.0791, \"night_usage\": 0.6001}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 6, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"555561-666672\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 20.0041, \"daily_usage_hours\": 3.5148, \"num_platforms_used\": 2.9998, \"avg_session_minutes\": 25.1456, \"night_usage\": 0.6004}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 7, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"666673-777784\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 19.9886, \"daily_usage_hours\": 3.5091, \"num_platforms_used\": 3.0001, \"avg_session_minutes\": 25.1068, \"night_usage\": 0.6}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 8, \"batchCount\": 9, \"rows\": 111112, \"rowRange\": \"777785-888896\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 19.9939, \"daily_usage_hours\": 3.5171, \"num_platforms_used\": 3.0017, \"avg_session_minutes\": 25.0907, \"night_usage\": 0.6017}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 9, \"batchCount\": 9, \"rows\": 111104, \"rowRange\": \"888897-1000000\", \"missingPercent\": 0.0, \"numericColumns\": 7, \"categoricalColumns\": 5, \"dateLikeColumns\": [{\"column\": \"screen_time_before_sleep\", \"parseRate\": 1.0}], \"numericMeanSnapshot\": {\"age\": 20.0052, \"daily_usage_hours\": 3.5178, \"num_platforms_used\": 2.9989, \"avg_session_minutes\": 25.0459, \"night_usage\": 0.6006}}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 1000000, \"columnsScanned\": 12, \"memoryBytes\": 374226677}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"parallel-batched\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 7, \"categorical\": 5, \"datetime\": 0, \"text\": 0}, \"highMissingColumns\": [], \"highCardinalityColumns\": [\"daily_usage_hours\", \"avg_session_minutes\", \"mental_health_score\", \"screen_time_before_sleep\"]}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": false, \"timeColumn\": null, \"frequency\": \"unknown\", \"consistencyScore\": 0.0, \"orderingScore\": 0.0, \"decision\": \"Treat as cross-sectional; do not use temporal forecast assumptions.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"screen_time_before_sleep\", \"targetType\": \"numeric\", \"uniqueValues\": 977324, \"missingPercent\": 0.0, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": false, \"sequentialOrdering\": false, \"frequencyConsistency\": 0.0, \"duplicateTimestampRatio\": 0.0, \"missingIntervalRatio\": null, \"recommendedTarget\": \"screen_time_before_sleep\"}, \"qualityIntelligence\": {\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"num_platforms_used\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"night_usage\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"daily_usage_hours\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"avg_session_minutes\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"age\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"mental_health_score\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"gender\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"country\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 60.8, \"grade\": \"moderate\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 1.0, \"noiseRatio\": 0.979, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 1,000,000 rows and 6 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is moderate (noise ratio: 0.98).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}, \"temporalBehavior\": {\"periodicity\": \"not applicable \\u2014 cross-sectional dataset\", \"anomalies\": [], \"anomalyRate\": 0.0035, \"outlierCount\": 3488, \"regimeChanges\": [], \"driftScore\": 0.0, \"skewness\": 0.126, \"distributionShape\": \"approximately normal\", \"interpretation\": \"Cross-sectional dataset. Target `screen_time_before_sleep` has 3,488 outliers (0.3% of rows). Distribution is approximately normal.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"XGBoost\", \"reason\": \"Large cross-sectional dataset without a time index. XGBoost regression with feature engineering is the appropriate choice.\", \"preprocessingPlan\": [\"encode categorical features\", \"scale numeric features\", \"use stratified k-fold cross-validation\", \"tune hyperparameters via grid search\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"moderate\", \"datasetType\": \"cross-sectional\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"age\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 15, \"min\": 13.0, \"max\": 27.0, \"mean\": 19.994629, \"median\": 20.0, \"std\": 4.3221163973635655, \"outlierPercent\": 0.0, \"topValues\": [\"17\", \"15\", \"16\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"gender\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Female\", \"Male\", \"Other\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"country\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 7, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"India\", \"USA\", \"Canada\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"daily_usage_hours\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 977267, \"min\": 0.5, \"max\": 10.0, \"mean\": 3.51499839429309, \"median\": 3.5033022916981245, \"std\": 1.4687704239303079, \"outlierPercent\": 0.35, \"topValues\": [\"0.5\", \"10.0\", \"5.397547907313732\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"primary_platform\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 5, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Instagram\", \"YouTube\", \"TikTok\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"num_platforms_used\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 5, \"min\": 1.0, \"max\": 5.0, \"mean\": 2.999469, \"median\": 3.0, \"std\": 1.4145977230431976, \"outlierPercent\": 0.0, \"topValues\": [\"2\", \"4\", \"1\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"purpose\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 5, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Entertainment\", \"Socializing\", \"Education\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"avg_session_minutes\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 977233, \"min\": 5.0, \"max\": 80.26222433908394, \"mean\": 25.0888192478024, \"median\": 25.002480429623485, \"std\": 9.794243630379137, \"outlierPercent\": 0.34, \"topValues\": [\"5.0\", \"29.222442976309395\", \"15.161229545005886\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"night_usage\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 2, \"min\": 0.0, \"max\": 1.0, \"mean\": 0.599958, \"median\": 1.0, \"std\": 0.4899065198953776, \"outlierPercent\": 0.0, \"topValues\": [\"1\", \"0\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"mental_health_score\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 967450, \"min\": 1.0, \"max\": 10.0, \"mean\": 7.170670738178424, \"median\": 7.198097980367301, \"std\": 1.5038843913294297, \"outlierPercent\": 0.36, \"topValues\": [\"10.0\", \"1.0\", \"6.705829998710905\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"addiction_level\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Medium\", \"Low\", \"High\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"screen_time_before_sleep\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 977324, \"min\": 0.0, \"max\": 137.9987192681989, \"mean\": 40.12075351426827, \"median\": 39.97716218558119, \"std\": 19.569837462895563, \"outlierPercent\": 0.35, \"topValues\": [\"0.0\", \"59.771754467988416\", \"5.9244451241155645\"], \"role\": {\"role\": \"prediction_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict.\"}}"
+    }
+  ]
+}

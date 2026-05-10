@@ -1,0 +1,9 @@
+{
+  "evidenceId": "ddosad--dummy-truck-sales-for-time-series-657399ca040c9c89",
+  "jsonPath": "storage\\eda_evidence\\ddosad--dummy-truck-sales-for-time-series-657399ca040c9c89.json",
+  "faissPath": "storage\\eda_evidence\\ddosad--dummy-truck-sales-for-time-series-657399ca040c9c89.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 24,
+  "llmGate": "ready"
+}

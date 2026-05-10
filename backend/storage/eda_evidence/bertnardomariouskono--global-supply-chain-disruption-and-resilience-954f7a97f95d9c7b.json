@@ -1,0 +1,716 @@
+{
+  "datasetId": "bertnardomariouskono--global-supply-chain-disruption-and-resilience",
+  "title": "Global Supply Chain Disruption And Resilience",
+  "summary": {
+    "rows": 10000,
+    "columns": 19,
+    "rowsScanned": 10000,
+    "columnsScanned": 19,
+    "targetColumn": "Inflation_Rate_Pct",
+    "missingPercent": 4.6,
+    "timeSeriesValidated": true,
+    "timeRangeStart": "2024-01-04T00:00:00",
+    "timeRangeEnd": "2026-01-03T00:00:00",
+    "edaMode": "full-dataframe",
+    "edaExecution": "parallel-batched",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 500,
+    "chartSourceRows": 10000,
+    "loadTimeMs": 1.9,
+    "profileTimeMs": 1244.8,
+    "dataSource": "kaggle:bertnardomariouskono/global-supply-chain-disruption-and-resilience",
+    "profileInputSource": "kaggle:bertnardomariouskono/global-supply-chain-disruption-and-resilience",
+    "rowsAnalyzed": 10000,
+    "syntheticFallback": false,
+    "sourceRef": "bertnardomariouskono/global-supply-chain-disruption-and-resilience",
+    "realDataLoaded": true,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": true,
+    "timeColumn": "Order_Date",
+    "frequency": "1 days 00:00:00",
+    "gapRatio": 0.0,
+    "orderingScore": 0.494,
+    "consistencyScore": 1.0,
+    "seasonalityHint": "daily-like",
+    "start": "2024-01-04T00:00:00",
+    "end": "2026-01-03T00:00:00",
+    "duplicateTimestampRatio": 0.9269
+  },
+  "validation": {
+    "timestampPresence": true,
+    "sequentialOrdering": false,
+    "frequencyConsistency": 1.0,
+    "duplicateTimestampRatio": 0.9269,
+    "missingIntervalRatio": 0.0,
+    "recommendedTarget": "Inflation_Rate_Pct"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "Order_ID": {
+        "role": "context_feature",
+        "type": "text",
+        "reason": "Textual or high-cardinality field may provide context."
+      },
+      "Order_Date": {
+        "role": "temporal_index",
+        "type": "datetime",
+        "reason": "High date-like parse rate makes this the sequence anchor."
+      },
+      "Origin_City": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Destination_City": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Route_Type": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Transportation_Mode": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Product_Category": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Base_Lead_Time_Days": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Scheduled_Lead_Time_Days": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Actual_Lead_Time_Days": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Delay_Days": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Delivery_Status": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Disruption_Event": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "Geopolitical_Risk_Index": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Weather_Severity_Index": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Inflation_Rate_Pct": {
+        "role": "forecast_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict over time."
+      },
+      "Shipping_Cost_USD": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Order_Weight_Kg": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "Mitigation_Action_Taken": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      }
+    },
+    "entityColumns": [
+      "Origin_City",
+      "Destination_City",
+      "Route_Type",
+      "Transportation_Mode",
+      "Product_Category",
+      "Delivery_Status",
+      "Disruption_Event",
+      "Mitigation_Action_Taken"
+    ],
+    "targetColumn": "Inflation_Rate_Pct",
+    "timeColumn": "Order_Date",
+    "temporalHierarchy": [
+      "hour",
+      "day",
+      "week"
+    ],
+    "relationshipSummary": "`Inflation_Rate_Pct` is modeled over time using Base_Lead_Time_Days, Scheduled_Lead_Time_Days, Actual_Lead_Time_Days and grouped by Origin_City, Destination_City.",
+    "datasetType": "time-series"
+  },
+  "forecastability": {
+    "score": 37.4,
+    "grade": "poor",
+    "seasonalityStrength": 0.06,
+    "trendConsistency": 0.057,
+    "stationarityScore": 0.956,
+    "noiseRatio": 0.978,
+    "intervalStability": 1.0,
+    "reasons": [
+      "Seasonality strength is 0.06, indicating limited repeating structure.",
+      "Trend consistency is 0.06, showing mostly flat or irregular movement.",
+      "Noise ratio is 0.98, so signal quality is noisy for forecasting."
+    ],
+    "risks": [
+      "High randomness may reduce forecast confidence."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "weak periodicity",
+    "anomalies": [
+      {
+        "index": 28,
+        "timestamp": "2025-04-25",
+        "severity": 4.64
+      },
+      {
+        "index": 206,
+        "timestamp": "2025-12-05",
+        "severity": 3.01
+      },
+      {
+        "index": 501,
+        "timestamp": "2024-11-12",
+        "severity": 3.36
+      }
+    ],
+    "anomalyRate": 0.0041,
+    "regimeChanges": [
+      76,
+      193,
+      203,
+      241,
+      260
+    ],
+    "driftScore": 0.032,
+    "interpretation": "Behavior is stable enough for forecasting."
+  },
+  "qualityIntelligence": {
+    "trustScore": 94.5,
+    "missingPattern": "Structural missingness: 1 column(s) have >30% missing values (Disruption_Event). This is common in panel datasets where not all records have all fields.",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Use interpolation or forward-fill only after sorting by time.",
+      "Validate performance with temporal holdout, not random split.",
+      "Review high-cardinality identifiers before using them as predictors."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "Order_Date",
+        "sameTimeCorrelation": 0.078,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "Delay_Days",
+        "sameTimeCorrelation": 0.005,
+        "lagInfluence": 0.029,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Actual_Lead_Time_Days",
+        "sameTimeCorrelation": 0.002,
+        "lagInfluence": 0.019,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Order_Weight_Kg",
+        "sameTimeCorrelation": 0.005,
+        "lagInfluence": 0.012,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Weather_Severity_Index",
+        "sameTimeCorrelation": 0.006,
+        "lagInfluence": 0.011,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Base_Lead_Time_Days",
+        "sameTimeCorrelation": 0.002,
+        "lagInfluence": 0.01,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Shipping_Cost_USD",
+        "sameTimeCorrelation": 0.01,
+        "lagInfluence": 0.005,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Scheduled_Lead_Time_Days",
+        "sameTimeCorrelation": 0.001,
+        "lagInfluence": 0.009,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Geopolitical_Risk_Index",
+        "sameTimeCorrelation": 0.005,
+        "lagInfluence": 0.002,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "Origin_City",
+        "sameTimeCorrelation": 0.002,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      }
+    ],
+    "redundantFeatures": [
+      {
+        "features": [
+          "Base_Lead_Time_Days",
+          "Scheduled_Lead_Time_Days"
+        ],
+        "correlation": 0.997
+      },
+      {
+        "features": [
+          "Base_Lead_Time_Days",
+          "Actual_Lead_Time_Days"
+        ],
+        "correlation": 0.948
+      },
+      {
+        "features": [
+          "Scheduled_Lead_Time_Days",
+          "Actual_Lead_Time_Days"
+        ],
+        "correlation": 0.946
+      }
+    ],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Use lagged target features plus the strongest exogenous regressors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "RandomForest",
+    "reason": "The target signal is noisy or weakly forecastable, so a bagged tree model with lag/calendar features is a safer default than an LSTM.",
+    "preprocessingPlan": [
+      "sort by timestamp",
+      "impute temporal gaps",
+      "create lag features",
+      "use walk-forward validation"
+    ],
+    "optimizationFocus": "minimize MAE and monitor MAPE drift across recent windows",
+    "confidence": "poor",
+    "datasetType": "time-series"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "supply_chain",
+    "businessMeaning": "This dataset captures global supply chain disruption events, resilience metrics, and logistics indicators.",
+    "likelyUseCase": "supply chain disruption prediction and resilience scoring",
+    "targetMeaning": "`Inflation_Rate_Pct` is likely the primary quantity to forecast.",
+    "datasetType": "time-series"
+  },
+  "edaTrace": [
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 10000,
+      "columnsScanned": 19,
+      "memoryBytes": 7166178
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "parallel-batched",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 9,
+        "categorical": 8,
+        "datetime": 1,
+        "text": 1
+      },
+      "highMissingColumns": [
+        {
+          "name": "Disruption_Event",
+          "missingPercent": 87.33
+        }
+      ],
+      "highCardinalityColumns": [
+        "Order_ID",
+        "Order_Date",
+        "Inflation_Rate_Pct",
+        "Shipping_Cost_USD",
+        "Order_Weight_Kg"
+      ]
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": true,
+      "timeColumn": "Order_Date",
+      "frequency": "1 days 00:00:00",
+      "consistencyScore": 1.0,
+      "orderingScore": 0.494,
+      "decision": "Use temporal validation and walk-forward modeling."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "Inflation_Rate_Pct",
+      "targetType": "numeric",
+      "uniqueValues": 679,
+      "missingPercent": 0.0,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": true,
+        "sequentialOrdering": false,
+        "frequencyConsistency": 1.0,
+        "duplicateTimestampRatio": 0.9269,
+        "missingIntervalRatio": 0.0,
+        "recommendedTarget": "Inflation_Rate_Pct"
+      },
+      "qualityIntelligence": {
+        "trustScore": 94.5,
+        "missingPattern": "Structural missingness: 1 column(s) have >30% missing values (Disruption_Event). This is common in panel datasets where not all records have all fields.",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Use interpolation or forward-fill only after sorting by time.",
+          "Validate performance with temporal holdout, not random split.",
+          "Review high-cardinality identifiers before using them as predictors."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "Order_Date",
+          "sameTimeCorrelation": 0.078,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "Delay_Days",
+          "sameTimeCorrelation": 0.005,
+          "lagInfluence": 0.029,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "Actual_Lead_Time_Days",
+          "sameTimeCorrelation": 0.002,
+          "lagInfluence": 0.019,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "Order_Weight_Kg",
+          "sameTimeCorrelation": 0.005,
+          "lagInfluence": 0.012,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "Weather_Severity_Index",
+          "sameTimeCorrelation": 0.006,
+          "lagInfluence": 0.011,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "Base_Lead_Time_Days",
+          "sameTimeCorrelation": 0.002,
+          "lagInfluence": 0.01,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "Shipping_Cost_USD",
+          "sameTimeCorrelation": 0.01,
+          "lagInfluence": 0.005,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "Scheduled_Lead_Time_Days",
+          "sameTimeCorrelation": 0.001,
+          "lagInfluence": 0.009,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        }
+      ],
+      "redundantFeatures": [
+        {
+          "features": [
+            "Base_Lead_Time_Days",
+            "Scheduled_Lead_Time_Days"
+          ],
+          "correlation": 0.997
+        },
+        {
+          "features": [
+            "Base_Lead_Time_Days",
+            "Actual_Lead_Time_Days"
+          ],
+          "correlation": 0.948
+        },
+        {
+          "features": [
+            "Scheduled_Lead_Time_Days",
+            "Actual_Lead_Time_Days"
+          ],
+          "correlation": 0.946
+        }
+      ],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 37.4,
+        "grade": "poor",
+        "seasonalityStrength": 0.06,
+        "trendConsistency": 0.057,
+        "stationarityScore": 0.956,
+        "noiseRatio": 0.978,
+        "intervalStability": 1.0,
+        "reasons": [
+          "Seasonality strength is 0.06, indicating limited repeating structure.",
+          "Trend consistency is 0.06, showing mostly flat or irregular movement.",
+          "Noise ratio is 0.98, so signal quality is noisy for forecasting."
+        ],
+        "risks": [
+          "High randomness may reduce forecast confidence."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "weak periodicity",
+        "anomalies": [
+          {
+            "index": 28,
+            "timestamp": "2025-04-25",
+            "severity": 4.64
+          },
+          {
+            "index": 206,
+            "timestamp": "2025-12-05",
+            "severity": 3.01
+          },
+          {
+            "index": 501,
+            "timestamp": "2024-11-12",
+            "severity": 3.36
+          }
+        ],
+        "anomalyRate": 0.0041,
+        "regimeChanges": [
+          76,
+          193,
+          203,
+          241,
+          260
+        ],
+        "driftScore": 0.032,
+        "interpretation": "Behavior is stable enough for forecasting."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "RandomForest",
+        "reason": "The target signal is noisy or weakly forecastable, so a bagged tree model with lag/calendar features is a safer default than an LSTM.",
+        "preprocessingPlan": [
+          "sort by timestamp",
+          "impute temporal gaps",
+          "create lag features",
+          "use walk-forward validation"
+        ],
+        "optimizationFocus": "minimize MAE and monitor MAPE drift across recent windows",
+        "confidence": "poor",
+        "datasetType": "time-series"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "Global Supply Chain Disruption And Resilience; dataset_id=bertnardomariouskono--global-supply-chain-disruption-and-resilience; rows=10000; columns=19; missing=4.6%; dataset_type=time-series; target=Inflation_Rate_Pct; time_column=Order_Date"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 94.5, \"missingPattern\": \"Structural missingness: 1 column(s) have >30% missing values (Disruption_Event). This is common in panel datasets where not all records have all fields.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Use interpolation or forward-fill only after sorting by time.\", \"Validate performance with temporal holdout, not random split.\", \"Review high-cardinality identifiers before using them as predictors.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 37.4, \"grade\": \"poor\", \"seasonalityStrength\": 0.06, \"trendConsistency\": 0.057, \"stationarityScore\": 0.956, \"noiseRatio\": 0.978, \"intervalStability\": 1.0, \"reasons\": [\"Seasonality strength is 0.06, indicating limited repeating structure.\", \"Trend consistency is 0.06, showing mostly flat or irregular movement.\", \"Noise ratio is 0.98, so signal quality is noisy for forecasting.\"], \"risks\": [\"High randomness may reduce forecast confidence.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"The target signal is noisy or weakly forecastable, so a bagged tree model with lag/calendar features is a safer default than an LSTM.\", \"preprocessingPlan\": [\"sort by timestamp\", \"impute temporal gaps\", \"create lag features\", \"use walk-forward validation\"], \"optimizationFocus\": \"minimize MAE and monitor MAPE drift across recent windows\", \"confidence\": \"poor\", \"datasetType\": \"time-series\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"Order_Date\", \"sameTimeCorrelation\": 0.078, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"Delay_Days\", \"sameTimeCorrelation\": 0.005, \"lagInfluence\": 0.029, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Actual_Lead_Time_Days\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.019, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Order_Weight_Kg\", \"sameTimeCorrelation\": 0.005, \"lagInfluence\": 0.012, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Weather_Severity_Index\", \"sameTimeCorrelation\": 0.006, \"lagInfluence\": 0.011, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Base_Lead_Time_Days\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.01, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Shipping_Cost_USD\", \"sameTimeCorrelation\": 0.01, \"lagInfluence\": 0.005, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Scheduled_Lead_Time_Days\", \"sameTimeCorrelation\": 0.001, \"lagInfluence\": 0.009, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Geopolitical_Risk_Index\", \"sameTimeCorrelation\": 0.005, \"lagInfluence\": 0.002, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Origin_City\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [{\"features\": [\"Base_Lead_Time_Days\", \"Scheduled_Lead_Time_Days\"], \"correlation\": 0.997}, {\"features\": [\"Base_Lead_Time_Days\", \"Actual_Lead_Time_Days\"], \"correlation\": 0.948}, {\"features\": [\"Scheduled_Lead_Time_Days\", \"Actual_Lead_Time_Days\"], \"correlation\": 0.946}], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Use lagged target features plus the strongest exogenous regressors.\"}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 10000, \"columnsScanned\": 19, \"memoryBytes\": 7166178}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"parallel-batched\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 9, \"categorical\": 8, \"datetime\": 1, \"text\": 1}, \"highMissingColumns\": [{\"name\": \"Disruption_Event\", \"missingPercent\": 87.33}], \"highCardinalityColumns\": [\"Order_ID\", \"Order_Date\", \"Inflation_Rate_Pct\", \"Shipping_Cost_USD\", \"Order_Weight_Kg\"]}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": true, \"timeColumn\": \"Order_Date\", \"frequency\": \"1 days 00:00:00\", \"consistencyScore\": 1.0, \"orderingScore\": 0.494, \"decision\": \"Use temporal validation and walk-forward modeling.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"Inflation_Rate_Pct\", \"targetType\": \"numeric\", \"uniqueValues\": 679, \"missingPercent\": 0.0, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": true, \"sequentialOrdering\": false, \"frequencyConsistency\": 1.0, \"duplicateTimestampRatio\": 0.9269, \"missingIntervalRatio\": 0.0, \"recommendedTarget\": \"Inflation_Rate_Pct\"}, \"qualityIntelligence\": {\"trustScore\": 94.5, \"missingPattern\": \"Structural missingness: 1 column(s) have >30% missing values (Disruption_Event). This is common in panel datasets where not all records have all fields.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Use interpolation or forward-fill only after sorting by time.\", \"Validate performance with temporal holdout, not random split.\", \"Review high-cardinality identifiers before using them as predictors.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"Order_Date\", \"sameTimeCorrelation\": 0.078, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"Delay_Days\", \"sameTimeCorrelation\": 0.005, \"lagInfluence\": 0.029, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Actual_Lead_Time_Days\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.019, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Order_Weight_Kg\", \"sameTimeCorrelation\": 0.005, \"lagInfluence\": 0.012, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Weather_Severity_Index\", \"sameTimeCorrelation\": 0.006, \"lagInfluence\": 0.011, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Base_Lead_Time_Days\", \"sameTimeCorrelation\": 0.002, \"lagInfluence\": 0.01, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Shipping_Cost_USD\", \"sameTimeCorrelation\": 0.01, \"lagInfluence\": 0.005, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"Scheduled_Lead_Time_Days\", \"sameTimeCorrelation\": 0.001, \"lagInfluence\": 0.009, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [{\"features\": [\"Base_Lead_Time_Days\", \"Scheduled_Lead_Time_Days\"], \"correlation\": 0.997}, {\"features\": [\"Base_Lead_Time_Days\", \"Actual_Lead_Time_Days\"], \"correlation\": 0.948}, {\"features\": [\"Scheduled_Lead_Time_Days\", \"Actual_Lead_Time_Days\"], \"correlation\": 0.946}], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 37.4, \"grade\": \"poor\", \"seasonalityStrength\": 0.06, \"trendConsistency\": 0.057, \"stationarityScore\": 0.956, \"noiseRatio\": 0.978, \"intervalStability\": 1.0, \"reasons\": [\"Seasonality strength is 0.06, indicating limited repeating structure.\", \"Trend consistency is 0.06, showing mostly flat or irregular movement.\", \"Noise ratio is 0.98, so signal quality is noisy for forecasting.\"], \"risks\": [\"High randomness may reduce forecast confidence.\"]}, \"temporalBehavior\": {\"periodicity\": \"weak periodicity\", \"anomalies\": [{\"index\": 28, \"timestamp\": \"2025-04-25\", \"severity\": 4.64}, {\"index\": 206, \"timestamp\": \"2025-12-05\", \"severity\": 3.01}, {\"index\": 501, \"timestamp\": \"2024-11-12\", \"severity\": 3.36}], \"anomalyRate\": 0.0041, \"regimeChanges\": [76, 193, 203, 241, 260], \"driftScore\": 0.032, \"interpretation\": \"Behavior is stable enough for forecasting.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"The target signal is noisy or weakly forecastable, so a bagged tree model with lag/calendar features is a safer default than an LSTM.\", \"preprocessingPlan\": [\"sort by timestamp\", \"impute temporal gaps\", \"create lag features\", \"use walk-forward validation\"], \"optimizationFocus\": \"minimize MAE and monitor MAPE drift across recent windows\", \"confidence\": \"poor\", \"datasetType\": \"time-series\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Order_ID\", \"type\": \"text\", \"missingPercent\": 0.0, \"uniqueValues\": 10000, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"ORD-00BCB25B\", \"ORD-AB0EBB19\", \"ORD-959E8B05\"], \"role\": {\"role\": \"context_feature\", \"type\": \"text\", \"reason\": \"Textual or high-cardinality field may provide context.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Order_Date\", \"type\": \"datetime\", \"missingPercent\": 0.0, \"uniqueValues\": 731, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"2024-02-01\", \"2025-05-19\", \"2024-05-15\"], \"role\": {\"role\": \"temporal_index\", \"type\": \"datetime\", \"reason\": \"High date-like parse rate makes this the sequence anchor.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Origin_City\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 6, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Mumbai, IN\", \"Shenzhen, CN\", \"Hamburg, DE\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Destination_City\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 6, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Felixstowe, UK\", \"Rotterdam, NL\", \"New York, US\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Route_Type\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 5, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Suez\", \"Atlantic\", \"Pacific\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Transportation_Mode\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 2, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Sea\", \"Air\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Product_Category\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 7, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Consumer Electronics\", \"Semiconductors\", \"Textiles\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Base_Lead_Time_Days\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 9, \"min\": 2.0, \"max\": 35.0, \"mean\": 17.5099, \"median\": 18.0, \"std\": 10.902298014180312, \"outlierPercent\": 0.0, \"topValues\": [\"24\", \"18\", \"12\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Scheduled_Lead_Time_Days\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 23, \"min\": 3.0, \"max\": 38.0, \"mean\": 19.5032, \"median\": 20.0, \"std\": 10.93301375467899, \"outlierPercent\": 0.0, \"topValues\": [\"5\", \"27\", \"19\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Actual_Lead_Time_Days\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 48, \"min\": 1.0, \"max\": 49.0, \"mean\": 18.7043, \"median\": 18.0, \"std\": 11.66223226959573, \"outlierPercent\": 0.0, \"topValues\": [\"18\", \"12\", \"24\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Delay_Days\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 21, \"min\": 0.0, \"max\": 20.0, \"mean\": 0.9475, \"median\": 0.0, \"std\": 3.1171371079886745, \"outlierPercent\": 0.0, \"topValues\": [\"0\", \"1\", \"3\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Delivery_Status\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 2, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"On Time\", \"Late\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Disruption_Event\", \"type\": \"categorical\", \"missingPercent\": 87.33, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Port Congestion\", \"Geopolitical Conflict (Route Diversion)\", \"Severe Weather (Typhoon/Storm)\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Geopolitical_Risk_Index\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 81, \"min\": 0.1, \"max\": 0.9, \"mean\": 0.4967700000000001, \"median\": 0.5, \"std\": 0.23059966847330896, \"outlierPercent\": 0.0, \"topValues\": [\"0.44\", \"0.64\", \"0.62\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Weather_Severity_Index\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 101, \"min\": 0.0, \"max\": 10.0, \"mean\": 4.976459999999999, \"median\": 4.9, \"std\": 2.879513825005881, \"outlierPercent\": 0.0, \"topValues\": [\"4.1\", \"2.0\", \"4.9\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Inflation_Rate_Pct\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 679, \"min\": -1.15, \"max\": 7.92, \"mean\": 3.5160099999999996, \"median\": 3.5, \"std\": 1.2095369692159061, \"outlierPercent\": 0.65, \"topValues\": [\"3.32\", \"3.13\", \"3.77\"], \"role\": {\"role\": \"forecast_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Shipping_Cost_USD\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 9898, \"min\": 59.94, \"max\": 206814.29, \"mean\": 11437.916337, \"median\": 4520.17, \"std\": 21085.635297764868, \"outlierPercent\": 15.0, \"topValues\": [\"4996.29\", \"5338.41\", \"219.09\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Order_Weight_Kg\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 6303, \"min\": 101.0, \"max\": 9999.0, \"mean\": 5033.7325, \"median\": 5044.5, \"std\": 2830.855234861675, \"outlierPercent\": 0.0, \"topValues\": [\"2529\", \"6459\", \"5822\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Mitigation_Action_Taken\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Standard Shipping\", \"Re-routing\", \"Expedited Air Freight\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    }
+  ]
+}

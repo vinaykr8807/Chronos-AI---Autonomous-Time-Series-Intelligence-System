@@ -1,0 +1,522 @@
+{
+  "datasetId": "ddosad--dummy-truck-sales-for-time-series",
+  "title": "Dummy Truck Sales For Time Series",
+  "summary": {
+    "rows": 144,
+    "columns": 2,
+    "rowsScanned": 144,
+    "columnsScanned": 2,
+    "targetColumn": "Number_Trucks_Sold",
+    "missingPercent": 0.0,
+    "timeSeriesValidated": false,
+    "timeRangeStart": "unknown",
+    "timeRangeEnd": "unknown",
+    "edaMode": "nine-record-batch-eda",
+    "edaExecution": "record-batched-full-reconciliation",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 144,
+    "chartSourceRows": 144,
+    "loadTimeMs": 10.1,
+    "profileTimeMs": 85.7,
+    "dataSource": "kaggle:ddosad/dummy-truck-sales-for-time-series",
+    "profileInputSource": "kaggle:ddosad/dummy-truck-sales-for-time-series",
+    "rowsAnalyzed": 144,
+    "recordBatchCount": 9,
+    "batchRowsProfiled": 144,
+    "syntheticFallback": false,
+    "sourceRef": "ddosad/dummy-truck-sales-for-time-series",
+    "realDataLoaded": true,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": false,
+    "timeColumn": null,
+    "frequency": "unknown",
+    "gapRatio": null,
+    "orderingScore": 0.0,
+    "consistencyScore": 0.0,
+    "seasonalityHint": "undetermined"
+  },
+  "validation": {
+    "timestampPresence": false,
+    "sequentialOrdering": false,
+    "frequencyConsistency": 0.0,
+    "duplicateTimestampRatio": 0.0,
+    "missingIntervalRatio": null,
+    "recommendedTarget": "Number_Trucks_Sold"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "Month-Year": {
+        "role": "context_feature",
+        "type": "text",
+        "reason": "Textual or high-cardinality field may provide context."
+      },
+      "Number_Trucks_Sold": {
+        "role": "prediction_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict."
+      }
+    },
+    "entityColumns": [],
+    "targetColumn": "Number_Trucks_Sold",
+    "timeColumn": null,
+    "temporalHierarchy": [],
+    "relationshipSummary": "`Number_Trucks_Sold` is predicted from available features.",
+    "datasetType": "cross-sectional"
+  },
+  "forecastability": {
+    "score": 24.8,
+    "grade": "poor",
+    "seasonalityStrength": 0.0,
+    "trendConsistency": 0.0,
+    "stationarityScore": 0.371,
+    "noiseRatio": 0.391,
+    "intervalStability": 0.0,
+    "reasons": [
+      "Dataset has 144 rows and 0 numeric feature(s) available for prediction.",
+      "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+      "Signal-to-noise ratio is good (noise ratio: 0.39)."
+    ],
+    "risks": [
+      "Without a time index, temporal forecasting is not applicable.",
+      "Use cross-validation instead of walk-forward splits."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "not applicable \u2014 cross-sectional dataset",
+    "anomalies": [],
+    "anomalyRate": 0.0,
+    "outlierCount": 0,
+    "regimeChanges": [],
+    "driftScore": 0.0,
+    "skewness": 0.636,
+    "distributionShape": "right-skewed",
+    "interpretation": "Cross-sectional dataset. Target `Number_Trucks_Sold` has 0 outliers (0.0% of rows). Distribution is right-skewed."
+  },
+  "qualityIntelligence": {
+    "trustScore": 100.0,
+    "missingPattern": "No missing values detected \u2014 dataset is complete.",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Encode categorical features before training (label or one-hot encoding).",
+      "Use stratified k-fold cross-validation for unbiased evaluation.",
+      "Check for class imbalance in the target variable.",
+      "Review high-cardinality columns \u2014 consider target encoding or dropping."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "Month-Year",
+        "sameTimeCorrelation": 1.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "strong_driver"
+      }
+    ],
+    "redundantFeatures": [],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Encode categorical features and use cross-validated feature importance to rank predictors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "RandomForest",
+    "reason": "Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.",
+    "preprocessingPlan": [
+      "encode categorical features",
+      "impute missing values",
+      "use k-fold validation",
+      "tune tree depth and leaf size"
+    ],
+    "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+    "confidence": "poor",
+    "datasetType": "cross-sectional"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "sales",
+    "businessMeaning": "This dataset captures retail or e-commerce transaction behavior.",
+    "likelyUseCase": "customer behavior analysis",
+    "targetMeaning": "`Number_Trucks_Sold` is likely the primary quantity to predict.",
+    "datasetType": "cross-sectional"
+  },
+  "edaTrace": [
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 1,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "1-16",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 194.75
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 2,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "17-32",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 246.8125
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 3,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "33-48",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 284.8125
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 4,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "49-64",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 340.1875
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 5,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "65-80",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 419.0625
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 6,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "81-96",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 475.6875
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 7,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "97-112",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 552.8125
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 8,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "113-128",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 650.5625
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 9,
+      "batchCount": 9,
+      "rows": 16,
+      "rowRange": "129-144",
+      "missingPercent": 0.0,
+      "numericColumns": 1,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "Number_Trucks_Sold": 693.875
+      }
+    },
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 144,
+      "columnsScanned": 2,
+      "memoryBytes": 10356
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "single-batch",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 1,
+        "categorical": 0,
+        "datetime": 0,
+        "text": 1
+      },
+      "highMissingColumns": [],
+      "highCardinalityColumns": [
+        "Month-Year",
+        "Number_Trucks_Sold"
+      ]
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": false,
+      "timeColumn": null,
+      "frequency": "unknown",
+      "consistencyScore": 0.0,
+      "orderingScore": 0.0,
+      "decision": "Treat as cross-sectional; do not use temporal forecast assumptions."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "Number_Trucks_Sold",
+      "targetType": "numeric",
+      "uniqueValues": 123,
+      "missingPercent": 0.0,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": false,
+        "sequentialOrdering": false,
+        "frequencyConsistency": 0.0,
+        "duplicateTimestampRatio": 0.0,
+        "missingIntervalRatio": null,
+        "recommendedTarget": "Number_Trucks_Sold"
+      },
+      "qualityIntelligence": {
+        "trustScore": 100.0,
+        "missingPattern": "No missing values detected \u2014 dataset is complete.",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Encode categorical features before training (label or one-hot encoding).",
+          "Use stratified k-fold cross-validation for unbiased evaluation.",
+          "Check for class imbalance in the target variable.",
+          "Review high-cardinality columns \u2014 consider target encoding or dropping."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "Month-Year",
+          "sameTimeCorrelation": 1.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "strong_driver"
+        }
+      ],
+      "redundantFeatures": [],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 24.8,
+        "grade": "poor",
+        "seasonalityStrength": 0.0,
+        "trendConsistency": 0.0,
+        "stationarityScore": 0.371,
+        "noiseRatio": 0.391,
+        "intervalStability": 0.0,
+        "reasons": [
+          "Dataset has 144 rows and 0 numeric feature(s) available for prediction.",
+          "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+          "Signal-to-noise ratio is good (noise ratio: 0.39)."
+        ],
+        "risks": [
+          "Without a time index, temporal forecasting is not applicable.",
+          "Use cross-validation instead of walk-forward splits."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "not applicable \u2014 cross-sectional dataset",
+        "anomalies": [],
+        "anomalyRate": 0.0,
+        "outlierCount": 0,
+        "regimeChanges": [],
+        "driftScore": 0.0,
+        "skewness": 0.636,
+        "distributionShape": "right-skewed",
+        "interpretation": "Cross-sectional dataset. Target `Number_Trucks_Sold` has 0 outliers (0.0% of rows). Distribution is right-skewed."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "RandomForest",
+        "reason": "Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.",
+        "preprocessingPlan": [
+          "encode categorical features",
+          "impute missing values",
+          "use k-fold validation",
+          "tune tree depth and leaf size"
+        ],
+        "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+        "confidence": "poor",
+        "datasetType": "cross-sectional"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "Dummy Truck Sales For Time Series; dataset_id=ddosad--dummy-truck-sales-for-time-series; rows=144; columns=2; missing=0.0%; dataset_type=cross-sectional; target=Number_Trucks_Sold; time_column=None"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 24.8, \"grade\": \"poor\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 0.371, \"noiseRatio\": 0.391, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 144 rows and 0 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is good (noise ratio: 0.39).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.\", \"preprocessingPlan\": [\"encode categorical features\", \"impute missing values\", \"use k-fold validation\", \"tune tree depth and leaf size\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"poor\", \"datasetType\": \"cross-sectional\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"Month-Year\", \"sameTimeCorrelation\": 1.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Encode categorical features and use cross-validated feature importance to rank predictors.\"}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 1, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"1-16\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 194.75}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 2, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"17-32\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 246.8125}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 3, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"33-48\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 284.8125}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 4, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"49-64\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 340.1875}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 5, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"65-80\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 419.0625}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 6, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"81-96\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 475.6875}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 7, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"97-112\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 552.8125}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 8, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"113-128\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 650.5625}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 9, \"batchCount\": 9, \"rows\": 16, \"rowRange\": \"129-144\", \"missingPercent\": 0.0, \"numericColumns\": 1, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"Number_Trucks_Sold\": 693.875}}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 144, \"columnsScanned\": 2, \"memoryBytes\": 10356}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"single-batch\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 1, \"categorical\": 0, \"datetime\": 0, \"text\": 1}, \"highMissingColumns\": [], \"highCardinalityColumns\": [\"Month-Year\", \"Number_Trucks_Sold\"]}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": false, \"timeColumn\": null, \"frequency\": \"unknown\", \"consistencyScore\": 0.0, \"orderingScore\": 0.0, \"decision\": \"Treat as cross-sectional; do not use temporal forecast assumptions.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"Number_Trucks_Sold\", \"targetType\": \"numeric\", \"uniqueValues\": 123, \"missingPercent\": 0.0, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": false, \"sequentialOrdering\": false, \"frequencyConsistency\": 0.0, \"duplicateTimestampRatio\": 0.0, \"missingIntervalRatio\": null, \"recommendedTarget\": \"Number_Trucks_Sold\"}, \"qualityIntelligence\": {\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"Month-Year\", \"sameTimeCorrelation\": 1.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 24.8, \"grade\": \"poor\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 0.371, \"noiseRatio\": 0.391, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 144 rows and 0 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is good (noise ratio: 0.39).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}, \"temporalBehavior\": {\"periodicity\": \"not applicable \\u2014 cross-sectional dataset\", \"anomalies\": [], \"anomalyRate\": 0.0, \"outlierCount\": 0, \"regimeChanges\": [], \"driftScore\": 0.0, \"skewness\": 0.636, \"distributionShape\": \"right-skewed\", \"interpretation\": \"Cross-sectional dataset. Target `Number_Trucks_Sold` has 0 outliers (0.0% of rows). Distribution is right-skewed.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.\", \"preprocessingPlan\": [\"encode categorical features\", \"impute missing values\", \"use k-fold validation\", \"tune tree depth and leaf size\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"poor\", \"datasetType\": \"cross-sectional\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Month-Year\", \"type\": \"text\", \"missingPercent\": 0.0, \"uniqueValues\": 144, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"03-Jan\", \"03-Feb\", \"10-Sep\"], \"role\": {\"role\": \"context_feature\", \"type\": \"text\", \"reason\": \"Textual or high-cardinality field may provide context.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"Number_Trucks_Sold\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 123, \"min\": 152.0, \"max\": 958.0, \"mean\": 428.7291666666667, \"median\": 406.0, \"std\": 187.97692007967066, \"outlierPercent\": 0.0, \"topValues\": [\"307\", \"185\", \"318\"], \"role\": {\"role\": \"prediction_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict.\"}}"
+    }
+  ]
+}

@@ -1,5 +1,129 @@
 [
   {
+    "run_id": "eccd9729-afb6-4807-ba56-24d369754dc8",
+    "dataset_id": "ddosad--dummy-truck-sales-for-time-series",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 89.0705,
+      "rmse": 119.0272,
+      "mape": 12.1242,
+      "r2": 0.2643,
+      "mase": 1.0768
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:ddosad/dummy-truck-sales-for-time-series",
+      "sourceRef": "ddosad/dummy-truck-sales-for-time-series",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 144,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 144,
+      "trainRows": 112,
+      "testRows": 29,
+      "featureCount": 4,
+      "targetColumn": "Number_Trucks_Sold",
+      "datasetType": "cross-sectional"
+    },
+    "timestamp": "2026-05-10T11:42:59.754255+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
+    "run_id": "cd857285-e89c-4806-9397-b6ac2a40926f",
+    "dataset_id": "bertnardomariouskono--global-supply-chain-disruption-and-resilience",
+    "selected_model": "XGBoost",
+    "metrics": {
+      "mae": 0.0423,
+      "rmse": 0.0554,
+      "mape": 1.5933,
+      "r2": 0.998,
+      "mase": 0.0296
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "xgboost",
+      "dataSource": "kaggle:bertnardomariouskono/global-supply-chain-disruption-and-resilience",
+      "sourceRef": "bertnardomariouskono/global-supply-chain-disruption-and-resilience",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 10000,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 10000,
+      "trainRows": 9632,
+      "testRows": 200,
+      "featureCount": 37,
+      "targetColumn": "Inflation_Rate_Pct",
+      "datasetType": "time-series"
+    },
+    "timestamp": "2026-05-10T11:23:50.909972+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained XGBoost using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
     "run_id": "229ad325-f57f-4e50-90b5-1ba1d8c4ce3e",
     "dataset_id": "algozee--teenager-menthal-healy",
     "selected_model": "RandomForest",

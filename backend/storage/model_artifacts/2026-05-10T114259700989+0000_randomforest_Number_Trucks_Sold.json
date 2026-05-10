@@ -1,0 +1,26 @@
+{
+  "status": "packaged",
+  "modelFamily": "RandomForest",
+  "backend": "sklearn-random-forest",
+  "targetColumn": "Number_Trucks_Sold",
+  "createdAt": "2026-05-10T11:42:59.700989+00:00",
+  "localRuntimeNote": "Artifact was produced by the local training runtime. Validate before production use.",
+  "bestParams": {
+    "max_depth": 8,
+    "min_samples_leaf": 1,
+    "n_estimators": 100
+  },
+  "metrics": {
+    "mae": 89.0705,
+    "rmse": 119.0272,
+    "mape": 12.1242,
+    "r2": 0.2643,
+    "mase": 1.0768
+  },
+  "featureNames": [
+    "row_position",
+    "fallback_lag_1",
+    "fallback_lag_2",
+    "fallback_lag_3"
+  ]
+}

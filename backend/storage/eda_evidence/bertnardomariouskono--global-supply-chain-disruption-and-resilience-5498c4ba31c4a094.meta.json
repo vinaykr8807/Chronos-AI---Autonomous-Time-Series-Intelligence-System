@@ -1,0 +1,9 @@
+{
+  "evidenceId": "bertnardomariouskono--global-supply-chain-disruption-and-resilience-5498c4ba31c4a094",
+  "jsonPath": "storage\\eda_evidence\\bertnardomariouskono--global-supply-chain-disruption-and-resilience-5498c4ba31c4a094.json",
+  "faissPath": "storage\\eda_evidence\\bertnardomariouskono--global-supply-chain-disruption-and-resilience-5498c4ba31c4a094.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 41,
+  "llmGate": "ready"
+}

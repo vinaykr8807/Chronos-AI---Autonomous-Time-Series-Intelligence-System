@@ -1,0 +1,9 @@
+{
+  "evidenceId": "sharmajicoder--gen-z-social-media-usage-dataset-96d9cbe60c301bbd",
+  "jsonPath": "storage\\eda_evidence\\sharmajicoder--gen-z-social-media-usage-dataset-96d9cbe60c301bbd.json",
+  "faissPath": "storage\\eda_evidence\\sharmajicoder--gen-z-social-media-usage-dataset-96d9cbe60c301bbd.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 34,
+  "llmGate": "ready"
+}
