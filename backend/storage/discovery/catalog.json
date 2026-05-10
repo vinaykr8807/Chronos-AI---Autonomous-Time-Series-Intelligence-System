@@ -1,0 +1,352 @@
+[
+  {
+    "id": "algozee--teenager-menthal-healy",
+    "title": "Teenager Menthal Healy",
+    "description": "Cached local dataset from storage/datasets with primary file `Teen_Mental_Health_Dataset.csv`.",
+    "domain": "iot",
+    "tags": [
+      "iot",
+      "algozee--teenager-menthal-healy",
+      "teen-mental-health-dataset.csv",
+      "teenager",
+      "menthal",
+      "healy"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 1200,
+    "columnCount": 13,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "algozee/teenager-menthal-healy",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "amineamllal--energy-demand-in-the-electricity-energy-bane-16",
+    "title": "Energy Demand In The Electricity Energy Bane 16",
+    "description": "Cached local dataset from storage/datasets with primary file `final_dataset_v2.csv`.",
+    "domain": "energy",
+    "tags": [
+      "energy",
+      "amineamllal--energy-demand-in-the-electricity-energy-bane-16",
+      "final-dataset-v2.csv",
+      "energy",
+      "demand",
+      "the"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 1946,
+    "columnCount": 16,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "amineamllal/energy-demand-in-the-electricity-energy-bane-16",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "arusouza--23-years-of-hourly-eletric-energy-demand-brazil",
+    "title": "23 Years Of Hourly Eletric Energy Demand Brazil",
+    "description": "Cached local dataset from storage/datasets with primary file `energy_demand_hourly_brazil.csv`.",
+    "domain": "energy",
+    "tags": [
+      "energy",
+      "arusouza--23-years-of-hourly-eletric-energy-demand-brazil",
+      "energy-demand-hourly-brazil.csv",
+      "years",
+      "hourly",
+      "eletric"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 201318,
+    "columnCount": 2,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "arusouza/23-years-of-hourly-eletric-energy-demand-brazil",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "bertnardomariouskono--global-supply-chain-disruption-and-resilience",
+    "title": "Global Supply Chain Disruption And Resilience",
+    "description": "Cached local dataset from storage/datasets with primary file `global_supply_chain_disruption_v1.csv`.",
+    "domain": "sales",
+    "tags": [
+      "sales",
+      "bertnardomariouskono--global-supply-chain-disruption-and-resilience",
+      "global-supply-chain-disruption-v1.csv",
+      "global",
+      "supply",
+      "chain"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 10000,
+    "columnCount": 19,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "bertnardomariouskono/global-supply-chain-disruption-and-resilience",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "datasetengineer--southern-california-energy-consumption",
+    "title": "Southern California Energy Consumption",
+    "description": "Cached local dataset from storage/datasets with primary file `electricity_consumption_optimization_dataset.csv`.",
+    "domain": "energy",
+    "tags": [
+      "energy",
+      "datasetengineer--southern-california-energy-consumption",
+      "electricity-consumption-optimization-dataset.csv",
+      "southern",
+      "california",
+      "energy"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 52585,
+    "columnCount": 40,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "datasetengineer/southern-california-energy-consumption",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "ddosad--dummy-truck-sales-for-time-series",
+    "title": "Dummy Truck Sales For Time Series",
+    "description": "Cached local dataset from storage/datasets with primary file `Truck_sales.csv`.",
+    "domain": "sales",
+    "tags": [
+      "sales",
+      "ddosad--dummy-truck-sales-for-time-series",
+      "truck-sales.csv",
+      "dummy",
+      "truck",
+      "sales"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 144,
+    "columnCount": 2,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "ddosad/dummy-truck-sales-for-time-series",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "elikplim--eergy-efficiency-dataset",
+    "title": "Eergy Efficiency Dataset",
+    "description": "Cached local dataset from storage/datasets with primary file `ENB2012_data.csv`.",
+    "domain": "energy",
+    "tags": [
+      "energy",
+      "elikplim--eergy-efficiency-dataset",
+      "enb2012-data.csv",
+      "eergy",
+      "efficiency",
+      "dataset"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": false,
+    "rowCount": 768,
+    "columnCount": 10,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "elikplim/eergy-efficiency-dataset",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "elvisbui--world-happiness-report-2005-2025-panel",
+    "title": "World Happiness Report 2005 2025 Panel",
+    "description": "Cached local dataset from storage/datasets with primary file `world_happiness_report_2005_2025.csv`.",
+    "domain": "iot",
+    "tags": [
+      "iot",
+      "elvisbui--world-happiness-report-2005-2025-panel",
+      "world-happiness-report-2005-2025.csv",
+      "world",
+      "happiness",
+      "report"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": false,
+    "rowCount": 2116,
+    "columnCount": 13,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "elvisbui/world-happiness-report-2005-2025-panel",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "sharmajicoder--gen-z-social-media-usage-dataset",
+    "title": "Gen Z Social Media Usage Dataset",
+    "description": "Cached local dataset from storage/datasets with primary file `genz_social_media_usage_1M.csv`.",
+    "domain": "iot",
+    "tags": [
+      "iot",
+      "sharmajicoder--gen-z-social-media-usage-dataset",
+      "genz-social-media-usage-1m.csv",
+      "gen",
+      "social",
+      "media"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 1000000,
+    "columnCount": 12,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "sharmajicoder/gen-z-social-media-usage-dataset",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "tanayatipre--store-sales-forecasting-dataset",
+    "title": "Store Sales Forecasting Dataset",
+    "description": "Cached local dataset from storage/datasets with primary file `stores_sales_forecasting.csv`.",
+    "domain": "sales",
+    "tags": [
+      "sales",
+      "tanayatipre--store-sales-forecasting-dataset",
+      "stores-sales-forecasting.csv",
+      "store",
+      "sales",
+      "forecasting"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 2121,
+    "columnCount": 21,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "tanayatipre/store-sales-forecasting-dataset",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "uzmaakhtar--gold-price-history-18332026",
+    "title": "Gold Price History 18332026",
+    "description": "Cached local dataset from storage/datasets with primary file `gold_advanced_features.csv`.",
+    "domain": "finance",
+    "tags": [
+      "finance",
+      "uzmaakhtar--gold-price-history-18332026",
+      "gold-advanced-features.csv",
+      "gold",
+      "price",
+      "history"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": false,
+    "rowCount": 2306,
+    "columnCount": 26,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "uzmaakhtar/gold-price-history-18332026",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "zeeshier--weather-forecast-dataset",
+    "title": "Weather Forecast Dataset",
+    "description": "Cached local dataset from storage/datasets with primary file `weather_forecast_data.csv`.",
+    "domain": "traffic",
+    "tags": [
+      "traffic",
+      "zeeshier--weather-forecast-dataset",
+      "weather-forecast-data.csv",
+      "weather",
+      "forecast",
+      "dataset"
+    ],
+    "relevanceScore": 0.86,
+    "isTimeSeriesValidated": true,
+    "rowCount": 2500,
+    "columnCount": 6,
+    "timeRange": {
+      "start": "unknown",
+      "end": "unknown"
+    },
+    "missingPercent": 0.0,
+    "source": "local-storage",
+    "ref": "zeeshier/weather-forecast-dataset",
+    "semanticScore": 0.86,
+    "validationSummary": "Available from local storage; run EDA to validate forecasting readiness."
+  },
+  {
+    "id": "energy-001",
+    "title": "California Energy Consumption",
+    "description": "Hourly energy consumption data for California grid covering residential, commercial, and industrial sectors.",
+    "domain": "energy",
+    "tags": [
+      "energy",
+      "consumption",
+      "california",
+      "grid",
+      "hourly"
+    ],
+    "relevanceScore": 0.95,
+    "isTimeSeriesValidated": true,
+    "rowCount": 52584,
+    "columnCount": 12,
+    "timeRange": {
+      "start": "2018-01-01",
+      "end": "2024-12-31"
+    },
+    "missingPercent": 2.3,
+    "source": "local-storage",
+    "ref": "datasetengineer/southern-california-energy-consumption",
+    "semanticScore": null,
+    "validationSummary": "Backed by the cached Kaggle CSV in storage/datasets; EDA and training load the real dataframe."
+  }
+]

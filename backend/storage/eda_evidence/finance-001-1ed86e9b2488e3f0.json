@@ -1,0 +1,380 @@
+{
+  "datasetId": "finance-001",
+  "title": "Finance 001",
+  "summary": {
+    "rows": 2400,
+    "columns": 4,
+    "rowsScanned": 2400,
+    "columnsScanned": 4,
+    "targetColumn": "target_value",
+    "missingPercent": 0.0,
+    "timeSeriesValidated": true,
+    "timeRangeStart": "2021-01-01T00:00:00",
+    "timeRangeEnd": "2021-04-10T23:00:00",
+    "edaMode": "full-dataframe",
+    "edaExecution": "parallel-batched",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 500,
+    "chartSourceRows": 2400,
+    "loadTimeMs": 3.1,
+    "profileTimeMs": 210.5,
+    "dataSource": "synthetic-profile",
+    "profileInputSource": "synthetic-profile",
+    "rowsAnalyzed": 2400,
+    "syntheticFallback": true,
+    "realDataLoaded": false,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": true,
+    "timeColumn": "timestamp",
+    "frequency": "0 days 01:00:00",
+    "gapRatio": 0.0,
+    "orderingScore": 1.0,
+    "consistencyScore": 1.0,
+    "seasonalityHint": "daily-like",
+    "start": "2021-01-01T00:00:00",
+    "end": "2021-04-10T23:00:00",
+    "duplicateTimestampRatio": 0.0
+  },
+  "validation": {
+    "timestampPresence": true,
+    "sequentialOrdering": true,
+    "frequencyConsistency": 1.0,
+    "duplicateTimestampRatio": 0.0,
+    "missingIntervalRatio": 0.0,
+    "recommendedTarget": "target_value"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "timestamp": {
+        "role": "temporal_index",
+        "type": "datetime",
+        "reason": "High date-like parse rate makes this the sequence anchor."
+      },
+      "target_value": {
+        "role": "forecast_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict over time."
+      },
+      "temperature": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "segment": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      }
+    },
+    "entityColumns": [
+      "segment"
+    ],
+    "targetColumn": "target_value",
+    "timeColumn": "timestamp",
+    "temporalHierarchy": [
+      "hour",
+      "day",
+      "week"
+    ],
+    "relationshipSummary": "`target_value` is modeled over time using temperature and grouped by segment.",
+    "datasetType": "time-series"
+  },
+  "forecastability": {
+    "score": 65.4,
+    "grade": "moderate",
+    "seasonalityStrength": 0.976,
+    "trendConsistency": 0.101,
+    "stationarityScore": 0.922,
+    "noiseRatio": 0.743,
+    "intervalStability": 1.0,
+    "reasons": [
+      "Seasonality strength is 0.98, indicating clear recurring behavior.",
+      "Trend consistency is 0.10, showing mostly flat or irregular movement.",
+      "Noise ratio is 0.74, so signal quality is noisy for forecasting."
+    ],
+    "risks": [
+      "High randomness may reduce forecast confidence."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "weekly-hourly-like",
+    "anomalies": [],
+    "anomalyRate": 0.0,
+    "regimeChanges": [],
+    "driftScore": 0.07,
+    "interpretation": "Behavior is stable enough for forecasting."
+  },
+  "qualityIntelligence": {
+    "trustScore": 100.0,
+    "missingPattern": "No missing values detected \u2014 dataset is complete.",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Use interpolation or forward-fill only after sorting by time.",
+      "Validate performance with temporal holdout, not random split.",
+      "Review high-cardinality identifiers before using them as predictors."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "temperature",
+        "sameTimeCorrelation": 0.663,
+        "lagInfluence": 0.623,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "segment",
+        "sameTimeCorrelation": 0.001,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      }
+    ],
+    "redundantFeatures": [],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Use lagged target features plus the strongest exogenous regressors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "RandomForest",
+    "reason": "Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.",
+    "preprocessingPlan": [
+      "sort by timestamp",
+      "impute temporal gaps",
+      "create lag features",
+      "use walk-forward validation"
+    ],
+    "optimizationFocus": "minimize MAE and monitor MAPE drift across recent windows",
+    "confidence": "moderate",
+    "datasetType": "time-series"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "weather",
+    "businessMeaning": "This dataset captures atmospheric measurements and weather conditions.",
+    "likelyUseCase": "weather forecasting and climate trend analysis",
+    "targetMeaning": "`target_value` is likely the primary quantity to forecast.",
+    "datasetType": "time-series"
+  },
+  "edaTrace": [
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 2400,
+      "columnsScanned": 4,
+      "memoryBytes": 219638
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "single-batch",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 2,
+        "categorical": 1,
+        "datetime": 1,
+        "text": 0
+      },
+      "highMissingColumns": [],
+      "highCardinalityColumns": [
+        "timestamp",
+        "target_value",
+        "temperature"
+      ]
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": true,
+      "timeColumn": "timestamp",
+      "frequency": "0 days 01:00:00",
+      "consistencyScore": 1.0,
+      "orderingScore": 1.0,
+      "decision": "Use temporal validation and walk-forward modeling."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "target_value",
+      "targetType": "numeric",
+      "uniqueValues": 2400,
+      "missingPercent": 0.0,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": true,
+        "sequentialOrdering": true,
+        "frequencyConsistency": 1.0,
+        "duplicateTimestampRatio": 0.0,
+        "missingIntervalRatio": 0.0,
+        "recommendedTarget": "target_value"
+      },
+      "qualityIntelligence": {
+        "trustScore": 100.0,
+        "missingPattern": "No missing values detected \u2014 dataset is complete.",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Use interpolation or forward-fill only after sorting by time.",
+          "Validate performance with temporal holdout, not random split.",
+          "Review high-cardinality identifiers before using them as predictors."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "temperature",
+          "sameTimeCorrelation": 0.663,
+          "lagInfluence": 0.623,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "segment",
+          "sameTimeCorrelation": 0.001,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "weak_or_contextual"
+        }
+      ],
+      "redundantFeatures": [],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 65.4,
+        "grade": "moderate",
+        "seasonalityStrength": 0.976,
+        "trendConsistency": 0.101,
+        "stationarityScore": 0.922,
+        "noiseRatio": 0.743,
+        "intervalStability": 1.0,
+        "reasons": [
+          "Seasonality strength is 0.98, indicating clear recurring behavior.",
+          "Trend consistency is 0.10, showing mostly flat or irregular movement.",
+          "Noise ratio is 0.74, so signal quality is noisy for forecasting."
+        ],
+        "risks": [
+          "High randomness may reduce forecast confidence."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "weekly-hourly-like",
+        "anomalies": [],
+        "anomalyRate": 0.0,
+        "regimeChanges": [],
+        "driftScore": 0.07,
+        "interpretation": "Behavior is stable enough for forecasting."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "RandomForest",
+        "reason": "Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.",
+        "preprocessingPlan": [
+          "sort by timestamp",
+          "impute temporal gaps",
+          "create lag features",
+          "use walk-forward validation"
+        ],
+        "optimizationFocus": "minimize MAE and monitor MAPE drift across recent windows",
+        "confidence": "moderate",
+        "datasetType": "time-series"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "Finance 001; dataset_id=finance-001; rows=2400; columns=4; missing=0.0%; dataset_type=time-series; target=target_value; time_column=timestamp"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Use interpolation or forward-fill only after sorting by time.\", \"Validate performance with temporal holdout, not random split.\", \"Review high-cardinality identifiers before using them as predictors.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 65.4, \"grade\": \"moderate\", \"seasonalityStrength\": 0.976, \"trendConsistency\": 0.101, \"stationarityScore\": 0.922, \"noiseRatio\": 0.743, \"intervalStability\": 1.0, \"reasons\": [\"Seasonality strength is 0.98, indicating clear recurring behavior.\", \"Trend consistency is 0.10, showing mostly flat or irregular movement.\", \"Noise ratio is 0.74, so signal quality is noisy for forecasting.\"], \"risks\": [\"High randomness may reduce forecast confidence.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.\", \"preprocessingPlan\": [\"sort by timestamp\", \"impute temporal gaps\", \"create lag features\", \"use walk-forward validation\"], \"optimizationFocus\": \"minimize MAE and monitor MAPE drift across recent windows\", \"confidence\": \"moderate\", \"datasetType\": \"time-series\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"temperature\", \"sameTimeCorrelation\": 0.663, \"lagInfluence\": 0.623, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"segment\", \"sameTimeCorrelation\": 0.001, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Use lagged target features plus the strongest exogenous regressors.\"}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 2400, \"columnsScanned\": 4, \"memoryBytes\": 219638}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"single-batch\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 2, \"categorical\": 1, \"datetime\": 1, \"text\": 0}, \"highMissingColumns\": [], \"highCardinalityColumns\": [\"timestamp\", \"target_value\", \"temperature\"]}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": true, \"timeColumn\": \"timestamp\", \"frequency\": \"0 days 01:00:00\", \"consistencyScore\": 1.0, \"orderingScore\": 1.0, \"decision\": \"Use temporal validation and walk-forward modeling.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"target_value\", \"targetType\": \"numeric\", \"uniqueValues\": 2400, \"missingPercent\": 0.0, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": true, \"sequentialOrdering\": true, \"frequencyConsistency\": 1.0, \"duplicateTimestampRatio\": 0.0, \"missingIntervalRatio\": 0.0, \"recommendedTarget\": \"target_value\"}, \"qualityIntelligence\": {\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Use interpolation or forward-fill only after sorting by time.\", \"Validate performance with temporal holdout, not random split.\", \"Review high-cardinality identifiers before using them as predictors.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"temperature\", \"sameTimeCorrelation\": 0.663, \"lagInfluence\": 0.623, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"segment\", \"sameTimeCorrelation\": 0.001, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 65.4, \"grade\": \"moderate\", \"seasonalityStrength\": 0.976, \"trendConsistency\": 0.101, \"stationarityScore\": 0.922, \"noiseRatio\": 0.743, \"intervalStability\": 1.0, \"reasons\": [\"Seasonality strength is 0.98, indicating clear recurring behavior.\", \"Trend consistency is 0.10, showing mostly flat or irregular movement.\", \"Noise ratio is 0.74, so signal quality is noisy for forecasting.\"], \"risks\": [\"High randomness may reduce forecast confidence.\"]}, \"temporalBehavior\": {\"periodicity\": \"weekly-hourly-like\", \"anomalies\": [], \"anomalyRate\": 0.0, \"regimeChanges\": [], \"driftScore\": 0.07, \"interpretation\": \"Behavior is stable enough for forecasting.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.\", \"preprocessingPlan\": [\"sort by timestamp\", \"impute temporal gaps\", \"create lag features\", \"use walk-forward validation\"], \"optimizationFocus\": \"minimize MAE and monitor MAPE drift across recent windows\", \"confidence\": \"moderate\", \"datasetType\": \"time-series\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"timestamp\", \"type\": \"datetime\", \"missingPercent\": 0.0, \"uniqueValues\": 2400, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"2021-01-01 00:00:00\", \"2021-03-08 10:00:00\", \"2021-03-08 12:00:00\"], \"role\": {\"role\": \"temporal_index\", \"type\": \"datetime\", \"reason\": \"High date-like parse rate makes this the sequence anchor.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"target_value\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 2400, \"min\": 39601.60934049759, \"max\": 50404.423020286566, \"mean\": 45157.7469476293, \"median\": 45210.28834667947, \"std\": 2342.1443560980483, \"outlierPercent\": 0.0, \"topValues\": [\"44797.577599074844\", \"46585.00909132877\", \"45177.94625664392\"], \"role\": {\"role\": \"forecast_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"temperature\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 2400, \"min\": 11.174464676646082, \"max\": 39.30068088292904, \"mean\": 24.028950774379524, \"median\": 23.98905142160745, \"std\": 6.519026350402427, \"outlierPercent\": 0.0, \"topValues\": [\"26.0176030749584\", \"28.339515523360042\", \"22.32409760407432\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"segment\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"residential\", \"commercial\", \"industrial\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    }
+  ]
+}

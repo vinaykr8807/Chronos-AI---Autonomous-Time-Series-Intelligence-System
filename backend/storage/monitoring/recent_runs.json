@@ -1,0 +1,126 @@
+[
+  {
+    "run_id": "229ad325-f57f-4e50-90b5-1ba1d8c4ce3e",
+    "dataset_id": "algozee--teenager-menthal-healy",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 0.3754,
+      "rmse": 0.4721,
+      "mape": 10.5659,
+      "r2": 0.9733,
+      "mase": 0.116
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:algozee/teenager-menthal-healy",
+      "sourceRef": "algozee/teenager-menthal-healy",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 1200,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 1200,
+      "trainRows": 832,
+      "testRows": 200,
+      "featureCount": 37,
+      "targetColumn": "addiction_level",
+      "datasetType": "cross-sectional"
+    },
+    "timestamp": "2026-05-10T09:49:16.006464+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
+    "run_id": "603b4dbc-2e0d-4d08-af27-e737a0608cfd",
+    "dataset_id": "amineamllal--energy-demand-in-the-electricity-energy-bane-16",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 254.1687,
+      "rmse": 416.6907,
+      "mape": 2.2546,
+      "r2": 0.9358,
+      "mase": 0.2286
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:amineamllal/energy-demand-in-the-electricity-energy-bane-16",
+      "sourceRef": "amineamllal/energy-demand-in-the-electricity-energy-bane-16",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 1946,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 1911,
+      "trainRows": 1543,
+      "testRows": 200,
+      "featureCount": 41,
+      "targetColumn": "max_generation(mw)",
+      "datasetType": "time-series"
+    },
+    "timestamp": "2026-05-10T09:38:10.164644+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  }
+]

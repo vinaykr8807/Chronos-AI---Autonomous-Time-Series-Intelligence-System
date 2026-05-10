@@ -1,0 +1,699 @@
+{
+  "datasetId": "amineamllal--energy-demand-in-the-electricity-energy-bane-16",
+  "title": "Energy Demand In The Electricity Energy Bane 16",
+  "summary": {
+    "rows": 1946,
+    "columns": 16,
+    "rowsScanned": 1946,
+    "columnsScanned": 16,
+    "targetColumn": "max_generation(mw)",
+    "missingPercent": 0.19,
+    "timeSeriesValidated": true,
+    "timeRangeStart": "2018-01-01T00:00:00",
+    "timeRangeEnd": "2023-12-04T00:00:00",
+    "edaMode": "full-dataframe",
+    "edaExecution": "parallel-batched",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 500,
+    "chartSourceRows": 1946,
+    "loadTimeMs": 2148.7,
+    "profileTimeMs": 14036.2,
+    "dataSource": "kaggle:amineamllal/energy-demand-in-the-electricity-energy-bane-16",
+    "profileInputSource": "kaggle:amineamllal/energy-demand-in-the-electricity-energy-bane-16",
+    "rowsAnalyzed": 1946,
+    "syntheticFallback": false,
+    "sourceRef": "amineamllal/energy-demand-in-the-electricity-energy-bane-16",
+    "realDataLoaded": true,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": true,
+    "timeColumn": "date_1",
+    "frequency": "1 days 00:00:00",
+    "gapRatio": 0.006,
+    "orderingScore": 0.94,
+    "consistencyScore": 0.994,
+    "seasonalityHint": "daily-like",
+    "start": "2018-01-01T00:00:00",
+    "end": "2023-12-04T00:00:00",
+    "duplicateTimestampRatio": 0.0
+  },
+  "validation": {
+    "timestampPresence": true,
+    "sequentialOrdering": true,
+    "frequencyConsistency": 0.994,
+    "duplicateTimestampRatio": 0.0,
+    "missingIntervalRatio": 0.006,
+    "recommendedTarget": "max_generation(mw)"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "date_1": {
+        "role": "temporal_index",
+        "type": "datetime",
+        "reason": "High date-like parse rate makes this the sequence anchor."
+      },
+      "day": {
+        "role": "entity_or_grouping",
+        "type": "numeric",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "month": {
+        "role": "entity_or_grouping",
+        "type": "numeric",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "year": {
+        "role": "entity_or_grouping",
+        "type": "numeric",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "temp2(c)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "temp2_max(c)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "temp2_min(c)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "temp2_ave(c)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "suface_pressure(pa)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "wind_speed50_max(m/s)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "wind_speed50_min(m/s)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "wind_speed50_ave(m/s)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "prectotcorr": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "total_demand(mw)": {
+        "role": "external_regressor",
+        "type": "numeric",
+        "reason": "Numeric feature may explain movement in the target over time."
+      },
+      "date_2": {
+        "role": "context_feature",
+        "type": "datetime",
+        "reason": "Textual or high-cardinality field may provide context."
+      },
+      "max_generation(mw)": {
+        "role": "forecast_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict over time."
+      }
+    },
+    "entityColumns": [
+      "day",
+      "month",
+      "year"
+    ],
+    "targetColumn": "max_generation(mw)",
+    "timeColumn": "date_1",
+    "temporalHierarchy": [
+      "hour",
+      "day",
+      "week"
+    ],
+    "relationshipSummary": "`max_generation(mw)` is modeled over time using temp2(c), temp2_max(c), temp2_min(c) and grouped by day, month.",
+    "datasetType": "time-series"
+  },
+  "forecastability": {
+    "score": 57.9,
+    "grade": "weak",
+    "seasonalityStrength": 0.596,
+    "trendConsistency": 0.45,
+    "stationarityScore": 0.663,
+    "noiseRatio": 0.791,
+    "intervalStability": 0.994,
+    "reasons": [
+      "Seasonality strength is 0.60, indicating clear recurring behavior.",
+      "Trend consistency is 0.45, showing directional movement.",
+      "Noise ratio is 0.79, so signal quality is noisy for forecasting."
+    ],
+    "risks": [
+      "High randomness may reduce forecast confidence."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "weekly-like",
+    "anomalies": [
+      {
+        "index": 446,
+        "timestamp": "23-03-19",
+        "severity": 3.26
+      }
+    ],
+    "anomalyRate": 0.0005,
+    "regimeChanges": [
+      88,
+      414,
+      446,
+      494,
+      576
+    ],
+    "driftScore": 0.322,
+    "interpretation": "Behavior is stable enough for forecasting."
+  },
+  "qualityIntelligence": {
+    "trustScore": 99.6,
+    "missingPattern": "Missingness is broadly distributed across 2 column(s).",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Use interpolation or forward-fill only after sorting by time.",
+      "Validate performance with temporal holdout, not random split.",
+      "Review high-cardinality identifiers before using them as predictors."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "date_1",
+        "sameTimeCorrelation": 1.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "date_2",
+        "sameTimeCorrelation": 1.0,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "total_demand(mw)",
+        "sameTimeCorrelation": 0.933,
+        "lagInfluence": 0.848,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "temp2(c)",
+        "sameTimeCorrelation": 0.684,
+        "lagInfluence": 0.673,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "temp2_ave(c)",
+        "sameTimeCorrelation": 0.684,
+        "lagInfluence": 0.674,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "temp2_min(c)",
+        "sameTimeCorrelation": 0.665,
+        "lagInfluence": 0.657,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "temp2_max(c)",
+        "sameTimeCorrelation": 0.6,
+        "lagInfluence": 0.588,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "suface_pressure(pa)",
+        "sameTimeCorrelation": 0.568,
+        "lagInfluence": 0.566,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "wind_speed50_ave(m/s)",
+        "sameTimeCorrelation": 0.266,
+        "lagInfluence": 0.288,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "wind_speed50_min(m/s)",
+        "sameTimeCorrelation": 0.26,
+        "lagInfluence": 0.279,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      }
+    ],
+    "redundantFeatures": [
+      {
+        "features": [
+          "temp2(c)",
+          "temp2_min(c)"
+        ],
+        "correlation": 0.946
+      },
+      {
+        "features": [
+          "temp2(c)",
+          "temp2_ave(c)"
+        ],
+        "correlation": 0.998
+      },
+      {
+        "features": [
+          "temp2_min(c)",
+          "temp2_ave(c)"
+        ],
+        "correlation": 0.948
+      },
+      {
+        "features": [
+          "wind_speed50_max(m/s)",
+          "wind_speed50_ave(m/s)"
+        ],
+        "correlation": 0.933
+      },
+      {
+        "features": [
+          "total_demand(mw)",
+          "max_generation(mw)"
+        ],
+        "correlation": 0.933
+      }
+    ],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Use lagged target features plus the strongest exogenous regressors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "RandomForest",
+    "reason": "Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.",
+    "preprocessingPlan": [
+      "sort by timestamp",
+      "impute temporal gaps",
+      "create lag features",
+      "use walk-forward validation"
+    ],
+    "optimizationFocus": "minimize MAE and monitor MAPE drift across recent windows",
+    "confidence": "weak",
+    "datasetType": "time-series"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "energy",
+    "businessMeaning": "This dataset captures energy consumption or generation patterns.",
+    "likelyUseCase": "energy demand forecasting and grid optimization",
+    "targetMeaning": "`max_generation(mw)` is likely the primary quantity to forecast.",
+    "datasetType": "time-series"
+  },
+  "edaTrace": [
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 1946,
+      "columnsScanned": 16,
+      "memoryBytes": 471064
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "parallel-batched",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 14,
+        "categorical": 0,
+        "datetime": 2,
+        "text": 0
+      },
+      "highMissingColumns": [
+        {
+          "name": "max_generation(mw)",
+          "missingPercent": 1.8
+        },
+        {
+          "name": "total_demand(mw)",
+          "missingPercent": 1.28
+        }
+      ],
+      "highCardinalityColumns": [
+        "date_1",
+        "temp2(c)",
+        "temp2_max(c)",
+        "temp2_min(c)",
+        "temp2_ave(c)",
+        "wind_speed50_max(m/s)",
+        "wind_speed50_min(m/s)",
+        "wind_speed50_ave(m/s)"
+      ]
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": true,
+      "timeColumn": "date_1",
+      "frequency": "1 days 00:00:00",
+      "consistencyScore": 0.994,
+      "orderingScore": 0.94,
+      "decision": "Use temporal validation and walk-forward modeling."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "max_generation(mw)",
+      "targetType": "numeric",
+      "uniqueValues": 1654,
+      "missingPercent": 1.8,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": true,
+        "sequentialOrdering": true,
+        "frequencyConsistency": 0.994,
+        "duplicateTimestampRatio": 0.0,
+        "missingIntervalRatio": 0.006,
+        "recommendedTarget": "max_generation(mw)"
+      },
+      "qualityIntelligence": {
+        "trustScore": 99.6,
+        "missingPattern": "Missingness is broadly distributed across 2 column(s).",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Use interpolation or forward-fill only after sorting by time.",
+          "Validate performance with temporal holdout, not random split.",
+          "Review high-cardinality identifiers before using them as predictors."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "date_1",
+          "sameTimeCorrelation": 1.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "date_2",
+          "sameTimeCorrelation": 1.0,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "total_demand(mw)",
+          "sameTimeCorrelation": 0.933,
+          "lagInfluence": 0.848,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "temp2(c)",
+          "sameTimeCorrelation": 0.684,
+          "lagInfluence": 0.673,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "temp2_ave(c)",
+          "sameTimeCorrelation": 0.684,
+          "lagInfluence": 0.674,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "temp2_min(c)",
+          "sameTimeCorrelation": 0.665,
+          "lagInfluence": 0.657,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "temp2_max(c)",
+          "sameTimeCorrelation": 0.6,
+          "lagInfluence": 0.588,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "suface_pressure(pa)",
+          "sameTimeCorrelation": 0.568,
+          "lagInfluence": 0.566,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        }
+      ],
+      "redundantFeatures": [
+        {
+          "features": [
+            "temp2(c)",
+            "temp2_min(c)"
+          ],
+          "correlation": 0.946
+        },
+        {
+          "features": [
+            "temp2(c)",
+            "temp2_ave(c)"
+          ],
+          "correlation": 0.998
+        },
+        {
+          "features": [
+            "temp2_min(c)",
+            "temp2_ave(c)"
+          ],
+          "correlation": 0.948
+        },
+        {
+          "features": [
+            "wind_speed50_max(m/s)",
+            "wind_speed50_ave(m/s)"
+          ],
+          "correlation": 0.933
+        },
+        {
+          "features": [
+            "total_demand(mw)",
+            "max_generation(mw)"
+          ],
+          "correlation": 0.933
+        }
+      ],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 57.9,
+        "grade": "weak",
+        "seasonalityStrength": 0.596,
+        "trendConsistency": 0.45,
+        "stationarityScore": 0.663,
+        "noiseRatio": 0.791,
+        "intervalStability": 0.994,
+        "reasons": [
+          "Seasonality strength is 0.60, indicating clear recurring behavior.",
+          "Trend consistency is 0.45, showing directional movement.",
+          "Noise ratio is 0.79, so signal quality is noisy for forecasting."
+        ],
+        "risks": [
+          "High randomness may reduce forecast confidence."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "weekly-like",
+        "anomalies": [
+          {
+            "index": 446,
+            "timestamp": "23-03-19",
+            "severity": 3.26
+          }
+        ],
+        "anomalyRate": 0.0005,
+        "regimeChanges": [
+          88,
+          414,
+          446,
+          494,
+          576
+        ],
+        "driftScore": 0.322,
+        "interpretation": "Behavior is stable enough for forecasting."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "RandomForest",
+        "reason": "Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.",
+        "preprocessingPlan": [
+          "sort by timestamp",
+          "impute temporal gaps",
+          "create lag features",
+          "use walk-forward validation"
+        ],
+        "optimizationFocus": "minimize MAE and monitor MAPE drift across recent windows",
+        "confidence": "weak",
+        "datasetType": "time-series"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "Energy Demand In The Electricity Energy Bane 16; dataset_id=amineamllal--energy-demand-in-the-electricity-energy-bane-16; rows=1946; columns=16; missing=0.19%; dataset_type=time-series; target=max_generation(mw); time_column=date_1"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 99.6, \"missingPattern\": \"Missingness is broadly distributed across 2 column(s).\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Use interpolation or forward-fill only after sorting by time.\", \"Validate performance with temporal holdout, not random split.\", \"Review high-cardinality identifiers before using them as predictors.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 57.9, \"grade\": \"weak\", \"seasonalityStrength\": 0.596, \"trendConsistency\": 0.45, \"stationarityScore\": 0.663, \"noiseRatio\": 0.791, \"intervalStability\": 0.994, \"reasons\": [\"Seasonality strength is 0.60, indicating clear recurring behavior.\", \"Trend consistency is 0.45, showing directional movement.\", \"Noise ratio is 0.79, so signal quality is noisy for forecasting.\"], \"risks\": [\"High randomness may reduce forecast confidence.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.\", \"preprocessingPlan\": [\"sort by timestamp\", \"impute temporal gaps\", \"create lag features\", \"use walk-forward validation\"], \"optimizationFocus\": \"minimize MAE and monitor MAPE drift across recent windows\", \"confidence\": \"weak\", \"datasetType\": \"time-series\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"date_1\", \"sameTimeCorrelation\": 1.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"date_2\", \"sameTimeCorrelation\": 1.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"total_demand(mw)\", \"sameTimeCorrelation\": 0.933, \"lagInfluence\": 0.848, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2(c)\", \"sameTimeCorrelation\": 0.684, \"lagInfluence\": 0.673, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2_ave(c)\", \"sameTimeCorrelation\": 0.684, \"lagInfluence\": 0.674, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2_min(c)\", \"sameTimeCorrelation\": 0.665, \"lagInfluence\": 0.657, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2_max(c)\", \"sameTimeCorrelation\": 0.6, \"lagInfluence\": 0.588, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"suface_pressure(pa)\", \"sameTimeCorrelation\": 0.568, \"lagInfluence\": 0.566, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"wind_speed50_ave(m/s)\", \"sameTimeCorrelation\": 0.266, \"lagInfluence\": 0.288, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"wind_speed50_min(m/s)\", \"sameTimeCorrelation\": 0.26, \"lagInfluence\": 0.279, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [{\"features\": [\"temp2(c)\", \"temp2_min(c)\"], \"correlation\": 0.946}, {\"features\": [\"temp2(c)\", \"temp2_ave(c)\"], \"correlation\": 0.998}, {\"features\": [\"temp2_min(c)\", \"temp2_ave(c)\"], \"correlation\": 0.948}, {\"features\": [\"wind_speed50_max(m/s)\", \"wind_speed50_ave(m/s)\"], \"correlation\": 0.933}, {\"features\": [\"total_demand(mw)\", \"max_generation(mw)\"], \"correlation\": 0.933}], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Use lagged target features plus the strongest exogenous regressors.\"}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 1946, \"columnsScanned\": 16, \"memoryBytes\": 471064}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"parallel-batched\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 14, \"categorical\": 0, \"datetime\": 2, \"text\": 0}, \"highMissingColumns\": [{\"name\": \"max_generation(mw)\", \"missingPercent\": 1.8}, {\"name\": \"total_demand(mw)\", \"missingPercent\": 1.28}], \"highCardinalityColumns\": [\"date_1\", \"temp2(c)\", \"temp2_max(c)\", \"temp2_min(c)\", \"temp2_ave(c)\", \"wind_speed50_max(m/s)\", \"wind_speed50_min(m/s)\", \"wind_speed50_ave(m/s)\"]}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": true, \"timeColumn\": \"date_1\", \"frequency\": \"1 days 00:00:00\", \"consistencyScore\": 0.994, \"orderingScore\": 0.94, \"decision\": \"Use temporal validation and walk-forward modeling.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"max_generation(mw)\", \"targetType\": \"numeric\", \"uniqueValues\": 1654, \"missingPercent\": 1.8, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": true, \"sequentialOrdering\": true, \"frequencyConsistency\": 0.994, \"duplicateTimestampRatio\": 0.0, \"missingIntervalRatio\": 0.006, \"recommendedTarget\": \"max_generation(mw)\"}, \"qualityIntelligence\": {\"trustScore\": 99.6, \"missingPattern\": \"Missingness is broadly distributed across 2 column(s).\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Use interpolation or forward-fill only after sorting by time.\", \"Validate performance with temporal holdout, not random split.\", \"Review high-cardinality identifiers before using them as predictors.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"date_1\", \"sameTimeCorrelation\": 1.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"date_2\", \"sameTimeCorrelation\": 1.0, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"total_demand(mw)\", \"sameTimeCorrelation\": 0.933, \"lagInfluence\": 0.848, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2(c)\", \"sameTimeCorrelation\": 0.684, \"lagInfluence\": 0.673, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2_ave(c)\", \"sameTimeCorrelation\": 0.684, \"lagInfluence\": 0.674, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2_min(c)\", \"sameTimeCorrelation\": 0.665, \"lagInfluence\": 0.657, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"temp2_max(c)\", \"sameTimeCorrelation\": 0.6, \"lagInfluence\": 0.588, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"suface_pressure(pa)\", \"sameTimeCorrelation\": 0.568, \"lagInfluence\": 0.566, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}], \"redundantFeatures\": [{\"features\": [\"temp2(c)\", \"temp2_min(c)\"], \"correlation\": 0.946}, {\"features\": [\"temp2(c)\", \"temp2_ave(c)\"], \"correlation\": 0.998}, {\"features\": [\"temp2_min(c)\", \"temp2_ave(c)\"], \"correlation\": 0.948}, {\"features\": [\"wind_speed50_max(m/s)\", \"wind_speed50_ave(m/s)\"], \"correlation\": 0.933}, {\"features\": [\"total_demand(mw)\", \"max_generation(mw)\"], \"correlation\": 0.933}], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 57.9, \"grade\": \"weak\", \"seasonalityStrength\": 0.596, \"trendConsistency\": 0.45, \"stationarityScore\": 0.663, \"noiseRatio\": 0.791, \"intervalStability\": 0.994, \"reasons\": [\"Seasonality strength is 0.60, indicating clear recurring behavior.\", \"Trend consistency is 0.45, showing directional movement.\", \"Noise ratio is 0.79, so signal quality is noisy for forecasting.\"], \"risks\": [\"High randomness may reduce forecast confidence.\"]}, \"temporalBehavior\": {\"periodicity\": \"weekly-like\", \"anomalies\": [{\"index\": 446, \"timestamp\": \"23-03-19\", \"severity\": 3.26}], \"anomalyRate\": 0.0005, \"regimeChanges\": [88, 414, 446, 494, 576], \"driftScore\": 0.322, \"interpretation\": \"Behavior is stable enough for forecasting.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium temporal dataset. Random Forest can use lag/calendar features while staying robust when the signal is noisy.\", \"preprocessingPlan\": [\"sort by timestamp\", \"impute temporal gaps\", \"create lag features\", \"use walk-forward validation\"], \"optimizationFocus\": \"minimize MAE and monitor MAPE drift across recent windows\", \"confidence\": \"weak\", \"datasetType\": \"time-series\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"date_1\", \"type\": \"datetime\", \"missingPercent\": 0.0, \"uniqueValues\": 1946, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"01-01-18\", \"01-07-21\", \"29-07-21\"], \"role\": {\"role\": \"temporal_index\", \"type\": \"datetime\", \"reason\": \"High date-like parse rate makes this the sequence anchor.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"day\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 31, \"min\": 1.0, \"max\": 31.0, \"mean\": 15.715313463514903, \"median\": 16.0, \"std\": 8.793224864892098, \"outlierPercent\": 0.0, \"topValues\": [\"1\", \"2\", \"28\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"numeric\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"month\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 12, \"min\": 1.0, \"max\": 12.0, \"mean\": 6.275436793422405, \"median\": 6.0, \"std\": 3.4891084298889146, \"outlierPercent\": 0.0, \"topValues\": [\"1\", \"3\", \"4\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"numeric\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"year\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 6, \"min\": 2018.0, \"max\": 2023.0, \"mean\": 2020.184994861254, \"median\": 2020.0, \"std\": 1.5480322439598833, \"outlierPercent\": 0.0, \"topValues\": [\"2020\", \"2018\", \"2019\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"numeric\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"temp2(c)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 1010, \"min\": 12.8, \"max\": 34.88, \"mean\": 25.342101747173686, \"median\": 27.48, \"std\": 4.657882978968301, \"outlierPercent\": 0.0, \"topValues\": [\"28.26\", \"28.73\", \"28.62\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"temp2_max(c)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 1073, \"min\": 17.8, \"max\": 43.55, \"mean\": 30.15524152106886, \"median\": 30.66, \"std\": 4.261657835988319, \"outlierPercent\": 1.49, \"topValues\": [\"31.3\", \"30.8\", \"31.65\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"temp2_min(c)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 1031, \"min\": 6.43, \"max\": 27.94, \"mean\": 21.088042137718396, \"median\": 23.33, \"std\": 5.616828729326379, \"outlierPercent\": 0.0, \"topValues\": [\"26.35\", \"25.9\", \"26.3\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"temp2_ave(c)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 1321, \"min\": 13.04, \"max\": 35.47, \"mean\": 25.621641829393628, \"median\": 27.67, \"std\": 4.594391349821099, \"outlierPercent\": 0.0, \"topValues\": [\"28.845\", \"28.905\", \"28.72\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"suface_pressure(pa)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 241, \"min\": 99.03, \"max\": 101.86, \"mean\": 100.72269784172661, \"median\": 100.75, \"std\": 0.5661364237745365, \"outlierPercent\": 0.0, \"topValues\": [\"101.29\", \"101.1\", \"100.16\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"wind_speed50_max(m/s)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 676, \"min\": 1.47, \"max\": 21.3, \"mean\": 5.800580678314492, \"median\": 5.71, \"std\": 1.965796591819144, \"outlierPercent\": 1.64, \"topValues\": [\"5.84\", \"5.95\", \"4.8\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"wind_speed50_min(m/s)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 576, \"min\": 0.02, \"max\": 10.61, \"mean\": 2.3233915724563206, \"median\": 1.895, \"std\": 1.681181620809874, \"outlierPercent\": 0.36, \"topValues\": [\"0.91\", \"1.38\", \"0.45\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"wind_speed50_ave(m/s)\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 976, \"min\": 0.78, \"max\": 14.425, \"mean\": 4.061986125385406, \"median\": 3.825, \"std\": 1.6790103390742062, \"outlierPercent\": 0.92, \"topValues\": [\"2.895\", \"2.65\", \"2.28\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"prectotcorr\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 888, \"min\": 0.0, \"max\": 172.43, \"mean\": 6.3965056526207595, \"median\": 1.2149999999999999, \"std\": 11.686174314644193, \"outlierPercent\": 8.79, \"topValues\": [\"0.0\", \"0.01\", \"0.03\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"total_demand(mw)\", \"type\": \"numeric\", \"missingPercent\": 1.28, \"uniqueValues\": 1143, \"min\": 5372.0, \"max\": 15500.0, \"mean\": 10425.376366475793, \"median\": 10360.0, \"std\": 1674.7196147631334, \"outlierPercent\": 0.0, \"topValues\": [\"11000.0\", \"10000.0\", \"9500.0\"], \"role\": {\"role\": \"external_regressor\", \"type\": \"numeric\", \"reason\": \"Numeric feature may explain movement in the target over time.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"date_2\", \"type\": \"datetime\", \"missingPercent\": 0.0, \"uniqueValues\": 1946, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"01-01-18\", \"01-07-21\", \"29-07-21\"], \"role\": {\"role\": \"context_feature\", \"type\": \"datetime\", \"reason\": \"Textual or high-cardinality field may provide context.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"max_generation(mw)\", \"type\": \"numeric\", \"missingPercent\": 1.8, \"uniqueValues\": 1654, \"min\": 4855.0, \"max\": 15648.0, \"mean\": 10539.20041862899, \"median\": 10361.0, \"std\": 1742.3329233599418, \"outlierPercent\": 0.05, \"topValues\": [\"9673.0\", \"9460.0\", \"8929.0\"], \"role\": {\"role\": \"forecast_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict over time.\"}}"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "evidenceId": "algozee--teenager-menthal-healy-48883eb04da300c5",
+  "jsonPath": "storage\\eda_evidence\\algozee--teenager-menthal-healy-48883eb04da300c5.json",
+  "faissPath": "storage\\eda_evidence\\algozee--teenager-menthal-healy-48883eb04da300c5.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 26,
+  "llmGate": "ready"
+}

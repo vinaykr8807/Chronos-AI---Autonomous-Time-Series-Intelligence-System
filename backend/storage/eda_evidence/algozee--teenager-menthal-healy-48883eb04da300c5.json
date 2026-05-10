@@ -1,0 +1,561 @@
+{
+  "datasetId": "algozee--teenager-menthal-healy",
+  "title": "Teenager Menthal Healy",
+  "summary": {
+    "rows": 1200,
+    "columns": 13,
+    "rowsScanned": 1200,
+    "columnsScanned": 13,
+    "targetColumn": "addiction_level",
+    "missingPercent": 0.0,
+    "timeSeriesValidated": false,
+    "timeRangeStart": "unknown",
+    "timeRangeEnd": "unknown",
+    "edaMode": "full-dataframe",
+    "edaExecution": "parallel-batched",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 500,
+    "chartSourceRows": 1200,
+    "loadTimeMs": 10.5,
+    "profileTimeMs": 390.9,
+    "dataSource": "kaggle:algozee/teenager-menthal-healy",
+    "profileInputSource": "kaggle:algozee/teenager-menthal-healy",
+    "rowsAnalyzed": 1200,
+    "syntheticFallback": false,
+    "sourceRef": "algozee/teenager-menthal-healy",
+    "realDataLoaded": true,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": false,
+    "timeColumn": null,
+    "frequency": "unknown",
+    "gapRatio": null,
+    "orderingScore": 0.0,
+    "consistencyScore": 0.0,
+    "seasonalityHint": "undetermined"
+  },
+  "validation": {
+    "timestampPresence": false,
+    "sequentialOrdering": false,
+    "frequencyConsistency": 0.0,
+    "duplicateTimestampRatio": 0.0,
+    "missingIntervalRatio": null,
+    "recommendedTarget": "addiction_level"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "age": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "gender": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "daily_social_media_hours": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "platform_usage": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "sleep_hours": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "screen_time_before_sleep": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "academic_performance": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "physical_activity": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "social_interaction_level": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "stress_level": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "anxiety_level": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "addiction_level": {
+        "role": "prediction_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict."
+      },
+      "depression_label": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      }
+    },
+    "entityColumns": [
+      "gender",
+      "platform_usage",
+      "social_interaction_level"
+    ],
+    "targetColumn": "addiction_level",
+    "timeColumn": null,
+    "temporalHierarchy": [],
+    "relationshipSummary": "`addiction_level` is predicted from age, daily_social_media_hours, sleep_hours, screen_time_before_sleep segmented by gender, platform_usage.",
+    "datasetType": "cross-sectional"
+  },
+  "forecastability": {
+    "score": 34.4,
+    "grade": "poor",
+    "seasonalityStrength": 0.0,
+    "trendConsistency": 0.0,
+    "stationarityScore": 0.979,
+    "noiseRatio": 0.98,
+    "intervalStability": 0.0,
+    "reasons": [
+      "Dataset has 1,200 rows and 9 numeric feature(s) available for prediction.",
+      "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+      "Signal-to-noise ratio is moderate (noise ratio: 0.98)."
+    ],
+    "risks": [
+      "Without a time index, temporal forecasting is not applicable.",
+      "Use cross-validation instead of walk-forward splits."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "not applicable \u2014 cross-sectional dataset",
+    "anomalies": [],
+    "anomalyRate": 0.0,
+    "outlierCount": 0,
+    "regimeChanges": [],
+    "driftScore": 0.0,
+    "skewness": -0.042,
+    "distributionShape": "approximately normal",
+    "interpretation": "Cross-sectional dataset. Target `addiction_level` has 0 outliers (0.0% of rows). Distribution is approximately normal."
+  },
+  "qualityIntelligence": {
+    "trustScore": 100.0,
+    "missingPattern": "No missing values detected \u2014 dataset is complete.",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Encode categorical features before training (label or one-hot encoding).",
+      "Use stratified k-fold cross-validation for unbiased evaluation.",
+      "Check for class imbalance in the target variable.",
+      "Review high-cardinality columns \u2014 consider target encoding or dropping."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "screen_time_before_sleep",
+        "sameTimeCorrelation": 0.029,
+        "lagInfluence": 0.057,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "sleep_hours",
+        "sameTimeCorrelation": 0.055,
+        "lagInfluence": 0.005,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "age",
+        "sameTimeCorrelation": 0.038,
+        "lagInfluence": 0.002,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "anxiety_level",
+        "sameTimeCorrelation": 0.031,
+        "lagInfluence": 0.003,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "academic_performance",
+        "sameTimeCorrelation": 0.029,
+        "lagInfluence": 0.001,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "physical_activity",
+        "sameTimeCorrelation": 0.026,
+        "lagInfluence": 0.002,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "daily_social_media_hours",
+        "sameTimeCorrelation": 0.025,
+        "lagInfluence": 0.019,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "depression_label",
+        "sameTimeCorrelation": 0.014,
+        "lagInfluence": 0.006,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "stress_level",
+        "sameTimeCorrelation": 0.0,
+        "lagInfluence": 0.001,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "gender",
+        "sameTimeCorrelation": 0.001,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "weak_or_contextual"
+      }
+    ],
+    "redundantFeatures": [],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Encode categorical features and use cross-validated feature importance to rank predictors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "RandomForest",
+    "reason": "Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.",
+    "preprocessingPlan": [
+      "encode categorical features",
+      "impute missing values",
+      "use k-fold validation",
+      "tune tree depth and leaf size"
+    ],
+    "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+    "confidence": "poor",
+    "datasetType": "cross-sectional"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "social",
+    "businessMeaning": "This dataset captures social media usage behavior, screen time, and mental health indicators across demographic groups.",
+    "likelyUseCase": "behavioral analysis, usage pattern modeling, and mental health risk scoring",
+    "targetMeaning": "`addiction_level` is likely the primary quantity to predict.",
+    "datasetType": "cross-sectional"
+  },
+  "edaTrace": [
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 1200,
+      "columnsScanned": 13,
+      "memoryBytes": 320170
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "parallel-batched",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 10,
+        "categorical": 3,
+        "datetime": 0,
+        "text": 0
+      },
+      "highMissingColumns": [],
+      "highCardinalityColumns": []
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": false,
+      "timeColumn": null,
+      "frequency": "unknown",
+      "consistencyScore": 0.0,
+      "orderingScore": 0.0,
+      "decision": "Treat as cross-sectional; do not use temporal forecast assumptions."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "addiction_level",
+      "targetType": "numeric",
+      "uniqueValues": 10,
+      "missingPercent": 0.0,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": false,
+        "sequentialOrdering": false,
+        "frequencyConsistency": 0.0,
+        "duplicateTimestampRatio": 0.0,
+        "missingIntervalRatio": null,
+        "recommendedTarget": "addiction_level"
+      },
+      "qualityIntelligence": {
+        "trustScore": 100.0,
+        "missingPattern": "No missing values detected \u2014 dataset is complete.",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Encode categorical features before training (label or one-hot encoding).",
+          "Use stratified k-fold cross-validation for unbiased evaluation.",
+          "Check for class imbalance in the target variable.",
+          "Review high-cardinality columns \u2014 consider target encoding or dropping."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "screen_time_before_sleep",
+          "sameTimeCorrelation": 0.029,
+          "lagInfluence": 0.057,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "sleep_hours",
+          "sameTimeCorrelation": 0.055,
+          "lagInfluence": 0.005,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "age",
+          "sameTimeCorrelation": 0.038,
+          "lagInfluence": 0.002,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "anxiety_level",
+          "sameTimeCorrelation": 0.031,
+          "lagInfluence": 0.003,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "academic_performance",
+          "sameTimeCorrelation": 0.029,
+          "lagInfluence": 0.001,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "physical_activity",
+          "sameTimeCorrelation": 0.026,
+          "lagInfluence": 0.002,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "daily_social_media_hours",
+          "sameTimeCorrelation": 0.025,
+          "lagInfluence": 0.019,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "depression_label",
+          "sameTimeCorrelation": 0.014,
+          "lagInfluence": 0.006,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        }
+      ],
+      "redundantFeatures": [],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 34.4,
+        "grade": "poor",
+        "seasonalityStrength": 0.0,
+        "trendConsistency": 0.0,
+        "stationarityScore": 0.979,
+        "noiseRatio": 0.98,
+        "intervalStability": 0.0,
+        "reasons": [
+          "Dataset has 1,200 rows and 9 numeric feature(s) available for prediction.",
+          "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+          "Signal-to-noise ratio is moderate (noise ratio: 0.98)."
+        ],
+        "risks": [
+          "Without a time index, temporal forecasting is not applicable.",
+          "Use cross-validation instead of walk-forward splits."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "not applicable \u2014 cross-sectional dataset",
+        "anomalies": [],
+        "anomalyRate": 0.0,
+        "outlierCount": 0,
+        "regimeChanges": [],
+        "driftScore": 0.0,
+        "skewness": -0.042,
+        "distributionShape": "approximately normal",
+        "interpretation": "Cross-sectional dataset. Target `addiction_level` has 0 outliers (0.0% of rows). Distribution is approximately normal."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "RandomForest",
+        "reason": "Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.",
+        "preprocessingPlan": [
+          "encode categorical features",
+          "impute missing values",
+          "use k-fold validation",
+          "tune tree depth and leaf size"
+        ],
+        "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+        "confidence": "poor",
+        "datasetType": "cross-sectional"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "Teenager Menthal Healy; dataset_id=algozee--teenager-menthal-healy; rows=1200; columns=13; missing=0.0%; dataset_type=cross-sectional; target=addiction_level; time_column=None"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 34.4, \"grade\": \"poor\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 0.979, \"noiseRatio\": 0.98, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 1,200 rows and 9 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is moderate (noise ratio: 0.98).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.\", \"preprocessingPlan\": [\"encode categorical features\", \"impute missing values\", \"use k-fold validation\", \"tune tree depth and leaf size\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"poor\", \"datasetType\": \"cross-sectional\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"screen_time_before_sleep\", \"sameTimeCorrelation\": 0.029, \"lagInfluence\": 0.057, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"sleep_hours\", \"sameTimeCorrelation\": 0.055, \"lagInfluence\": 0.005, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"age\", \"sameTimeCorrelation\": 0.038, \"lagInfluence\": 0.002, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"anxiety_level\", \"sameTimeCorrelation\": 0.031, \"lagInfluence\": 0.003, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"academic_performance\", \"sameTimeCorrelation\": 0.029, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"physical_activity\", \"sameTimeCorrelation\": 0.026, \"lagInfluence\": 0.002, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"daily_social_media_hours\", \"sameTimeCorrelation\": 0.025, \"lagInfluence\": 0.019, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"depression_label\", \"sameTimeCorrelation\": 0.014, \"lagInfluence\": 0.006, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"stress_level\", \"sameTimeCorrelation\": 0.0, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"gender\", \"sameTimeCorrelation\": 0.001, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Encode categorical features and use cross-validated feature importance to rank predictors.\"}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 1200, \"columnsScanned\": 13, \"memoryBytes\": 320170}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"parallel-batched\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 10, \"categorical\": 3, \"datetime\": 0, \"text\": 0}, \"highMissingColumns\": [], \"highCardinalityColumns\": []}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": false, \"timeColumn\": null, \"frequency\": \"unknown\", \"consistencyScore\": 0.0, \"orderingScore\": 0.0, \"decision\": \"Treat as cross-sectional; do not use temporal forecast assumptions.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"addiction_level\", \"targetType\": \"numeric\", \"uniqueValues\": 10, \"missingPercent\": 0.0, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": false, \"sequentialOrdering\": false, \"frequencyConsistency\": 0.0, \"duplicateTimestampRatio\": 0.0, \"missingIntervalRatio\": null, \"recommendedTarget\": \"addiction_level\"}, \"qualityIntelligence\": {\"trustScore\": 100.0, \"missingPattern\": \"No missing values detected \\u2014 dataset is complete.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"screen_time_before_sleep\", \"sameTimeCorrelation\": 0.029, \"lagInfluence\": 0.057, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"sleep_hours\", \"sameTimeCorrelation\": 0.055, \"lagInfluence\": 0.005, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"age\", \"sameTimeCorrelation\": 0.038, \"lagInfluence\": 0.002, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"anxiety_level\", \"sameTimeCorrelation\": 0.031, \"lagInfluence\": 0.003, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"academic_performance\", \"sameTimeCorrelation\": 0.029, \"lagInfluence\": 0.001, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"physical_activity\", \"sameTimeCorrelation\": 0.026, \"lagInfluence\": 0.002, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"daily_social_media_hours\", \"sameTimeCorrelation\": 0.025, \"lagInfluence\": 0.019, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"depression_label\", \"sameTimeCorrelation\": 0.014, \"lagInfluence\": 0.006, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 34.4, \"grade\": \"poor\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 0.979, \"noiseRatio\": 0.98, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 1,200 rows and 9 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is moderate (noise ratio: 0.98).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}, \"temporalBehavior\": {\"periodicity\": \"not applicable \\u2014 cross-sectional dataset\", \"anomalies\": [], \"anomalyRate\": 0.0, \"outlierCount\": 0, \"regimeChanges\": [], \"driftScore\": 0.0, \"skewness\": -0.042, \"distributionShape\": \"approximately normal\", \"interpretation\": \"Cross-sectional dataset. Target `addiction_level` has 0 outliers (0.0% of rows). Distribution is approximately normal.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.\", \"preprocessingPlan\": [\"encode categorical features\", \"impute missing values\", \"use k-fold validation\", \"tune tree depth and leaf size\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"poor\", \"datasetType\": \"cross-sectional\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"age\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 7, \"min\": 13.0, \"max\": 19.0, \"mean\": 15.928333333333333, \"median\": 16.0, \"std\": 2.0211046209656955, \"outlierPercent\": 0.0, \"topValues\": [\"13\", \"15\", \"18\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"gender\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 2, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"male\", \"female\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"daily_social_media_hours\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 71, \"min\": 1.0, \"max\": 8.0, \"mean\": 4.536666666666667, \"median\": 4.5, \"std\": 2.028753037924747, \"outlierPercent\": 0.0, \"topValues\": [\"3.5\", \"4.0\", \"3.8\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"platform_usage\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Instagram\", \"TikTok\", \"Both\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"sleep_hours\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 51, \"min\": 4.0, \"max\": 9.0, \"mean\": 6.449416666666667, \"median\": 6.5, \"std\": 1.4420759317926208, \"outlierPercent\": 0.0, \"topValues\": [\"7.4\", \"6.8\", \"5.7\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"screen_time_before_sleep\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 26, \"min\": 0.5, \"max\": 3.0, \"mean\": 1.740333333333333, \"median\": 1.8, \"std\": 0.7163610976471448, \"outlierPercent\": 0.0, \"topValues\": [\"1.4\", \"1.9\", \"0.9\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"academic_performance\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 201, \"min\": 2.0, \"max\": 4.0, \"mean\": 2.9903833333333334, \"median\": 2.99, \"std\": 0.5765171460782604, \"outlierPercent\": 0.0, \"topValues\": [\"3.9\", \"2.36\", \"2.91\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"physical_activity\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 21, \"min\": 0.0, \"max\": 2.0, \"mean\": 1.0145000000000002, \"median\": 1.0, \"std\": 0.5819419358206338, \"outlierPercent\": 0.0, \"topValues\": [\"1.9\", \"1.1\", \"1.0\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"social_interaction_level\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 3, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"medium\", \"low\", \"high\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"stress_level\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 10, \"min\": 1.0, \"max\": 10.0, \"mean\": 5.445833333333334, \"median\": 5.0, \"std\": 2.902079594398166, \"outlierPercent\": 0.0, \"topValues\": [\"4\", \"1\", \"5\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"anxiety_level\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 10, \"min\": 1.0, \"max\": 10.0, \"mean\": 5.636666666666667, \"median\": 6.0, \"std\": 2.8582609320276475, \"outlierPercent\": 0.0, \"topValues\": [\"6\", \"4\", \"10\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"addiction_level\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 10, \"min\": 1.0, \"max\": 10.0, \"mean\": 5.565, \"median\": 6.0, \"std\": 2.8294478259900817, \"outlierPercent\": 0.0, \"topValues\": [\"6\", \"8\", \"7\"], \"role\": {\"role\": \"prediction_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"depression_label\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 2, \"min\": 0.0, \"max\": 1.0, \"mean\": 0.025833333333333333, \"median\": 0.0, \"std\": 0.15863786503298075, \"outlierPercent\": 0.0, \"topValues\": [\"0\", \"1\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    }
+  ]
+}

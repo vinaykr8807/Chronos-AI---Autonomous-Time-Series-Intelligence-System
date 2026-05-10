@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 222 30% 8%;
+    --foreground: 210 40% 98%;
+    --border: 217 24% 22%;
+    --input: 217 24% 22%;
+    --ring: 239 84% 67%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #0f1117;
+  color: #f1f5f9;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', Consolas, monospace;
+}
+
+::selection {
+  background-color: rgba(99, 102, 241, 0.3);
+  color: #f1f5f9;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1d27;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d3344;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f5d75;
+}
+
+.glass {
+  background: rgba(26, 29, 39, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(45, 51, 68, 0.5);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+  background: #1a1d27;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #1a1d27 0%,
+    #252a37 50%,
+    #1a1d27 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px rgba(244, 114, 182, 0.3);
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.react-flow__node {
+  font-family: 'Inter', sans-serif;
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px #6366f1;
+}
+
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: #6366f1;
+  border: 2px solid #1a1d27;
+}
+
+.react-flow__edge-path {
+  stroke: #4f5d75;
+  stroke-width: 2;
+}
+
+.react-flow__controls {
+  background: #1a1d27;
+  border: 1px solid #2d3344;
+  border-radius: 8px;
+}
+
+.react-flow__controls-button {
+  background: #1a1d27;
+  border: none;
+  fill: #94a3b8;
+}
+
+.react-flow__controls-button:hover {
+  background: #252a37;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

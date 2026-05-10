@@ -1,0 +1,9 @@
+{
+  "evidenceId": "finance-001-1ed86e9b2488e3f0",
+  "jsonPath": "storage\\eda_evidence\\finance-001-1ed86e9b2488e3f0.json",
+  "faissPath": "storage\\eda_evidence\\finance-001-1ed86e9b2488e3f0.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 17,
+  "llmGate": "ready"
+}

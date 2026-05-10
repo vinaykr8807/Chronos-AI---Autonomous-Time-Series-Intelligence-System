@@ -1,0 +1,9 @@
+{
+  "evidenceId": "amineamllal--energy-demand-in-the-electricity-energy-bane-16-03561d4e2260e87d",
+  "jsonPath": "storage\\eda_evidence\\amineamllal--energy-demand-in-the-electricity-energy-bane-16-03561d4e2260e87d.json",
+  "faissPath": "storage\\eda_evidence\\amineamllal--energy-demand-in-the-electricity-energy-bane-16-03561d4e2260e87d.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 29,
+  "llmGate": "ready"
+}
