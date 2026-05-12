@@ -298,6 +298,14 @@ function asStringList(value: unknown): string[] {
   return Array.isArray(value) ? value.map((item) => String(item)) : [];
 }
 
+function latestAgentDetails(events: PipelineStreamEvent[], agent: string, stage?: string) {
+  const event = [...events].reverse().find((item) => {
+    if (item.agent !== agent || !item.details) return false;
+    return stage ? item.stage === stage : true;
+  });
+  return asRecord(event?.details) || {};
+}
+
 function asNumber(value: unknown, fallback = 0) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
@@ -607,9 +615,17 @@ export function PipelineStudio() {
   const foldMetrics = (pipelineResult?.evaluation_report?.foldMetrics as Array<Record<string, any>> | undefined) || [];
   const improvement = (pipelineResult?.evaluation_report?.improvement as Record<string, number> | undefined) || {};
   const residualSummary = (pipelineResult?.evaluation_report?.residualSummary as Record<string, number> | undefined) || {};
-  const cleaningActions = asStringList(pipelineResult?.preprocessing_report?.transformationsApplied);
-  const featureTransforms = asStringList(pipelineResult?.feature_plan?.transformations);
-  const blockedFeatures = asStringList(pipelineResult?.feature_plan?.blockedLeakageFeatures);
+  const liveEdaDetails = latestAgentDetails(streamEvents, 'EDA Agent');
+  const liveCleaningDetails = latestAgentDetails(streamEvents, 'Cleaning Agent', 'clean_data');
+  const liveFeatureDetails = latestAgentDetails(streamEvents, 'Feature Agent', 'build_features');
+  const cleaningReport = pipelineResult?.preprocessing_report || liveCleaningDetails;
+  const featurePlan = pipelineResult?.feature_plan || liveFeatureDetails;
+  const cleaningActions = asStringList(cleaningReport.transformationsApplied);
+  const featureTransforms = asStringList(featurePlan.transformations);
+  const blockedFeatures = asStringList(featurePlan.blockedLeakageFeatures);
+  const missingIndicators = asStringList(cleaningReport.missingIndicators);
+  const sortColumns = asStringList(cleaningReport.sortColumns);
+  const featureBatchDetails = asRecord(featurePlan.parallelFeatureBatches) || {};
   const artifactJson = String(pipelineResult?.deployment_report?.jsonPath || '');
   const artifactPickle = String(pipelineResult?.deployment_report?.picklePath || '');
   const isSyntheticRun = Boolean(pipelineResult?.sandbox?.syntheticFallback);
@@ -833,6 +849,8 @@ export function PipelineStudio() {
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex justify-between gap-4"><span className="text-slate-400">Source ref</span><span className={`break-all text-right font-mono text-xs ${isSyntheticRun ? 'text-amber-300' : 'text-cyan-300'}`}>{isSyntheticRun ? 'No real source resolved' : (sourceRef || pipelineResult?.data_source || 'pending')}</span></div>
               <div className="flex justify-between gap-4"><span className="text-slate-400">EDA rows</span><span className="font-mono text-white">{evidenceValue(pipelineResult?.sandbox?.rowsAnalyzedByEda)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">EDA time column</span><span className="font-mono text-white">{evidenceValue(liveEdaDetails.timeColumn || pipelineResult?.preprocessing_report?.timeColumn)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">EDA dataset type</span><span className="font-mono text-white">{evidenceValue(liveEdaDetails.datasetType || pipelineResult?.sandbox?.datasetType)}</span></div>
               <div className="flex justify-between gap-4"><span className="text-slate-400">Synthetic fallback</span><span className={pipelineResult?.sandbox?.syntheticFallback ? 'text-amber-300' : 'text-emerald-300'}>{pipelineResult ? String(Boolean(pipelineResult.sandbox?.syntheticFallback)) : 'pending'}</span></div>
             </div>
           </Card>
@@ -840,8 +858,10 @@ export function PipelineStudio() {
           <Card>
             <h2 className="text-lg font-semibold text-white">Cleaning</h2>
             <div className="mt-4 space-y-3 text-sm">
-              <div className="flex justify-between gap-4"><span className="text-slate-400">Rows after target validation</span><span className="font-mono text-white">{evidenceValue(pipelineResult?.preprocessing_report?.rowsAfterTargetValidation)}</span></div>
-              <div className="flex justify-between gap-4"><span className="text-slate-400">Missing after</span><span className="font-mono text-white">{evidenceValue(pipelineResult?.preprocessing_report?.remainingMissingCells)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Rows after target validation</span><span className="font-mono text-white">{evidenceValue(cleaningReport.rowsAfterTargetValidation)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Missing after</span><span className="font-mono text-white">{evidenceValue(cleaningReport.remainingMissingCells)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Sorting</span><span className="text-right font-mono text-white">{sortColumns.length ? sortColumns.join(', ') : evidenceValue(cleaningReport.sorting)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Missing flags</span><span className="text-right font-mono text-white">{missingIndicators.length ? missingIndicators.length : evidenceValue(undefined)}</span></div>
               <div className="space-y-2">
                 {(cleaningActions.length ? cleaningActions : ['Waiting for cleaning report']).slice(0, 5).map((item) => (
                   <p key={item} className="rounded border border-space-700 bg-space-900/60 px-3 py-2 text-xs text-slate-300">{item}</p>
@@ -853,7 +873,9 @@ export function PipelineStudio() {
           <Card>
             <h2 className="text-lg font-semibold text-white">Features</h2>
             <div className="mt-4 space-y-3 text-sm">
-              <div className="flex justify-between gap-4"><span className="text-slate-400">Selected features</span><span className="font-mono text-white">{evidenceValue(pipelineResult?.feature_plan?.featureCount)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Selected features</span><span className="font-mono text-white">{evidenceValue(featurePlan.featureCount)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Execution</span><span className="font-mono text-white">{evidenceValue(featurePlan.featureExecution)}</span></div>
+              <div className="flex justify-between gap-4"><span className="text-slate-400">Parallel batches</span><span className="font-mono text-white">{featureBatchDetails.batchCount !== undefined ? `${String(featureBatchDetails.batchCount)} / ${String(featureBatchDetails.workerCount || 0)} workers` : 'pending'}</span></div>
               <div className="flex flex-wrap gap-2">
                 {(featureTransforms.length ? featureTransforms : ['pending']).map((item) => (
                   <span key={item} className="rounded border border-space-600 bg-space-900 px-2 py-1 text-xs text-slate-300">{item}</span>
@@ -1240,11 +1262,19 @@ export function PipelineStudio() {
                 <div className="mt-3 space-y-2 text-xs text-slate-300">
                   <div className="flex justify-between">
                     <span>Rows after target check</span>
-                    <span className="font-mono text-white">{String(pipelineResult?.preprocessing_report?.rowsAfterTargetValidation || 'pending')}</span>
+                    <span className="font-mono text-white">{String(cleaningReport.rowsAfterTargetValidation || 'pending')}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Remaining missing cells</span>
-                    <span className="font-mono text-white">{String(pipelineResult?.preprocessing_report?.remainingMissingCells || 'pending')}</span>
+                    <span className="font-mono text-white">{String(cleaningReport.remainingMissingCells || 'pending')}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sort columns</span>
+                    <span className="max-w-48 truncate text-right font-mono text-white">{sortColumns.length ? sortColumns.join(', ') : String(cleaningReport.sorting || 'pending')}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Missing indicators</span>
+                    <span className="font-mono text-white">{missingIndicators.length || 'pending'}</span>
                   </div>
                   <div className="max-h-28 overflow-y-auto pt-2">
                     {(cleaningActions.length ? cleaningActions : ['No cleaning actions recorded yet.']).slice(0, 6).map((item) => (
@@ -1259,7 +1289,15 @@ export function PipelineStudio() {
                 <div className="mt-3 space-y-2 text-xs text-slate-300">
                   <div className="flex justify-between">
                     <span>Feature count</span>
-                    <span className="font-mono text-white">{String(pipelineResult?.feature_plan?.featureCount || 'pending')}</span>
+                    <span className="font-mono text-white">{String(featurePlan.featureCount || 'pending')}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Execution</span>
+                    <span className="font-mono text-white">{String(featurePlan.featureExecution || 'pending')}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Parallel batches</span>
+                    <span className="font-mono text-white">{featureBatchDetails.batchCount !== undefined ? `${String(featureBatchDetails.batchCount)} / ${String(featureBatchDetails.workerCount || 0)}` : 'pending'}</span>
                   </div>
                   <div className="flex flex-wrap gap-2 pt-2">
                     {(featureTransforms.length ? featureTransforms : ['pending']).map((item) => (
@@ -1267,7 +1305,7 @@ export function PipelineStudio() {
                     ))}
                   </div>
                   <p className="pt-2 text-slate-500">
-                    {String((pipelineResult?.feature_plan?.tfidf as any)?.reason || 'Text/PCA decisions will appear after feature generation.')}
+                    {blockedFeatures.length ? `Blocked leakage: ${blockedFeatures.slice(0, 5).join(', ')}` : String((featurePlan.tfidf as any)?.reason || 'Text/PCA decisions will appear after feature generation.')}
                   </p>
                 </div>
               </Card>

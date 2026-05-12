@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 import importlib.util
 import json
@@ -26,6 +27,7 @@ from app.services.dataset_store import DataSourceError, DatasetStoreService
 
 ProgressCallback = Callable[[dict[str, object]], None]
 MODEL_LOAD_DELAY_SECONDS = float(os.getenv("CHRONOS_MODEL_LOAD_DELAY_SECONDS", "1.2"))
+FEATURE_BATCH_COUNT = int(os.getenv("CHRONOS_FEATURE_BATCH_COUNT", "9"))
 
 
 @dataclass
@@ -100,8 +102,28 @@ class PipelineService:
         data_source: str,
         progress_callback: ProgressCallback | None = None,
     ) -> PipelineRunResponse:
-        has_time = bool((profile.time_series or {}).get("valid"))
         time_column = self._profile_time_column(profile, dataframe)
+        has_time = bool((profile.time_series or {}).get("valid")) or bool(time_column)
+        self._emit(
+            progress_callback,
+            {
+                "event": "agent_step",
+                "agent": "EDA Agent",
+                "stage": "profile_review",
+                "status": "complete",
+                "message": "Reviewed the fresh EDA profile before model selection and feature planning.",
+                "details": {
+                    "datasetType": "time-series" if has_time else "cross-sectional",
+                    "timeColumn": time_column,
+                    "targetColumn": request.target_column or profile.validation.get("recommendedTarget"),
+                    "rowsAnalyzed": profile.summary.get("rowsAnalyzed") or profile.summary.get("rows"),
+                    "columnsScanned": profile.summary.get("columnsScanned") or profile.summary.get("columns"),
+                    "forecastabilityScore": (profile.forecastability or {}).get("score"),
+                    "topPredictiveSignals": (profile.feature_intelligence or {}).get("predictiveSignals", [])[:6],
+                    "leakageWarnings": (profile.feature_intelligence or {}).get("leakageWarnings", []),
+                },
+            },
+        )
         model, model_reason = self._resolve_model(profile, dataframe, request)
         self._emit(
             progress_callback,
@@ -309,7 +331,7 @@ class PipelineService:
         quality = profile.quality_intelligence or {}
         feature_intelligence = profile.feature_intelligence or {}
         time_series = profile.time_series or {}
-        has_time = bool(time_series.get("valid"))
+        has_time = bool(time_series.get("valid")) or bool(self._profile_time_column(profile, dataframe))
 
         score = float(forecastability.get("score") or 0.0)
         seasonality = float(forecastability.get("seasonalityStrength") or 0.0)
@@ -472,15 +494,26 @@ class PipelineService:
         original_rows = len(frame)
         original_missing = int(frame.isna().sum().sum())
         transformations: list[str] = []
+        missing_indicators: list[str] = []
+        sort_columns: list[str] = []
         if time_column and time_column in frame.columns:
-            frame[time_column] = pd.to_datetime(frame[time_column], errors="coerce", format="mixed")
-            frame = frame.sort_values(time_column)
-            transformations.append(f"Sorted by time column `{time_column}`.")
+            if self._is_year_like_column(frame[time_column], time_column):
+                frame[time_column] = pd.to_numeric(frame[time_column], errors="coerce")
+            else:
+                frame[time_column] = pd.to_datetime(frame[time_column], errors="coerce", format="mixed")
+            sort_columns = [*self._entity_sort_columns(frame, target_column, time_column), time_column]
+            frame = frame.sort_values(sort_columns)
+            transformations.append(f"Sorted by `{', '.join(sort_columns)}` before imputation and feature generation.")
 
         drop_columns: list[str] = []
         drop_reasons: dict[str, str] = {}
         for column in frame.columns:
             if column in {target_column, time_column}:
+                continue
+            leakage_reason = self._leakage_feature_reason(column, target_column)
+            if leakage_reason:
+                drop_columns.append(column)
+                drop_reasons[column] = leakage_reason
                 continue
             missing_pct = float(frame[column].isna().mean() * 100)
             unique_count = int(frame[column].nunique(dropna=True))
@@ -509,10 +542,25 @@ class PipelineService:
         for column in numeric_columns:
             before = int(frame[column].isna().sum())
             if before:
-                frame[column] = frame[column].ffill().bfill()
+                missing_pct = before / max(len(frame), 1) * 100
+                if column != target_column and missing_pct >= 25:
+                    indicator = f"{column}_was_missing"
+                    frame[indicator] = frame[column].isna().astype(float)
+                    missing_indicators.append(indicator)
+                    transformations.append(f"Added missingness indicator `{indicator}` for `{column}` ({missing_pct:.1f}% missing).")
+                if sort_columns:
+                    group_columns = [column for column in sort_columns if column != time_column]
+                    if group_columns:
+                        frame[column] = frame.groupby(group_columns, dropna=False)[column].ffill()
+                        frame[column] = frame.groupby(group_columns, dropna=False)[column].bfill()
+                    else:
+                        frame[column] = frame[column].ffill().bfill()
+                else:
+                    frame[column] = frame[column].fillna(frame[column].median())
                 if frame[column].isna().any():
                     frame[column] = frame[column].fillna(frame[column].median())
-                transformations.append(f"Imputed numeric column `{column}` with forward/back fill and median fallback ({before} cells).")
+                strategy = "grouped ffill+bfill+median" if sort_columns else "median"
+                transformations.append(f"Imputed numeric column `{column}` with {strategy} ({before} cells).")
             if column != target_column:
                 clean = frame[column].dropna()
                 if len(clean) > 8:
@@ -556,8 +604,10 @@ class PipelineService:
             "remainingMissingCells": int(frame.isna().sum().sum()),
             "targetColumn": target_column,
             "timeColumn": time_column,
-            "sorting": "timestamp_sorted" if time_column else "input_order",
-            "numericImputation": "ffill+bfill+median",
+            "sortColumns": sort_columns,
+            "sorting": "grouped_time_sorted" if sort_columns and len(sort_columns) > 1 else ("time_sorted" if time_column else "input_order"),
+            "numericImputation": "grouped ffill+bfill+median" if sort_columns else "median",
+            "missingIndicators": missing_indicators,
             "categoricalEncoding": "category codes during feature matrix construction",
             "transformationsApplied": transformations,
             "totalTransformations": len(transformations),
@@ -1440,42 +1490,63 @@ class PipelineService:
         candidate_features, blocked_features = self._safe_feature_columns(numeric.columns.tolist(), target_column)
         supervised = numeric[[target_column, *candidate_features]].copy()
         transformations = ["numeric passthrough"]
+        categorical_features, categorical_batches = self._parallel_categorical_features(frame, target_column, time_column)
+        if categorical_features:
+            for feature_name, values in categorical_features.items():
+                supervised[feature_name] = values
+            transformations.append("9-batch parallel categorical encoding")
 
         # Only add temporal lag/rolling features when a real time column exists
         if time_column and time_column in frame.columns:
             transformations.extend(["lag features", "rolling statistics", "calendar features", "cyclical calendar encoding"])
-            for lag in [1, 2, 3, 6, 12, 24, 48, 168]:
-                supervised[f"lag_{lag}"] = supervised[target_column].shift(lag)
-            for window in [6, 24, 72, 168]:
-                supervised[f"rolling_mean_{window}"] = supervised[target_column].rolling(window).mean()
-                supervised[f"rolling_std_{window}"] = supervised[target_column].rolling(window).std(ddof=0)
-            supervised["diff_1"] = supervised[target_column].diff(1)
-            supervised["diff_24"] = supervised[target_column].diff(24)
-            parsed = pd.to_datetime(frame[time_column], errors="coerce", format="mixed")
-            supervised["hour"] = parsed.dt.hour
-            supervised["dayofweek"] = parsed.dt.dayofweek
-            supervised["month"] = parsed.dt.month
-            supervised["dayofyear"] = parsed.dt.dayofyear
-            supervised["is_weekend"] = parsed.dt.dayofweek.isin([5, 6]).astype(float)
-            supervised["hour_sin"] = np.sin(2 * np.pi * supervised["hour"] / 24.0)
-            supervised["hour_cos"] = np.cos(2 * np.pi * supervised["hour"] / 24.0)
-            supervised["dow_sin"] = np.sin(2 * np.pi * supervised["dayofweek"] / 7.0)
-            supervised["dow_cos"] = np.cos(2 * np.pi * supervised["dayofweek"] / 7.0)
-            supervised["month_sin"] = np.sin(2 * np.pi * supervised["month"] / 12.0)
-            supervised["month_cos"] = np.cos(2 * np.pi * supervised["month"] / 12.0)
-        else:
-            # Cross-sectional: encode categorical columns via label encoding
-            encoded_columns = []
-            for col in frame.columns:
-                if col == target_column or col in numeric.columns:
-                    continue
-                if frame[col].dtype == object or str(frame[col].dtype) == "category":
-                    encoded = frame[col].astype("category").cat.codes.astype(float)
-                    encoded = encoded.replace(-1, np.nan)
-                    supervised[f"enc_{col}"] = encoded.values
-                    encoded_columns.append(col)
-            if encoded_columns:
-                transformations.append("categorical label encoding")
+            group_columns = self._entity_sort_columns(frame, target_column, time_column)
+            grouped_target = supervised[target_column]
+            if group_columns:
+                group_keys = [frame[column] for column in group_columns]
+                grouped_target = supervised[target_column].groupby(group_keys, dropna=False)
+                transformations.append("group-aware temporal features")
+            max_history = int(frame.groupby(group_columns, dropna=False).size().max()) if group_columns else len(frame)
+            lag_limit = max(1, max_history // 3)
+            window_limit = max(3, max_history // 2)
+            lag_steps = [lag for lag in [1, 2, 3, 6, 12, 24, 48, 168] if lag <= lag_limit]
+            window_steps = [window for window in [3, 6, 12, 24, 72, 168] if window <= window_limit]
+            if not lag_steps and max_history > 1:
+                lag_steps = [1]
+            for lag in lag_steps:
+                supervised[f"lag_{lag}"] = grouped_target.shift(lag) if group_columns else grouped_target.shift(lag)
+            for window in window_steps:
+                min_periods = max(2, min(window, window // 2))
+                if group_columns:
+                    rolling = grouped_target.rolling(window, min_periods=min_periods)
+                    supervised[f"rolling_mean_{window}"] = rolling.mean().reset_index(level=list(range(len(group_columns))), drop=True)
+                    supervised[f"rolling_std_{window}"] = rolling.std(ddof=0).reset_index(level=list(range(len(group_columns))), drop=True)
+                else:
+                    supervised[f"rolling_mean_{window}"] = grouped_target.rolling(window, min_periods=min_periods).mean()
+                    supervised[f"rolling_std_{window}"] = grouped_target.rolling(window, min_periods=min_periods).std(ddof=0)
+            if max_history > 1:
+                supervised["diff_1"] = grouped_target.diff(1) if group_columns else grouped_target.diff(1)
+            if max_history > 24:
+                supervised["diff_24"] = grouped_target.diff(24) if group_columns else grouped_target.diff(24)
+            if self._is_year_like_column(frame[time_column], time_column):
+                years = pd.to_numeric(frame[time_column], errors="coerce")
+                supervised["year"] = years
+                supervised["decade"] = (years // 10) * 10
+                supervised["year_trend"] = years - years.min()
+                supervised["year_sin"] = np.sin(2 * np.pi * supervised["year_trend"] / 10.0)
+                supervised["year_cos"] = np.cos(2 * np.pi * supervised["year_trend"] / 10.0)
+            else:
+                parsed = pd.to_datetime(frame[time_column], errors="coerce", format="mixed")
+                supervised["hour"] = parsed.dt.hour
+                supervised["dayofweek"] = parsed.dt.dayofweek
+                supervised["month"] = parsed.dt.month
+                supervised["dayofyear"] = parsed.dt.dayofyear
+                supervised["is_weekend"] = parsed.dt.dayofweek.isin([5, 6]).astype(float)
+                supervised["hour_sin"] = np.sin(2 * np.pi * supervised["hour"] / 24.0)
+                supervised["hour_cos"] = np.cos(2 * np.pi * supervised["hour"] / 24.0)
+                supervised["dow_sin"] = np.sin(2 * np.pi * supervised["dayofweek"] / 7.0)
+                supervised["dow_cos"] = np.cos(2 * np.pi * supervised["dayofweek"] / 7.0)
+                supervised["month_sin"] = np.sin(2 * np.pi * supervised["month"] / 12.0)
+                supervised["month_cos"] = np.cos(2 * np.pi * supervised["month"] / 12.0)
 
         current_features = [column for column in supervised.columns if column != target_column]
         if not current_features:
@@ -1495,7 +1566,61 @@ class PipelineService:
         y = supervised[target_column].to_numpy(dtype=float)
         plan = self._feature_plan(feature_names, target_column, model, bool(time_column), frame, transformations)
         plan["blockedLeakageFeatures"] = blocked_features
+        plan["parallelFeatureBatches"] = categorical_batches
+        plan["featureExecution"] = "nine-batch-parallel" if categorical_batches["batchCount"] > 1 else "single-batch"
         return x, y, feature_names, plan
+
+    def _parallel_categorical_features(
+        self,
+        frame: pd.DataFrame,
+        target_column: str,
+        time_column: str | None,
+    ) -> tuple[dict[str, np.ndarray], dict[str, object]]:
+        categorical_columns = [
+            column for column in frame.columns
+            if column not in {target_column, time_column}
+            and column not in frame.select_dtypes(include=["number"]).columns
+            and not self._leakage_feature_reason(column, target_column)
+        ]
+        if not categorical_columns:
+            return {}, {"batchCount": 0, "workerCount": 0, "encodedColumns": [], "encoding": "none"}
+
+        batch_count = min(max(1, FEATURE_BATCH_COUNT), len(categorical_columns))
+        batches = np.array_split(np.array(categorical_columns, dtype=object), batch_count)
+        feature_map: dict[str, np.ndarray] = {}
+
+        def encode_batch(columns: np.ndarray) -> dict[str, np.ndarray]:
+            encoded: dict[str, np.ndarray] = {}
+            for column in columns.tolist():
+                series = frame[column]
+                unique_count = int(series.nunique(dropna=True))
+                if unique_count <= 1:
+                    continue
+                if unique_count <= min(24, max(4, int(len(frame) * 0.05))):
+                    dummies = pd.get_dummies(series.fillna("Unknown"), prefix=f"onehot_{column}", dummy_na=False)
+                    for dummy_column in dummies.columns[:24]:
+                        encoded[str(dummy_column)] = dummies[dummy_column].to_numpy(dtype=float)
+                else:
+                    codes = series.astype("category").cat.codes.astype(float)
+                    codes = codes.replace(-1, np.nan)
+                    encoded[f"enc_{column}"] = codes.to_numpy(dtype=float)
+            return encoded
+
+        max_workers = min(batch_count, FEATURE_BATCH_COUNT)
+        if max_workers <= 1:
+            feature_map.update(encode_batch(batches[0]))
+        else:
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                for encoded_batch in executor.map(encode_batch, batches):
+                    feature_map.update(encoded_batch)
+
+        return feature_map, {
+            "batchCount": int(batch_count),
+            "workerCount": int(max_workers),
+            "encodedColumns": categorical_columns,
+            "generatedFeatureCount": len(feature_map),
+            "encoding": "one-hot for low-cardinality, category codes for high-cardinality",
+        }
 
     def _safe_feature_columns(self, columns: list[str], target_column: str) -> tuple[list[str], list[str]]:
         target_normalized = target_column.lower().replace("_", " ")
@@ -1523,6 +1648,9 @@ class PipelineService:
                 continue
             normalized = column.lower().replace("_", " ")
             tokens = {token for token in normalized.split() if len(token) > 2}
+            if self._leakage_feature_reason(column, target_column):
+                blocked_columns.append(column)
+                continue
             if target_tokens & tokens and any(marker in normalized for marker in blocked_markers):
                 blocked_columns.append(column)
                 continue
@@ -1534,6 +1662,46 @@ class PipelineService:
                 continue
             safe_columns.append(column)
         return safe_columns, blocked_columns
+
+    def _leakage_feature_reason(self, column: str, target_column: str) -> str | None:
+        normalized = column.lower().replace("_", " ").replace("-", " ").strip()
+        target_normalized = target_column.lower().replace("_", " ").replace("-", " ").strip()
+        if normalized == target_normalized:
+            return "target column"
+
+        tokens = {token for token in normalized.split() if len(token) > 2}
+        target_tokens = {token for token in target_normalized.split() if len(token) > 2}
+        derived_markers = {
+            "rank", "ranking", "percentile", "quantile", "bucket", "bin",
+            "whisker",
+            "prediction", "predicted", "forecast", "fitted", "residual", "error",
+            "label", "target",
+        }
+        if tokens & derived_markers:
+            return "potential target-derived or post-outcome feature"
+        interval_markers = {"lower", "upper", "bound", "bounds", "interval", "confidence", "ci"}
+        if tokens & interval_markers and (target_tokens & tokens or tokens & {"whisker", "interval", "confidence", "ci"}):
+            return "target interval or uncertainty feature"
+        if target_tokens and target_tokens <= tokens:
+            return "feature name contains target name"
+        if target_tokens & tokens and any(marker in tokens for marker in {"score", "value", "rate", "amount"}):
+            return "feature overlaps target semantic tokens"
+        return None
+
+    def _entity_sort_columns(self, frame: pd.DataFrame, target_column: str, time_column: str | None) -> list[str]:
+        candidates: list[tuple[int, str]] = []
+        row_count = max(len(frame), 1)
+        for column in frame.columns:
+            if column in {target_column, time_column}:
+                continue
+            if not (frame[column].dtype == object or str(frame[column].dtype) == "category"):
+                continue
+            normalized = column.lower().replace("_", " ").strip()
+            if any(token in normalized for token in ["name", "country", "state", "region", "city", "entity", "group", "store", "product", "customer"]):
+                unique_count = int(frame[column].nunique(dropna=True))
+                if 1 < unique_count < row_count * 0.8:
+                    candidates.append((unique_count, column))
+        return [column for _, column in sorted(candidates)[:2]]
 
     def _temporal_split(self, x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         split = self._safe_split_index(len(x))
@@ -1660,7 +1828,26 @@ class PipelineService:
             parsed = pd.to_datetime(frame[column], errors="coerce", format="mixed")
             if parsed.notna().mean() > 0.8:
                 return column
+        year_candidates: list[tuple[int, str]] = []
+        for column in frame.columns:
+            if self._is_year_like_column(frame[column], column):
+                year_candidates.append((int(frame[column].nunique(dropna=True)), column))
+        if year_candidates:
+            return sorted(year_candidates, reverse=True)[0][1]
         return None
+
+    def _is_year_like_column(self, series: pd.Series, column: str) -> bool:
+        normalized = column.lower().replace("_", " ").strip()
+        if "year" not in normalized and normalized not in {"yr", "fiscal year"}:
+            return False
+        values = pd.to_numeric(series, errors="coerce").dropna()
+        if len(values) < 3:
+            return False
+        if not (values == values.round()).all():
+            return False
+        min_year = int(values.min())
+        max_year = int(values.max())
+        return 1800 <= min_year <= max_year <= 2200 and values.nunique() >= 2
 
     def _emit(self, progress_callback: ProgressCallback | None, payload: dict[str, object]) -> None:
         if progress_callback is None:

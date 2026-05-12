@@ -1,0 +1,48 @@
+{
+  "status": "packaged",
+  "modelFamily": "RandomForest",
+  "backend": "sklearn-random-forest",
+  "targetColumn": "happiness_score",
+  "createdAt": "2026-05-11T09:25:52.667035+00:00",
+  "localRuntimeNote": "Artifact was produced by the local training runtime. Validate before production use.",
+  "bestParams": {
+    "max_depth": 14,
+    "min_samples_leaf": 1,
+    "n_estimators": 180
+  },
+  "metrics": {
+    "mae": 0.0517,
+    "rmse": 0.0908,
+    "mape": 1.1087,
+    "r2": 0.9941,
+    "mase": 0.2297
+  },
+  "featureNames": [
+    "year",
+    "explained_log_gdp_per_capita",
+    "explained_social_support",
+    "explained_healthy_life_expectancy",
+    "explained_freedom",
+    "explained_generosity",
+    "explained_corruption",
+    "explained_log_gdp_per_capita_was_missing",
+    "explained_social_support_was_missing",
+    "explained_healthy_life_expectancy_was_missing",
+    "explained_freedom_was_missing",
+    "explained_generosity_was_missing",
+    "explained_corruption_was_missing",
+    "enc_country",
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "rolling_mean_3",
+    "rolling_std_3",
+    "rolling_mean_6",
+    "rolling_std_6",
+    "diff_1",
+    "decade",
+    "year_trend",
+    "year_sin",
+    "year_cos"
+  ]
+}

@@ -1,0 +1,843 @@
+{
+  "datasetId": "elvisbui--world-happiness-report-2005-2025-panel",
+  "title": "World Happiness Report 2005 2025 Panel",
+  "summary": {
+    "rows": 2116,
+    "columns": 13,
+    "rowsScanned": 2116,
+    "columnsScanned": 13,
+    "targetColumn": "happiness_score",
+    "missingPercent": 35.91,
+    "timeSeriesValidated": false,
+    "timeRangeStart": "unknown",
+    "timeRangeEnd": "unknown",
+    "edaMode": "nine-record-batch-eda",
+    "edaExecution": "record-batched-full-reconciliation",
+    "batchSize": 8,
+    "workerCount": 4,
+    "chartMode": "sampled-evenly",
+    "chartSamplePoints": 500,
+    "chartSourceRows": 2116,
+    "loadTimeMs": 29.2,
+    "profileTimeMs": 611.1,
+    "dataSource": "kaggle:elvisbui/world-happiness-report-2005-2025-panel",
+    "profileInputSource": "kaggle:elvisbui/world-happiness-report-2005-2025-panel",
+    "rowsAnalyzed": 2116,
+    "recordBatchCount": 9,
+    "batchRowsProfiled": 2116,
+    "syntheticFallback": false,
+    "sourceRef": "elvisbui/world-happiness-report-2005-2025-panel",
+    "realDataLoaded": true,
+    "profileCacheHit": false
+  },
+  "timeSeries": {
+    "valid": false,
+    "timeColumn": null,
+    "frequency": "unknown",
+    "gapRatio": null,
+    "orderingScore": 0.0,
+    "consistencyScore": 0.0,
+    "seasonalityHint": "undetermined"
+  },
+  "validation": {
+    "timestampPresence": false,
+    "sequentialOrdering": false,
+    "frequencyConsistency": 0.0,
+    "duplicateTimestampRatio": 0.0,
+    "missingIntervalRatio": null,
+    "recommendedTarget": "happiness_score"
+  },
+  "structuralIntelligence": {
+    "columnRoles": {
+      "year": {
+        "role": "entity_or_grouping",
+        "type": "numeric",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "rank_in_year": {
+        "role": "entity_or_grouping",
+        "type": "numeric",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "country": {
+        "role": "entity_or_grouping",
+        "type": "categorical",
+        "reason": "Low-cardinality categorical feature can segment behavior."
+      },
+      "happiness_score": {
+        "role": "prediction_target",
+        "type": "numeric",
+        "reason": "Numeric column selected as the primary quantity to predict."
+      },
+      "lower_whisker": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "upper_whisker": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "explained_log_gdp_per_capita": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "explained_social_support": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "explained_healthy_life_expectancy": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "explained_freedom": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "explained_generosity": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "explained_corruption": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      },
+      "dystopia_plus_residual": {
+        "role": "numeric_feature",
+        "type": "numeric",
+        "reason": "Numeric feature available as a predictor in regression/classification."
+      }
+    },
+    "entityColumns": [
+      "year",
+      "rank_in_year",
+      "country"
+    ],
+    "targetColumn": "happiness_score",
+    "timeColumn": null,
+    "temporalHierarchy": [],
+    "relationshipSummary": "`happiness_score` is predicted from lower_whisker, upper_whisker, explained_log_gdp_per_capita, explained_social_support segmented by year, rank_in_year.",
+    "datasetType": "cross-sectional"
+  },
+  "forecastability": {
+    "score": 45.9,
+    "grade": "weak",
+    "seasonalityStrength": 0.0,
+    "trendConsistency": 0.0,
+    "stationarityScore": 0.963,
+    "noiseRatio": 0.761,
+    "intervalStability": 0.0,
+    "reasons": [
+      "Dataset has 2,116 rows and 11 numeric feature(s) available for prediction.",
+      "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+      "Signal-to-noise ratio is moderate (noise ratio: 0.76)."
+    ],
+    "risks": [
+      "Without a time index, temporal forecasting is not applicable.",
+      "Use cross-validation instead of walk-forward splits."
+    ]
+  },
+  "temporalBehavior": {
+    "periodicity": "not applicable \u2014 cross-sectional dataset",
+    "anomalies": [],
+    "anomalyRate": 0.0019,
+    "outlierCount": 4,
+    "regimeChanges": [],
+    "driftScore": 0.0,
+    "skewness": -0.129,
+    "distributionShape": "approximately normal",
+    "interpretation": "Cross-sectional dataset. Target `happiness_score` has 4 outliers (0.2% of rows). Distribution is approximately normal."
+  },
+  "qualityIntelligence": {
+    "trustScore": 56.9,
+    "missingPattern": "Structural missingness: 9 column(s) have >30% missing values (lower_whisker, upper_whisker, explained_log_gdp_per_capita...). This is common in panel datasets where not all records have all fields.",
+    "leakageRisk": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "duplicateRisk": "low",
+    "recommendations": [
+      "Encode categorical features before training (label or one-hot encoding).",
+      "Use stratified k-fold cross-validation for unbiased evaluation.",
+      "Check for class imbalance in the target variable.",
+      "Review high-cardinality columns \u2014 consider target encoding or dropping."
+    ]
+  },
+  "featureIntelligence": {
+    "predictiveSignals": [
+      {
+        "feature": "country",
+        "sameTimeCorrelation": 0.908,
+        "lagInfluence": 0.0,
+        "associationMethod": "eta_squared",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "explained_social_support",
+        "sameTimeCorrelation": 0.701,
+        "lagInfluence": 0.618,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "explained_log_gdp_per_capita",
+        "sameTimeCorrelation": 0.681,
+        "lagInfluence": 0.641,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "explained_healthy_life_expectancy",
+        "sameTimeCorrelation": 0.659,
+        "lagInfluence": 0.617,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "explained_freedom",
+        "sameTimeCorrelation": 0.491,
+        "lagInfluence": 0.402,
+        "associationMethod": "pearson",
+        "role": "strong_driver"
+      },
+      {
+        "feature": "explained_corruption",
+        "sameTimeCorrelation": 0.426,
+        "lagInfluence": 0.402,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      },
+      {
+        "feature": "explained_generosity",
+        "sameTimeCorrelation": 0.035,
+        "lagInfluence": 0.016,
+        "associationMethod": "pearson",
+        "role": "weak_or_contextual"
+      }
+    ],
+    "redundantFeatures": [
+      {
+        "features": [
+          "rank_in_year",
+          "happiness_score"
+        ],
+        "correlation": 0.983
+      },
+      {
+        "features": [
+          "rank_in_year",
+          "lower_whisker"
+        ],
+        "correlation": 0.975
+      },
+      {
+        "features": [
+          "rank_in_year",
+          "upper_whisker"
+        ],
+        "correlation": 0.973
+      },
+      {
+        "features": [
+          "happiness_score",
+          "lower_whisker"
+        ],
+        "correlation": 0.999
+      },
+      {
+        "features": [
+          "happiness_score",
+          "upper_whisker"
+        ],
+        "correlation": 0.999
+      },
+      {
+        "features": [
+          "lower_whisker",
+          "upper_whisker"
+        ],
+        "correlation": 0.998
+      }
+    ],
+    "leakageWarnings": [
+      "No obvious leakage columns detected by naming analysis."
+    ],
+    "preTrainingRecommendation": "Encode categorical features and use cross-validated feature importance to rank predictors."
+  },
+  "strategyRecommendation": {
+    "recommendedModelFamily": "RandomForest",
+    "reason": "Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.",
+    "preprocessingPlan": [
+      "encode categorical features",
+      "impute missing values",
+      "use k-fold validation",
+      "tune tree depth and leaf size"
+    ],
+    "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+    "confidence": "weak",
+    "datasetType": "cross-sectional"
+  },
+  "semanticUnderstanding": {
+    "inferredDomain": "happiness",
+    "businessMeaning": "This dataset captures national happiness scores, life expectancy, GDP, social support, freedom, generosity, and corruption perception across countries and years.",
+    "likelyUseCase": "happiness score prediction, wellbeing analysis, and cross-country comparison",
+    "targetMeaning": "`happiness_score` is likely the primary quantity to predict.",
+    "datasetType": "cross-sectional"
+  },
+  "edaTrace": [
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 1,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "1-236",
+      "missingPercent": 69.23,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2011.339,
+        "rank_in_year": 65.6186,
+        "happiness_score": 5.6995
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 2,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "237-472",
+      "missingPercent": 69.23,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2013.3644,
+        "rank_in_year": 91.3983,
+        "happiness_score": 5.109
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 3,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "473-708",
+      "missingPercent": 69.23,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2015.3432,
+        "rank_in_year": 66.6144,
+        "happiness_score": 5.6591
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 4,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "709-944",
+      "missingPercent": 69.23,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2016.7119,
+        "rank_in_year": 89.1356,
+        "happiness_score": 5.12
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 5,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "945-1180",
+      "missingPercent": 44.0,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2018.3644,
+        "rank_in_year": 67.6102,
+        "happiness_score": 5.6673,
+        "lower_whisker": 6.1778,
+        "upper_whisker": 6.3656
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 6,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "1181-1416",
+      "missingPercent": 0.0,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2019.8008,
+        "rank_in_year": 82.3093,
+        "happiness_score": 5.368,
+        "lower_whisker": 5.2547,
+        "upper_whisker": 5.4812
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 7,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "1417-1652",
+      "missingPercent": 0.07,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2021.4661,
+        "rank_in_year": 70.4492,
+        "happiness_score": 5.598,
+        "lower_whisker": 5.475,
+        "upper_whisker": 5.721
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 8,
+      "batchCount": 9,
+      "rows": 236,
+      "rowRange": "1653-1888",
+      "missingPercent": 0.75,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2023.1653,
+        "rank_in_year": 67.1822,
+        "happiness_score": 5.6321,
+        "lower_whisker": 5.5176,
+        "upper_whisker": 5.7465
+      }
+    },
+    {
+      "stage": "record_batch_eda",
+      "status": "complete",
+      "batch": 9,
+      "batchCount": 9,
+      "rows": 228,
+      "rowRange": "1889-2116",
+      "missingPercent": 0.27,
+      "numericColumns": 12,
+      "categoricalColumns": 1,
+      "dateLikeColumns": [],
+      "numericMeanSnapshot": {
+        "year": 2024.6447,
+        "rank_in_year": 85.7237,
+        "happiness_score": 5.3334,
+        "lower_whisker": 5.2193,
+        "upper_whisker": 5.4474
+      }
+    },
+    {
+      "stage": "load_dataset",
+      "status": "complete",
+      "rowsScanned": 2116,
+      "columnsScanned": 13,
+      "memoryBytes": 342823
+    },
+    {
+      "stage": "profile_columns",
+      "status": "complete",
+      "execution": "parallel-batched",
+      "workerCount": 4,
+      "batchSize": 8,
+      "typeCounts": {
+        "numeric": 12,
+        "categorical": 1,
+        "datetime": 0,
+        "text": 0
+      },
+      "highMissingColumns": [
+        {
+          "name": "dystopia_plus_residual",
+          "missingPercent": 52.13
+        },
+        {
+          "name": "explained_healthy_life_expectancy",
+          "missingPercent": 51.98
+        },
+        {
+          "name": "explained_freedom",
+          "missingPercent": 51.94
+        },
+        {
+          "name": "explained_corruption",
+          "missingPercent": 51.89
+        },
+        {
+          "name": "explained_log_gdp_per_capita",
+          "missingPercent": 51.84
+        }
+      ],
+      "highCardinalityColumns": [
+        "happiness_score",
+        "lower_whisker",
+        "upper_whisker",
+        "explained_log_gdp_per_capita",
+        "explained_social_support",
+        "explained_healthy_life_expectancy",
+        "explained_freedom",
+        "dystopia_plus_residual"
+      ]
+    },
+    {
+      "stage": "detect_time_axis",
+      "status": "complete",
+      "valid": false,
+      "timeColumn": null,
+      "frequency": "unknown",
+      "consistencyScore": 0.0,
+      "orderingScore": 0.0,
+      "decision": "Treat as cross-sectional; do not use temporal forecast assumptions."
+    },
+    {
+      "stage": "select_target",
+      "status": "complete",
+      "targetColumn": "happiness_score",
+      "targetType": "numeric",
+      "uniqueValues": 1673,
+      "missingPercent": 0.0,
+      "reason": "Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds."
+    },
+    {
+      "stage": "validate_quality",
+      "status": "complete",
+      "validation": {
+        "timestampPresence": false,
+        "sequentialOrdering": false,
+        "frequencyConsistency": 0.0,
+        "duplicateTimestampRatio": 0.0,
+        "missingIntervalRatio": null,
+        "recommendedTarget": "happiness_score"
+      },
+      "qualityIntelligence": {
+        "trustScore": 56.9,
+        "missingPattern": "Structural missingness: 9 column(s) have >30% missing values (lower_whisker, upper_whisker, explained_log_gdp_per_capita...). This is common in panel datasets where not all records have all fields.",
+        "leakageRisk": [
+          "No obvious leakage columns detected by naming analysis."
+        ],
+        "duplicateRisk": "low",
+        "recommendations": [
+          "Encode categorical features before training (label or one-hot encoding).",
+          "Use stratified k-fold cross-validation for unbiased evaluation.",
+          "Check for class imbalance in the target variable.",
+          "Review high-cardinality columns \u2014 consider target encoding or dropping."
+        ]
+      }
+    },
+    {
+      "stage": "analyze_relationships",
+      "status": "complete",
+      "topPredictiveSignals": [
+        {
+          "feature": "country",
+          "sameTimeCorrelation": 0.908,
+          "lagInfluence": 0.0,
+          "associationMethod": "eta_squared",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "explained_social_support",
+          "sameTimeCorrelation": 0.701,
+          "lagInfluence": 0.618,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "explained_log_gdp_per_capita",
+          "sameTimeCorrelation": 0.681,
+          "lagInfluence": 0.641,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "explained_healthy_life_expectancy",
+          "sameTimeCorrelation": 0.659,
+          "lagInfluence": 0.617,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "explained_freedom",
+          "sameTimeCorrelation": 0.491,
+          "lagInfluence": 0.402,
+          "associationMethod": "pearson",
+          "role": "strong_driver"
+        },
+        {
+          "feature": "explained_corruption",
+          "sameTimeCorrelation": 0.426,
+          "lagInfluence": 0.402,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        },
+        {
+          "feature": "explained_generosity",
+          "sameTimeCorrelation": 0.035,
+          "lagInfluence": 0.016,
+          "associationMethod": "pearson",
+          "role": "weak_or_contextual"
+        }
+      ],
+      "redundantFeatures": [
+        {
+          "features": [
+            "rank_in_year",
+            "happiness_score"
+          ],
+          "correlation": 0.983
+        },
+        {
+          "features": [
+            "rank_in_year",
+            "lower_whisker"
+          ],
+          "correlation": 0.975
+        },
+        {
+          "features": [
+            "rank_in_year",
+            "upper_whisker"
+          ],
+          "correlation": 0.973
+        },
+        {
+          "features": [
+            "happiness_score",
+            "lower_whisker"
+          ],
+          "correlation": 0.999
+        },
+        {
+          "features": [
+            "happiness_score",
+            "upper_whisker"
+          ],
+          "correlation": 0.999
+        }
+      ],
+      "leakageWarnings": [
+        "No obvious leakage columns detected by naming analysis."
+      ]
+    },
+    {
+      "stage": "analyze_behavior",
+      "status": "complete",
+      "forecastability": {
+        "score": 45.9,
+        "grade": "weak",
+        "seasonalityStrength": 0.0,
+        "trendConsistency": 0.0,
+        "stationarityScore": 0.963,
+        "noiseRatio": 0.761,
+        "intervalStability": 0.0,
+        "reasons": [
+          "Dataset has 2,116 rows and 11 numeric feature(s) available for prediction.",
+          "No time index detected \u2014 this is a cross-sectional dataset suited for regression/classification.",
+          "Signal-to-noise ratio is moderate (noise ratio: 0.76)."
+        ],
+        "risks": [
+          "Without a time index, temporal forecasting is not applicable.",
+          "Use cross-validation instead of walk-forward splits."
+        ]
+      },
+      "temporalBehavior": {
+        "periodicity": "not applicable \u2014 cross-sectional dataset",
+        "anomalies": [],
+        "anomalyRate": 0.0019,
+        "outlierCount": 4,
+        "regimeChanges": [],
+        "driftScore": 0.0,
+        "skewness": -0.129,
+        "distributionShape": "approximately normal",
+        "interpretation": "Cross-sectional dataset. Target `happiness_score` has 4 outliers (0.2% of rows). Distribution is approximately normal."
+      }
+    },
+    {
+      "stage": "select_model_strategy",
+      "status": "complete",
+      "strategy": {
+        "recommendedModelFamily": "RandomForest",
+        "reason": "Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.",
+        "preprocessingPlan": [
+          "encode categorical features",
+          "impute missing values",
+          "use k-fold validation",
+          "tune tree depth and leaf size"
+        ],
+        "optimizationFocus": "minimize MAE/RMSE with cross-validated hyperparameter tuning",
+        "confidence": "weak",
+        "datasetType": "cross-sectional"
+      },
+      "decision": "Model strategy selected from deterministic EDA metrics before LLM explanation."
+    }
+  ],
+  "chunks": [
+    {
+      "kind": "dataset_summary",
+      "text": "World Happiness Report 2005 2025 Panel; dataset_id=elvisbui--world-happiness-report-2005-2025-panel; rows=2116; columns=13; missing=35.91%; dataset_type=cross-sectional; target=happiness_score; time_column=None"
+    },
+    {
+      "kind": "quality",
+      "text": "{\"trustScore\": 56.9, \"missingPattern\": \"Structural missingness: 9 column(s) have >30% missing values (lower_whisker, upper_whisker, explained_log_gdp_per_capita...). This is common in panel datasets where not all records have all fields.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}"
+    },
+    {
+      "kind": "forecastability",
+      "text": "{\"score\": 45.9, \"grade\": \"weak\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 0.963, \"noiseRatio\": 0.761, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 2,116 rows and 11 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is moderate (noise ratio: 0.76).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}"
+    },
+    {
+      "kind": "strategy",
+      "text": "{\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.\", \"preprocessingPlan\": [\"encode categorical features\", \"impute missing values\", \"use k-fold validation\", \"tune tree depth and leaf size\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"weak\", \"datasetType\": \"cross-sectional\"}"
+    },
+    {
+      "kind": "feature_intelligence",
+      "text": "{\"predictiveSignals\": [{\"feature\": \"country\", \"sameTimeCorrelation\": 0.908, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_social_support\", \"sameTimeCorrelation\": 0.701, \"lagInfluence\": 0.618, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_log_gdp_per_capita\", \"sameTimeCorrelation\": 0.681, \"lagInfluence\": 0.641, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_healthy_life_expectancy\", \"sameTimeCorrelation\": 0.659, \"lagInfluence\": 0.617, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_freedom\", \"sameTimeCorrelation\": 0.491, \"lagInfluence\": 0.402, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_corruption\", \"sameTimeCorrelation\": 0.426, \"lagInfluence\": 0.402, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"explained_generosity\", \"sameTimeCorrelation\": 0.035, \"lagInfluence\": 0.016, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [{\"features\": [\"rank_in_year\", \"happiness_score\"], \"correlation\": 0.983}, {\"features\": [\"rank_in_year\", \"lower_whisker\"], \"correlation\": 0.975}, {\"features\": [\"rank_in_year\", \"upper_whisker\"], \"correlation\": 0.973}, {\"features\": [\"happiness_score\", \"lower_whisker\"], \"correlation\": 0.999}, {\"features\": [\"happiness_score\", \"upper_whisker\"], \"correlation\": 0.999}, {\"features\": [\"lower_whisker\", \"upper_whisker\"], \"correlation\": 0.998}], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"], \"preTrainingRecommendation\": \"Encode categorical features and use cross-validated feature importance to rank predictors.\"}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 1, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"1-236\", \"missingPercent\": 69.23, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2011.339, \"rank_in_year\": 65.6186, \"happiness_score\": 5.6995}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 2, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"237-472\", \"missingPercent\": 69.23, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2013.3644, \"rank_in_year\": 91.3983, \"happiness_score\": 5.109}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 3, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"473-708\", \"missingPercent\": 69.23, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2015.3432, \"rank_in_year\": 66.6144, \"happiness_score\": 5.6591}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 4, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"709-944\", \"missingPercent\": 69.23, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2016.7119, \"rank_in_year\": 89.1356, \"happiness_score\": 5.12}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 5, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"945-1180\", \"missingPercent\": 44.0, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2018.3644, \"rank_in_year\": 67.6102, \"happiness_score\": 5.6673, \"lower_whisker\": 6.1778, \"upper_whisker\": 6.3656}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 6, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"1181-1416\", \"missingPercent\": 0.0, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2019.8008, \"rank_in_year\": 82.3093, \"happiness_score\": 5.368, \"lower_whisker\": 5.2547, \"upper_whisker\": 5.4812}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 7, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"1417-1652\", \"missingPercent\": 0.07, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2021.4661, \"rank_in_year\": 70.4492, \"happiness_score\": 5.598, \"lower_whisker\": 5.475, \"upper_whisker\": 5.721}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 8, \"batchCount\": 9, \"rows\": 236, \"rowRange\": \"1653-1888\", \"missingPercent\": 0.75, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2023.1653, \"rank_in_year\": 67.1822, \"happiness_score\": 5.6321, \"lower_whisker\": 5.5176, \"upper_whisker\": 5.7465}}"
+    },
+    {
+      "kind": "record_batch_eda",
+      "text": "{\"stage\": \"record_batch_eda\", \"status\": \"complete\", \"batch\": 9, \"batchCount\": 9, \"rows\": 228, \"rowRange\": \"1889-2116\", \"missingPercent\": 0.27, \"numericColumns\": 12, \"categoricalColumns\": 1, \"dateLikeColumns\": [], \"numericMeanSnapshot\": {\"year\": 2024.6447, \"rank_in_year\": 85.7237, \"happiness_score\": 5.3334, \"lower_whisker\": 5.2193, \"upper_whisker\": 5.4474}}"
+    },
+    {
+      "kind": "load_dataset",
+      "text": "{\"stage\": \"load_dataset\", \"status\": \"complete\", \"rowsScanned\": 2116, \"columnsScanned\": 13, \"memoryBytes\": 342823}"
+    },
+    {
+      "kind": "profile_columns",
+      "text": "{\"stage\": \"profile_columns\", \"status\": \"complete\", \"execution\": \"parallel-batched\", \"workerCount\": 4, \"batchSize\": 8, \"typeCounts\": {\"numeric\": 12, \"categorical\": 1, \"datetime\": 0, \"text\": 0}, \"highMissingColumns\": [{\"name\": \"dystopia_plus_residual\", \"missingPercent\": 52.13}, {\"name\": \"explained_healthy_life_expectancy\", \"missingPercent\": 51.98}, {\"name\": \"explained_freedom\", \"missingPercent\": 51.94}, {\"name\": \"explained_corruption\", \"missingPercent\": 51.89}, {\"name\": \"explained_log_gdp_per_capita\", \"missingPercent\": 51.84}], \"highCardinalityColumns\": [\"happiness_score\", \"lower_whisker\", \"upper_whisker\", \"explained_log_gdp_per_capita\", \"explained_social_support\", \"explained_healthy_life_expectancy\", \"explained_freedom\", \"dystopia_plus_residual\"]}"
+    },
+    {
+      "kind": "detect_time_axis",
+      "text": "{\"stage\": \"detect_time_axis\", \"status\": \"complete\", \"valid\": false, \"timeColumn\": null, \"frequency\": \"unknown\", \"consistencyScore\": 0.0, \"orderingScore\": 0.0, \"decision\": \"Treat as cross-sectional; do not use temporal forecast assumptions.\"}"
+    },
+    {
+      "kind": "select_target",
+      "text": "{\"stage\": \"select_target\", \"status\": \"complete\", \"targetColumn\": \"happiness_score\", \"targetType\": \"numeric\", \"uniqueValues\": 1673, \"missingPercent\": 0.0, \"reason\": \"Target selected from numeric business-outcome names after excluding IDs, ranks, date parts, decomposition components, and interval bounds.\"}"
+    },
+    {
+      "kind": "validate_quality",
+      "text": "{\"stage\": \"validate_quality\", \"status\": \"complete\", \"validation\": {\"timestampPresence\": false, \"sequentialOrdering\": false, \"frequencyConsistency\": 0.0, \"duplicateTimestampRatio\": 0.0, \"missingIntervalRatio\": null, \"recommendedTarget\": \"happiness_score\"}, \"qualityIntelligence\": {\"trustScore\": 56.9, \"missingPattern\": \"Structural missingness: 9 column(s) have >30% missing values (lower_whisker, upper_whisker, explained_log_gdp_per_capita...). This is common in panel datasets where not all records have all fields.\", \"leakageRisk\": [\"No obvious leakage columns detected by naming analysis.\"], \"duplicateRisk\": \"low\", \"recommendations\": [\"Encode categorical features before training (label or one-hot encoding).\", \"Use stratified k-fold cross-validation for unbiased evaluation.\", \"Check for class imbalance in the target variable.\", \"Review high-cardinality columns \\u2014 consider target encoding or dropping.\"]}}"
+    },
+    {
+      "kind": "analyze_relationships",
+      "text": "{\"stage\": \"analyze_relationships\", \"status\": \"complete\", \"topPredictiveSignals\": [{\"feature\": \"country\", \"sameTimeCorrelation\": 0.908, \"lagInfluence\": 0.0, \"associationMethod\": \"eta_squared\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_social_support\", \"sameTimeCorrelation\": 0.701, \"lagInfluence\": 0.618, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_log_gdp_per_capita\", \"sameTimeCorrelation\": 0.681, \"lagInfluence\": 0.641, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_healthy_life_expectancy\", \"sameTimeCorrelation\": 0.659, \"lagInfluence\": 0.617, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_freedom\", \"sameTimeCorrelation\": 0.491, \"lagInfluence\": 0.402, \"associationMethod\": \"pearson\", \"role\": \"strong_driver\"}, {\"feature\": \"explained_corruption\", \"sameTimeCorrelation\": 0.426, \"lagInfluence\": 0.402, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}, {\"feature\": \"explained_generosity\", \"sameTimeCorrelation\": 0.035, \"lagInfluence\": 0.016, \"associationMethod\": \"pearson\", \"role\": \"weak_or_contextual\"}], \"redundantFeatures\": [{\"features\": [\"rank_in_year\", \"happiness_score\"], \"correlation\": 0.983}, {\"features\": [\"rank_in_year\", \"lower_whisker\"], \"correlation\": 0.975}, {\"features\": [\"rank_in_year\", \"upper_whisker\"], \"correlation\": 0.973}, {\"features\": [\"happiness_score\", \"lower_whisker\"], \"correlation\": 0.999}, {\"features\": [\"happiness_score\", \"upper_whisker\"], \"correlation\": 0.999}], \"leakageWarnings\": [\"No obvious leakage columns detected by naming analysis.\"]}"
+    },
+    {
+      "kind": "analyze_behavior",
+      "text": "{\"stage\": \"analyze_behavior\", \"status\": \"complete\", \"forecastability\": {\"score\": 45.9, \"grade\": \"weak\", \"seasonalityStrength\": 0.0, \"trendConsistency\": 0.0, \"stationarityScore\": 0.963, \"noiseRatio\": 0.761, \"intervalStability\": 0.0, \"reasons\": [\"Dataset has 2,116 rows and 11 numeric feature(s) available for prediction.\", \"No time index detected \\u2014 this is a cross-sectional dataset suited for regression/classification.\", \"Signal-to-noise ratio is moderate (noise ratio: 0.76).\"], \"risks\": [\"Without a time index, temporal forecasting is not applicable.\", \"Use cross-validation instead of walk-forward splits.\"]}, \"temporalBehavior\": {\"periodicity\": \"not applicable \\u2014 cross-sectional dataset\", \"anomalies\": [], \"anomalyRate\": 0.0019, \"outlierCount\": 4, \"regimeChanges\": [], \"driftScore\": 0.0, \"skewness\": -0.129, \"distributionShape\": \"approximately normal\", \"interpretation\": \"Cross-sectional dataset. Target `happiness_score` has 4 outliers (0.2% of rows). Distribution is approximately normal.\"}}"
+    },
+    {
+      "kind": "select_model_strategy",
+      "text": "{\"stage\": \"select_model_strategy\", \"status\": \"complete\", \"strategy\": {\"recommendedModelFamily\": \"RandomForest\", \"reason\": \"Small-to-medium cross-sectional dataset. Random Forest is a strong, stable baseline for noisy tabular features and gives clearer robustness than a single boosted default.\", \"preprocessingPlan\": [\"encode categorical features\", \"impute missing values\", \"use k-fold validation\", \"tune tree depth and leaf size\"], \"optimizationFocus\": \"minimize MAE/RMSE with cross-validated hyperparameter tuning\", \"confidence\": \"weak\", \"datasetType\": \"cross-sectional\"}, \"decision\": \"Model strategy selected from deterministic EDA metrics before LLM explanation.\"}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"year\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 14, \"min\": 2011.0, \"max\": 2025.0, \"mean\": 2018.2202268431001, \"median\": 2018.0, \"std\": 4.248839177125802, \"outlierPercent\": 0.0, \"topValues\": [\"2014\", \"2015\", \"2011\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"numeric\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"rank_in_year\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 158, \"min\": 1.0, \"max\": 158.0, \"mean\": 76.19092627599244, \"median\": 76.0, \"std\": 43.834738976158924, \"outlierPercent\": 0.0, \"topValues\": [\"120\", \"94\", \"88\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"numeric\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"country\", \"type\": \"categorical\", \"missingPercent\": 0.0, \"uniqueValues\": 168, \"min\": null, \"max\": null, \"mean\": null, \"median\": null, \"std\": null, \"outlierPercent\": null, \"topValues\": [\"Denmark\", \"Nigeria\", \"Lebanon\"], \"role\": {\"role\": \"entity_or_grouping\", \"type\": \"categorical\", \"reason\": \"Low-cardinality categorical feature can segment behavior.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"happiness_score\", \"type\": \"numeric\", \"missingPercent\": 0.0, \"uniqueValues\": 1673, \"min\": 1.364, \"max\": 7.856, \"mean\": 5.465654867209198, \"median\": 5.48, \"std\": 1.1236041326176982, \"outlierPercent\": 0.19, \"topValues\": [\"5.477\", \"5.956\", \"4.574\"], \"role\": {\"role\": \"prediction_target\", \"type\": \"numeric\", \"reason\": \"Numeric column selected as the primary quantity to predict.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"lower_whisker\", \"type\": \"numeric\", \"missingPercent\": 51.7, \"uniqueValues\": 903, \"min\": 1.301, \"max\": 7.78, \"mean\": 5.4360905938269815, \"median\": 5.59263120651245, \"std\": 1.1404010167692065, \"outlierPercent\": 0.39, \"topValues\": [\"6.432\", \"4.783\", \"5.933\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"upper_whisker\", \"type\": \"numeric\", \"missingPercent\": 51.7, \"uniqueValues\": 927, \"min\": 1.427, \"max\": 7.904, \"mean\": 5.664732691916002, \"median\": 5.811999999999999, \"std\": 1.1068823534332386, \"outlierPercent\": 0.39, \"topValues\": [\"6.989\", \"5.406\", \"6.42\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"explained_log_gdp_per_capita\", \"type\": \"numeric\", \"missingPercent\": 51.84, \"uniqueValues\": 802, \"min\": 0.0, \"max\": 2.209, \"mean\": 1.265670249298844, \"median\": 1.304, \"std\": 0.4635948710080312, \"outlierPercent\": 0.0, \"topValues\": [\"0.0\", \"1.815\", \"1.032\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"explained_social_support\", \"type\": \"numeric\", \"missingPercent\": 51.84, \"uniqueValues\": 785, \"min\": 0.0, \"max\": 1.84, \"mean\": 1.096745654845027, \"median\": 1.14011859893799, \"std\": 0.3574663396719848, \"outlierPercent\": 1.08, \"topValues\": [\"0.0\", \"0.98\", \"1.277\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"explained_healthy_life_expectancy\", \"type\": \"numeric\", \"missingPercent\": 51.98, \"uniqueValues\": 680, \"min\": 0.0, \"max\": 1.238, \"mean\": 0.5534350079210607, \"median\": 0.5605, \"std\": 0.22986630648690806, \"outlierPercent\": 0.1, \"topValues\": [\"0.0\", \"0.587\", \"0.633\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"explained_freedom\", \"type\": \"numeric\", \"missingPercent\": 51.94, \"uniqueValues\": 668, \"min\": 0.0, \"max\": 1.147, \"mean\": 0.6094652939799846, \"median\": 0.602, \"std\": 0.2119659172676711, \"outlierPercent\": 0.98, \"topValues\": [\"0.0\", \"0.702\", \"0.651\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"explained_generosity\", \"type\": \"numeric\", \"missingPercent\": 51.84, \"uniqueValues\": 436, \"min\": 0.0, \"max\": 0.56981372833252, \"mean\": 0.14734283621783228, \"median\": 0.134, \"std\": 0.08429390058986921, \"outlierPercent\": 2.36, \"topValues\": [\"0.112\", \"0.131\", \"0.144\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"explained_corruption\", \"type\": \"numeric\", \"missingPercent\": 51.89, \"uniqueValues\": 479, \"min\": 0.0, \"max\": 0.587, \"mean\": 0.14491137494214615, \"median\": 0.113, \"std\": 0.1187448641099656, \"outlierPercent\": 8.15, \"topValues\": [\"0.071\", \"0.115\", \"0.082\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    },
+    {
+      "kind": "column_profile",
+      "text": "{\"name\": \"dystopia_plus_residual\", \"type\": \"numeric\", \"missingPercent\": 52.13, \"uniqueValues\": 869, \"min\": -0.295, \"max\": 3.482, \"mean\": 1.7369353054080525, \"median\": 1.765, \"std\": 0.6571720205171269, \"outlierPercent\": 0.59, \"topValues\": [\"2.148\", \"1.895\", \"1.057\"], \"role\": {\"role\": \"numeric_feature\", \"type\": \"numeric\", \"reason\": \"Numeric feature available as a predictor in regression/classification.\"}}"
+    }
+  ]
+}

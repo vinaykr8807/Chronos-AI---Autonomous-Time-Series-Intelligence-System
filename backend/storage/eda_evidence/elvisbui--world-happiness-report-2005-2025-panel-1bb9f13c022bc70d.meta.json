@@ -1,0 +1,9 @@
+{
+  "evidenceId": "elvisbui--world-happiness-report-2005-2025-panel-1bb9f13c022bc70d",
+  "jsonPath": "storage\\eda_evidence\\elvisbui--world-happiness-report-2005-2025-panel-1bb9f13c022bc70d.json",
+  "faissPath": "storage\\eda_evidence\\elvisbui--world-happiness-report-2005-2025-panel-1bb9f13c022bc70d.faiss",
+  "embeddingBackend": "sentence-transformers/all-MiniLM-L6-v2",
+  "embeddingDimension": 384,
+  "chunkCount": 35,
+  "llmGate": "ready"
+}

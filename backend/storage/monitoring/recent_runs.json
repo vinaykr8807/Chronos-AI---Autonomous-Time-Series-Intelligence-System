@@ -1,5 +1,253 @@
 [
   {
+    "run_id": "ffa77ec1-de50-4e7c-bd31-552cbd1bb148",
+    "dataset_id": "elvisbui--world-happiness-report-2005-2025-panel",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 0.0517,
+      "rmse": 0.0908,
+      "mape": 1.1087,
+      "r2": 0.9941,
+      "mase": 0.2297
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:elvisbui/world-happiness-report-2005-2025-panel",
+      "sourceRef": "elvisbui/world-happiness-report-2005-2025-panel",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 2116,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 2116,
+      "trainRows": 1418,
+      "testRows": 200,
+      "featureCount": 26,
+      "targetColumn": "happiness_score",
+      "datasetType": "time-series"
+    },
+    "timestamp": "2026-05-11T09:25:52.781072+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
+    "run_id": "2c693961-0f1a-4afb-a918-c1a9181d3d6a",
+    "dataset_id": "elvisbui--world-happiness-report-2005-2025-panel",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 0.0517,
+      "rmse": 0.0908,
+      "mape": 1.1087,
+      "r2": 0.9941,
+      "mase": 0.2297
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:elvisbui/world-happiness-report-2005-2025-panel",
+      "sourceRef": "elvisbui/world-happiness-report-2005-2025-panel",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 2116,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 2116,
+      "trainRows": 1418,
+      "testRows": 200,
+      "featureCount": 26,
+      "targetColumn": "happiness_score",
+      "datasetType": "time-series"
+    },
+    "timestamp": "2026-05-11T09:23:44.280939+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
+    "run_id": "71a905e0-63e9-497d-b559-ddb6863b19bd",
+    "dataset_id": "elvisbui--world-happiness-report-2005-2025-panel",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 0.0517,
+      "rmse": 0.0908,
+      "mape": 1.1087,
+      "r2": 0.9941,
+      "mase": 0.2297
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:elvisbui/world-happiness-report-2005-2025-panel",
+      "sourceRef": "elvisbui/world-happiness-report-2005-2025-panel",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 2116,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 2116,
+      "trainRows": 1418,
+      "testRows": 200,
+      "featureCount": 26,
+      "targetColumn": "happiness_score",
+      "datasetType": "time-series"
+    },
+    "timestamp": "2026-05-11T09:18:56.248237+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
+    "run_id": "22f4f6d9-ac5d-434c-a2ba-a31521a5d9fd",
+    "dataset_id": "elvisbui--world-happiness-report-2005-2025-panel",
+    "selected_model": "RandomForest",
+    "metrics": {
+      "mae": 0.051,
+      "rmse": 0.092,
+      "mape": 1.322,
+      "r2": 0.9941,
+      "mase": 0.6127
+    },
+    "sandbox": {
+      "enabled": true,
+      "mode": "python-runtime",
+      "executor": "sklearn-random-forest",
+      "dataSource": "kaggle:elvisbui/world-happiness-report-2005-2025-panel",
+      "sourceRef": "elvisbui/world-happiness-report-2005-2025-panel",
+      "realDataLoaded": true,
+      "syntheticFallback": false,
+      "rowsAnalyzedByEda": 2116,
+      "trainingMode": "full-dataframe",
+      "trainingExecution": "single-run-full-training",
+      "fullDataTraining": true,
+      "dataframeRows": 2116,
+      "trainRows": 1916,
+      "testRows": 200,
+      "featureCount": 12,
+      "targetColumn": "happiness_score",
+      "datasetType": "cross-sectional"
+    },
+    "timestamp": "2026-05-11T08:59:22.521121+00:00",
+    "agents": [
+      {
+        "name": "Dataset Agent",
+        "responsibility": "loaded the selected dataset and resolved the prediction target"
+      },
+      {
+        "name": "EDA Agent",
+        "responsibility": "derived valid features and dataset type from the fresh in-memory profile"
+      },
+      {
+        "name": "Cleaning Agent",
+        "responsibility": "applied EDA-driven drops, target validation, sorting, missing-value handling, outlier capping, and split safety checks"
+      },
+      {
+        "name": "Feature Agent",
+        "responsibility": "created model-ready numeric, encoded, temporal, and optional text/PCA feature plan"
+      },
+      {
+        "name": "Training Agent",
+        "responsibility": "selected and trained RandomForest using EDA strategy and validation feedback"
+      },
+      {
+        "name": "Evaluation Agent",
+        "responsibility": "computed MAE, RMSE, MAPE, R2, and MASE on holdout data"
+      },
+      {
+        "name": "Deployment Agent",
+        "responsibility": "packaged run metadata, metrics, and monitor handoff information"
+      }
+    ]
+  },
+  {
     "run_id": "eccd9729-afb6-4807-ba56-24d369754dc8",
     "dataset_id": "ddosad--dummy-truck-sales-for-time-series",
     "selected_model": "RandomForest",

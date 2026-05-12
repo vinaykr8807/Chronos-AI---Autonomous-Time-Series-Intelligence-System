@@ -1,0 +1,34 @@
+{
+  "status": "packaged",
+  "modelFamily": "RandomForest",
+  "backend": "sklearn-random-forest",
+  "targetColumn": "happiness_score",
+  "createdAt": "2026-05-11T08:59:22.467485+00:00",
+  "localRuntimeNote": "Artifact was produced by the local training runtime. Validate before production use.",
+  "bestParams": {
+    "max_depth": 14,
+    "min_samples_leaf": 1,
+    "n_estimators": 100
+  },
+  "metrics": {
+    "mae": 0.051,
+    "rmse": 0.092,
+    "mape": 1.322,
+    "r2": 0.9941,
+    "mase": 0.6127
+  },
+  "featureNames": [
+    "year",
+    "rank_in_year",
+    "lower_whisker",
+    "upper_whisker",
+    "explained_log_gdp_per_capita",
+    "explained_social_support",
+    "explained_healthy_life_expectancy",
+    "explained_freedom",
+    "explained_generosity",
+    "explained_corruption",
+    "dystopia_plus_residual",
+    "enc_country"
+  ]
+}
